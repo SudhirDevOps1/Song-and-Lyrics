@@ -246,7 +246,7 @@ body {
 .url-btn:hover { transform:scale(1.05); box-shadow: 0 6px 20px var(--accent-glow-2); }
 
 /* Playlist */
-.song-list { display:flex; flex-direction:column; gap:6px; flex:1; overflow-y:auto; min-height: 100px; padding-right: 4px; }
+.song-list { display:flex; flex-direction:column; gap:6px; flex:1; overflow-y:auto; min-height: 0; padding-right: 4px; }
 .song-card {
     display:flex; align-items:center; gap:12px; padding:10px 14px;
     border-radius:12px; cursor:pointer; transition:var(--tr);
