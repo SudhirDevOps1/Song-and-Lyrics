@@ -1,0 +1,106 @@
+{
+    "songs": [
+        {
+            "id": "song_tu_agar_meri",
+            "title": "Tu Agar Meri",
+            "artist": "Arijit Singh",
+            "youtubeUrl": "https://youtu.be/GVizJ_jpUnw",
+            "lyrics": [
+                "(0:21 - 0:35): [#00ffff] तू अगर मेरी ये हवाएं तेरी, तू अगर मेरी सारी राहें तेरी, तू अगर मेरी मैं हूं तेरा",
+                "(0:36 - 0:50): [#ff00ff] तू अगर मेरी ये उजाले तेरे, तू अगर मेरी दिल हवाले तेरे, तू अगर मेरी मैं हूं तेरा",
+                "(0:51 - 1:05): [#ff9900] बेताब सा मोहब्बत का तू इंकलाब है, मेरा जहां तेरी बाहों में ख्वाब ख्वाब है",
+                "(1:06 - 1:35): [#00ff00] गहरा हुआ, गहरा हुआ, रंग आशिकी, गहरा हुआ, गहरा हुआ, गहरा हुआ, गहरा हुआ",
+                "(2:08 - 2:27): [#00ffff] पलकें झपकता है आसमान, लाखों फरिश्तों की है तू जान, वो पूछते हैं रहती कहां, मेरी बाहों में रहती उनको बता",
+                "(2:28 - 2:47): [#ff00ff] पलकें झपकता है आसमान, उसने भी तुझ सा देखा कहां, है रौनकें वहां तू है जहां, मेरी बाहों में रहना यही है दुआ",
+                "(2:48 - 3:08): [#ff9900] तू अगर मेरी है फसाना तेरा, तू अगर मेरी तो जमाना तेरा, तू अगर मेरी मैं हूं तेरा",
+                "(3:41 - 3:55): [#00ff00] नी सा गा सा गा मा पा गा मा रे, नी सा गा सा गा मा पा गा रे सा",
+                "(3:56 - 4:25): [#ffff00] तेरी मोहब्बत में जलना भी है, और तुझसे बच के ही चलना भी है, कुछ रंग अपना बदलना भी है, मैंने ढलना तेरे रंग में है सदा, तू चांद है इक धड़कता हुआ, चोरी से मुझको ही तकता हुआ, सीने से लग के चमकता हुआ, मेरी जन्नत का रस्ता तू ही तो हुआ"
+            ]
+        },
+        {
+            "id": "song_khairiyat",
+            "title": "Khairiyat",
+            "artist": "Arijit Singh",
+            "youtubeUrl": "https://youtu.be/9pIXNy-pS10",
+            "lyrics": [
+                "(0:23 - 0:38) [#ff4444] खैरियत पूछो, कभी तो कैफियत पूछो, तुम्हारे बिन दीवाने का क्या हाल है?",
+                "(0:38 - 0:51) [#44aaff] दिल मेरा देखो ना, मेरी हैसियत पूछो, तेरे बिन एक दिन जैसे सौ साल है।",
+                "(0:52 - 1:04) [#ffaa00] अंजाम है तय मेरा, होना तुम्हें है मेरा, जितनी भी हो दुनिया, फिलहाल है।",
+                "(1:09 - 1:12) [#aa44ff] ये दूरियां, फिलहाल है।",
+                "(1:15 - 1:28) [#ff4444] ओ खैरियत पूछो, कभी तो कैफियत पूछो, तुम्हारे बिन दीवाने का क्या हाल है?",
+                "(1:32 - 1:39) [#44aaff] दिल मेरा देखो ना, मेरी हैसियत पूछो, तेरे बिन एक दिन जैसे सौ साल है।",
+                "(1:56 - 2:04) [#00ffaa] तुम्हारी तस्वीर के सहारे, मौसम कई गुजारे।",
+                "(2:04 - 2:12) [#00ffaa] मौसमी ना समझो पर इश्क को हमारे।",
+                "(2:12 - 2:19) [#ff99cc] नजरों के सामने मैं आता नहीं तुम्हारे, मगर रहते हो हर पल मंजर में तुम हमारे।",
+                "(2:19 - 2:38) [#ffff44] अगर इश्क से है मिला, फिर दर्द से क्या मिला, इस दर्द में जिंदगी खुशहाल है।",
+                "(2:43 - 2:46) [#aa44ff] ये दूरियां, फिलहाल।",
+                "(2:50 - 3:06) [#ff4444] ओ खैरियत पूछो, कभी तो कैफियत पूछो, तुम्हारे बिन दीवाने का क्या हाल है?",
+                "(3:06 - 3:13) [#44aaff] दिल मेरा देखो ना, मेरी हैसियत पूछो, तेरे बिन एक दिन जैसे सौ साल है।",
+                "(3:20 - 3:32) [#ffaa00] अंजाम है तय मेरा, होना तुम्हें है मेरा, जितनी भी हो दूरियां, फिलहाल है।",
+                "(3:37 - 3:40) [#aa44ff] ये दूरियां, फिलहाल।"
+            ]
+        },
+        {
+            "id": "song_haye_sajan",
+            "title": "Haye Sajan Mennu Lutt Le Gaya",
+            "artist": "SongVibe",
+            "youtubeUrl": "https://youtu.be/czgm5uaO3gI",
+            "lyrics": [
+                { "time": 7.5, "text": "Aaja Ve Aaja Aaja Ve Aaja Haye Sajan" },
+                { "time": 15.0, "text": "Aaja Ve Aaja Aaja Ve Aaja Seene Laaja" },
+                { "time": 35.0, "text": "Haye Sajan Mennu Lutt Le Gaya" },
+                { "time": 40.0, "text": "Haye Haye Sajan Mennu Lutt Le Gaya" },
+                { "time": 42.0, "text": "" },
+                { "time": 43.0, "text": "Pyaase Laban Te Rog Muka Ja" },
+                { "time": 53.0, "text": "Haye Sajan Mennu Lutt Le Gaya" },
+                { "time": 57.0, "text": "Haye Haye Sajan Mennu Lutt Le Gaya" },
+                { "time": 60.0, "text": "" },
+                { "time": 62.0, "text": "Haye Sajan Meri Akkhan Taras Di" },
+                { "time": 65.0, "text": "Haye Imaan Mera Tutt Pai Gaya Mennu Lutt Le Gaya" },
+                { "time": 69.0, "text": "O Mennu Lutt Le Gaya O Mennu Lutt Le Gaya" },
+                { "time": 75.0, "text": "O Mennu Lutt Le Gaya" },
+                { "time": 78.0, "text": "" },
+                { "time": 80.0, "text": "Aaja Ve Aaja" },
+                { "time": 84.0, "text": "O Mennu Lutt Le Gaya, Aaja Ve Aaja" },
+                { "time": 88.0, "text": "Haye Sajan O Mennu Lutt Le Gaya, Aaja Ve Aaja" },
+                { "time": 93.0, "text": "Aaja Ve Aaja, Aaja Ve Aaja, Aaja Ve Aaja" },
+                { "time": 128.0, "text": "" },
+                { "time": 130.0, "text": "Tapdi Akkhiyan Ajj Na Mukiya" },
+                { "time": 135.0, "text": "Naina Vich Tu Vass Gaya" },
+                { "time": 139.0, "text": "Rajj Ke Peevaan Tennu Sajna" },
+                { "time": 143.0, "text": "Raatan Vich Aa Rass Gaya" },
+                { "time": 144.0, "text": "" },
+                { "time": 145.0, "text": "Haaye Vasna Chanwaan Vich Main Saanwaan" },
+                { "time": 149.0, "text": "Mennu Vo Fir Khhich Putt Le Gaya" },
+                { "time": 153.0, "text": "Haye Sajan Meri Akkhan Taras Di" },
+                { "time": 157.0, "text": "Haye Imaan Mera Tutt Pai Gaya Mennu Lutt Le Gaya" },
+                { "time": 160.0, "text": "" },
+                { "time": 162.0, "text": "O Mennu Lutt Le Gaya" },
+                { "time": 166.0, "text": "O Mennu Lutt Le Gaya O Mennu Lutt Le Gaya" },
+                { "time": 170.0, "text": "O Mennu Lutt Le Gaya" },
+                { "time": 174.0, "text": "" },
+                { "time": 176.0, "text": "Aaja Ve Aaja, Aaja Ve Aaja, Aaja Ve Aaja, Aaja Ve Aaja" }
+            ]
+        },
+        {
+            "id": "song_tu_agar_meri",
+            "title": "Tu Agar Meri",
+            "artist": "SongVibe",
+            "youtubeUrl": "https://youtu.be/MxIEUzBJn8U",
+            "lyrics": [
+                { "time": 21.0, "text": "Tu agar meri ye hawaayein teri" },
+                { "time": 26.0, "text": "Tu agar meri saari raahein teri" },
+                { "time": 32.0, "text": "Tu agar meri main hoon tera" },
+                { "time": 36.0, "text": "Tu agar meri ye ujaale tere" },
+                { "time": 42.0, "text": "Tu agar meri dil hawaale tere" },
+                { "time": 47.0, "text": "Tu agar meri main hoon tera" },
+                { "time": 51.0, "text": "Betaab sa mohabbbat ka tu inqalab hai" },
+                { "time": 61.0, "text": "Mera jahan teri baahon mein khaab khaab hai" },
+                { "time": 65.0, "text": "Gehra hua, gehra hua" },
+                { "time": 74.0, "text": "Rang aashiqui, gehra hua" },
+                { "time": 85.0, "text": "Gehra hua, dariya dua" },
+                { "time": 96.0, "text": "Gehra hua, tera hua" }
+            ]
+        }
+    ]
+}

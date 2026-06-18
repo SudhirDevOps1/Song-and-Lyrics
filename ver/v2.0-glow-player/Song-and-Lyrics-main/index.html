@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SongVibe — Premium Song Player with Local & YouTube Support">
+    <title>SongVibe — Reel Maker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-neon">
+    <div class="app">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                </div>
+                <span class="logo-text">SongVibe</span>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-ghost" id="loadJsonBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Reload JSON
+                </button>
+
+            </div>
+        </header>
+
+        <!-- MAIN -->
+        <main class="main">
+            <!-- LEFT SIDEBAR -->
+            <aside class="sidebar">
+                
+                <!-- Add Media -->
+                <div>
+                    <div class="sec-label">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                        Add Media
+                    </div>
+                    
+                    <div class="url-group">
+                        <input type="text" class="input-base" id="ytUrl" placeholder="YouTube Link Paste...">
+                        <button class="url-btn" id="ytAdd">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </button>
+                    </div>
+
+                    <label class="file-upload-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        Upload Local MP3 / Audio
+                        <input type="file" id="localAudio" accept="audio/*">
+                    </label>
+
+                    <label class="file-upload-btn" style="border-color: var(--border-2); color: var(--text-2);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        Upload Thumbnail Image
+                        <input type="file" id="localThumb" accept="image/*">
+                    </label>
+                </div>
+
+                <!-- Playlist -->
+                <div style="flex:1;display:flex;flex-direction:column;min-height:0;">
+                    <div class="sec-label">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                        Playlist
+                    </div>
+                    <div class="song-list" id="songList"></div>
+                </div>
+
+                <!-- Theme -->
+                <div>
+                    <div class="sec-label" style="margin-top:24px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Theme
+                </div>
+                <div class="pill-row" id="themePills">
+                    <button class="pill-btn active" data-theme="neon">Neon</button>
+                    <button class="pill-btn" data-theme="snow">Snow</button>
+                    <button class="pill-btn" data-theme="rose">Rose</button>
+                    <button class="pill-btn" data-theme="gold">Gold</button>
+                    <button class="pill-btn" data-theme="rainbow">Rainbow</button>
+                    <button class="pill-btn" data-theme="cyberpunk">Cyberpunk</button>
+                    <button class="pill-btn" data-theme="matrix">Matrix</button>
+                </div>
+                </div>
+            </aside>
+
+            <!-- CENTER CONTENT -->
+            <section class="main-content">
+                <canvas id="particleCanvas" style="position:absolute; inset:0; z-index:0; pointer-events:none; width:100%; height:100%;"></canvas>
+                <!-- Now Playing Top -->
+                <div class="now-playing" style="z-index:1; position:relative; overflow:hidden;">
+                    <canvas id="audioWave" class="audio-wave" width="300" height="80"></canvas>
+                    <div class="np-art">
+                        <img class="np-img" id="npImg" src="" alt="" onerror="this.style.background='var(--grad)';this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';">
+                        <div class="np-glow"></div>
+                    </div>
+                    <div class="np-info">
+                        <div class="np-title" id="npTitle">SongVibe Ultimate</div>
+                        <div class="np-artist" id="npArtist">Select a song to start</div>
+                        <div class="np-artist" id="npFilm" style="color:var(--accent); font-size:0.75rem; font-weight:600;"></div>
+                    </div>
+                </div>
+
+                <!-- Lyrics Box -->
+                <!-- Fullscreen button added to lyrics box -->
+                <div class="lyrics-box" id="fsBox">
+                    <button class="btn-ghost" id="fsBoxBtn" style="position:absolute; top:12px; right:12px; z-index:10; padding:6px; border-radius:8px; border: 1px solid var(--border);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                    </button>
+                    <div class="lyrics-scroll" id="lyricsScroll"></div>
+                </div>
+
+                <!-- Player Controls -->
+                <div class="player">
+                    <div class="prog-row">
+                        <div class="prog-time" id="progTime">0:00</div>
+                        <div class="prog-track" id="progTrack"><div class="prog-fill" id="progFill"></div></div>
+                        <div class="prog-time" id="progTotal">0:00</div>
+                    </div>
+                    <div class="ctrl-row">
+                        <button class="c-btn" id="bShuffle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg></button>
+                        <button class="c-btn" id="bPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg></button>
+                        <button class="c-btn c-play" id="bPlay">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="iPlay"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="iPause" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                        </button>
+                        <button class="c-btn" id="bNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button>
+                        <button class="c-btn" id="bRepeat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT EDITOR -->
+            <aside class="editor">
+                <div class="sec-label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-5"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    Lyrics Editor
+                </div>
+                <div class="ed-field">
+                    <label class="ed-label">Title</label>
+                    <input type="text" class="input-base" id="edTitle" placeholder="Song Title...">
+                </div>
+                <div class="ed-field">
+                    <label class="ed-label">Artist</label>
+                    <input type="text" class="input-base" id="edArtist" placeholder="Artist Name...">
+                </div>
+                <div class="ed-field">
+                    <label class="ed-label">Film / Album (Optional)</label>
+                    <input type="text" class="input-base" id="edFilm" placeholder="e.g. Aashiqui 2...">
+                </div>
+                <div class="ed-field">
+                    <label class="ed-label">Extra Details (Optional)</label>
+                    <input type="text" class="input-base" id="edDetails" placeholder="e.g. 2026 Remastered...">
+                </div>
+
+                <div class="ed-field">
+                    <label class="ed-label">Lyrics</label>
+                    <textarea class="ed-textarea" id="edLyrics" placeholder="[0:02] Line one...
+[0:05] [color:red] Red line..."></textarea>
+                </div>
+
+                <div class="ed-field">
+                    <label class="ed-label">Lyrics Font (40+ Options)</label>
+                    <select class="input-base" id="fontSelect" style="padding: 10px; cursor: pointer;">
+                        <option value="Poppins">Poppins</option>
+                        <option value="Inter">Inter</option>
+                        <option value="Outfit">Outfit</option>
+                        <option value="Playfair Display">Playfair Display</option>
+                        <option value="Space Grotesk">Space Grotesk</option>
+                        <option value="Abril Fatface">Abril Fatface</option>
+                        <option value="Bebas Neue">Bebas Neue</option>
+                        <option value="Caveat">Caveat</option>
+                        <option value="Cinzel">Cinzel</option>
+                        <option value="Comfortaa">Comfortaa</option>
+                        <option value="Cormorant Garamond">Cormorant Garamond</option>
+                        <option value="Dancing Script">Dancing Script</option>
+                        <option value="Dosis">Dosis</option>
+                        <option value="EB Garamond">EB Garamond</option>
+                        <option value="Exo 2">Exo 2</option>
+                        <option value="Fira Sans">Fira Sans</option>
+                        <option value="Great Vibes">Great Vibes</option>
+                        <option value="Heebo">Heebo</option>
+                        <option value="Hind">Hind</option>
+                        <option value="Inconsolata">Inconsolata</option>
+                        <option value="Indie Flower">Indie Flower</option>
+                        <option value="Josefin Sans">Josefin Sans</option>
+                        <option value="Jost">Jost</option>
+                        <option value="Kanit">Kanit</option>
+                        <option value="Karla">Karla</option>
+                        <option value="Lato">Lato</option>
+                        <option value="Lobster">Lobster</option>
+                        <option value="Lora">Lora</option>
+                        <option value="Manrope">Manrope</option>
+                        <option value="Merriweather">Merriweather</option>
+                        <option value="Montserrat">Montserrat</option>
+                        <option value="Mukta">Mukta</option>
+                        <option value="Nunito">Nunito</option>
+                        <option value="Oswald">Oswald</option>
+                        <option value="Pacifico">Pacifico</option>
+                        <option value="PT Sans">PT Sans</option>
+                        <option value="PT Serif">PT Serif</option>
+                        <option value="Quicksand">Quicksand</option>
+                        <option value="Raleway">Raleway</option>
+                        <option value="Righteous">Righteous</option>
+                        <option value="Roboto">Roboto</option>
+                        <option value="Roboto Condensed">Roboto Condensed</option>
+                        <option value="Roboto Mono">Roboto Mono</option>
+                        <option value="Roboto Slab">Roboto Slab</option>
+                        <option value="Rubik">Rubik</option>
+                        <option value="Teko">Teko</option>
+                        <option value="Titillium Web">Titillium Web</option>
+                        <option value="Ubuntu">Ubuntu</option>
+                        <option value="Varela Round">Varela Round</option>
+                        <option value="Work Sans">Work Sans</option>
+                    </select>
+                </div>
+
+                <div class="ed-field">
+                    <label class="ed-label">Animation Style</label>
+                    <div class="pill-row" id="animPills">
+                        <button class="pill-btn active" data-anim="typewriter">Type</button>
+                        <button class="pill-btn" data-anim="fade">Fade</button>
+                        <button class="pill-btn" data-anim="slide">Slide</button>
+                        <button class="pill-btn" data-anim="glow">Glow</button>
+                        <button class="pill-btn" data-anim="bounce">Pop</button>
+                    </div>
+                </div>
+
+                <div class="ed-field">
+                    <label class="ed-label">Auto Timing Speed</label>
+                    <div class="pill-row" id="speedPills">
+                        <button class="pill-btn" data-speed="slow">Slow</button>
+                        <button class="pill-btn active" data-speed="medium">Medium</button>
+                        <button class="pill-btn" data-speed="fast">Fast</button>
+                    </div>
+                </div>
+
+                <div class="ed-field">
+                    <label class="ed-label">Alignment</label>
+                    <div class="pill-row" id="alignPills">
+                        <button class="pill-btn" data-align="left">Left</button>
+                        <button class="pill-btn active" data-align="center">Center</button>
+                        <button class="pill-btn" data-align="right">Right</button>
+                    </div>
+                </div>
+
+                <div class="ed-field">
+                    <label class="ed-label">Vertical Position</label>
+                    <div class="pill-row" id="posPills">
+                        <button class="pill-btn" data-pos="flex-start">Top</button>
+                        <button class="pill-btn active" data-pos="center">Middle</button>
+                        <button class="pill-btn" data-pos="flex-end">Bottom</button>
+                    </div>
+                </div>
+
+                <div class="ed-field">
+                    <label class="ed-label">Lyrics Size</label>
+                    <input type="range" class="custom-range" id="sizeRange" min="1.2" max="5.0" step="0.1" value="1.8">
+                </div>
+
+                <div class="ed-field">
+                    <label class="ed-label">Glow / Colors</label>
+                    <input type="range" class="custom-range" id="glowRange" min="0" max="100" step="5" value="60">
+                </div>
+
+                <button class="btn-apply" id="applyBtn">Apply Changes</button>
+            </aside>
+        </main>
+    </div>
+
+
+
+    <!-- Hidden YT Player -->
+    <div class="yt-hide"><div id="ytPlayer"></div></div>
+    
+    <!-- Local Audio Player -->
+    <audio id="localPlayer" style="display:none;"></audio>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="app.js"></script>
+</body>
+</html>
