@@ -247,7 +247,7 @@ body {
 .url-btn:hover { transform:scale(1.05); box-shadow: 0 6px 20px var(--accent-glow-2); }
 
 /* Playlist */
-.song-list { display:flex; flex-direction:column; gap:6px; height: 260px; overflow-y:auto; padding-right: 4px; border: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.15); border-radius: 12px; padding: 8px; flex-shrink: 0; }
+.song-list { display:flex; flex-direction:column; gap:6px; height: clamp(200px, 35vh, 500px); overflow-y:auto; padding-right: 4px; border: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.15); border-radius: 12px; padding: 8px; flex-shrink: 0; }
 .song-card {
     display:flex; align-items:center; gap:12px; padding:10px 14px;
     border-radius:12px; cursor:pointer; transition:var(--tr);
