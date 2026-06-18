@@ -38,14 +38,15 @@ Copy one of the prompts below based on your preferred language and paste it into
 
 **For Hinglish Lyrics (Recommended)**
 ```text
-Is YouTube video gaane ke pure lyrics Hinglish (English alphabet mein Hindi) mein nikal kar do. 
+Main jo YouTube video link de raha hu uske gaane ke pure lyrics Hinglish (English alphabet mein Hindi) mein nikal kar do. 
+"youtubeUrl" field mein sirf wahi link daalna jo main is prompt ke sath de raha hu, apna koi link mat banana.
 Mujhe output ek valid JSON format mein chahiye, bilkul is example ki tarah:
 
 {
     "id": "song_tu_agar_meri",
     "title": "Tu Agar Meri",
     "artist": "Arijit Singh",
-    "youtubeUrl": "https://youtu.be/GVizJ_jpUnw",
+    "youtubeUrl": "[YAHAN_MERA_DIYA_HUA_LINK_AAYEGA]",
     "lyrics": [
         "(0:21 - 0:35): [#00ffff] Tu agar meri ye hawayein teri, tu agar meri saari raahein teri, tu agar meri main hoon tera",
         "(0:36 - 0:50): [#ff00ff] Tu agar meri ye ujale tere, tu agar meri dil hawale tere, tu agar meri main hoon tera",
@@ -65,14 +66,15 @@ Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.
 
 **Alternative Style: Short Timestamps `[M:SS.S]`**
 ```text
-Is YouTube video gaane ke pure lyrics Hinglish mein nikal kar do. 
+Main jo YouTube video link de raha hu uske gaane ke pure lyrics Hinglish mein nikal kar do. 
+"youtubeUrl" field mein sirf wahi link daalna jo main is prompt ke sath de raha hu, apna koi link mat banana.
 Mujhe output ek valid JSON format mein chahiye, bilkul is example ki tarah:
 
 {
     "id": "song_shararat",
     "title": "Shararat",
     "artist": "Madhubanti Bagchi, Jasmine Sandlas",
-    "youtubeUrl": "https://youtu.be/YyepU5ztLf4",
+    "youtubeUrl": "[YAHAN_MERA_DIYA_HUA_LINK_AAYEGA]",
     "lyrics": [
         "[0:07.0] [#ff0066] Tune parda uthaaya, haaye kya baat ho gayi",
         "[0:15.0] [#ff0066] Haaye, Ye mulakaat, vaardaat ho gayi",
@@ -90,14 +92,15 @@ Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.
 
 **For Pure Hindi Lyrics (Devanagari)**
 ```text
-Is YouTube video gaane ke pure lyrics Hindi font (Devanagari) mein nikal kar do. 
+Main jo YouTube video link de raha hu uske gaane ke pure lyrics Hindi font (Devanagari) mein nikal kar do. 
+"youtubeUrl" field mein sirf wahi link daalna jo main is prompt ke sath de raha hu, apna koi link mat banana.
 Mujhe output ek valid JSON format mein chahiye, bilkul is example ki tarah:
 
 {
     "id": "song_tu_agar_meri",
     "title": "Tu Agar Meri",
     "artist": "Arijit Singh",
-    "youtubeUrl": "https://youtu.be/GVizJ_jpUnw",
+    "youtubeUrl": "[YAHAN_MERA_DIYA_HUA_LINK_AAYEGA]",
     "lyrics": [
         "(0:21 - 0:35): [#00ffff] तू अगर मेरी ये हवाएं तेरी, तू अगर मेरी सारी राहें तेरी, तू अगर मेरी मैं हूं तेरा",
         "(0:36 - 0:50): [#ff00ff] तू अगर मेरी ये उजाले तेरे, तू अगर मेरी दिल हवाले तेरे, तू अगर मेरी मैं हूं तेरा",
@@ -117,14 +120,15 @@ Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.
 
 **For English Lyrics**
 ```text
-Extract the full lyrics of this YouTube video song in English. 
+Extract the full lyrics of the YouTube video song I am providing in English.
+In the "youtubeUrl" field, you MUST strictly use the exact URL I provided. Do not hallucinate or search for another link.
 Provide the output as a valid JSON object, strictly following this example:
 
 {
     "id": "song_tu_agar_meri",
     "title": "Tu Agar Meri",
     "artist": "Arijit Singh",
-    "youtubeUrl": "https://youtu.be/GVizJ_jpUnw",
+    "youtubeUrl": "[INSERT_MY_PROVIDED_LINK_HERE]",
     "lyrics": [
         "(0:21 - 0:35): [#00ffff] If you are mine, these winds are yours, if you are mine, all paths are yours, if you are mine, I am yours",
         "(0:36 - 0:50): [#ff00ff] If you are mine, these lights are yours, if you are mine, my heart is yours, if you are mine, I am yours",
