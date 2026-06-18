@@ -492,7 +492,7 @@
             const fontFamilyStr = isHindi ? `var(--font-hi, 'Yatra One', sans-serif)` : `var(--font-en, 'Poppins', sans-serif)`;
 
             if (S.anim === 'typewriter') {
-                const words = finalTxt.split(' ').map((w, wi) => `<span class="c" style="animation-delay: ${wi * 0.15}s">${esc(w)}</span>`).join(' ');
+                const words = finalTxt.split(' ').map((w, wi) => `<span class="c" style="transition-delay: ${wi * 0.15}s">${esc(w)}</span>`).join(' ');
                 return `<div class="ll ${ac}" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${words}</div>`;
             }
             return `<div class="ll ${ac}" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${esc(finalTxt)}</div>`;
