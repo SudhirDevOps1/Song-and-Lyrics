@@ -164,4 +164,11 @@ Click the **Play** button at the bottom of the screen. Your lyrics will perfectl
 ![Play video](img/step8.png)
 
 ---
-*Built with ❤️ by SongVibe*
+
+## 👨‍💻 About the Developer
+
+Built with ❤️ by **Sudhir** (Copyright &copy; 2026).  
+I am passionate about creating cinematic, premium web experiences and DevOps tools.
+
+* 🌐 **Portfolio & Live Links**: [Know more about me here!](https://sudhirdevops1.pages.dev/)
+* ⭐ **Support the Project**: If you liked SongVibe, please give it a star on [GitHub](https://github.com/SudhirDevOps1/Song-and-Lyrics.git)!
