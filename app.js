@@ -265,16 +265,25 @@
                 if (id) existing = S.songs.find(x => x.videoId === id);
                 else existing = S.songs.find(x => x.title === s.title);
                 
+                let parsedLyrics = [];
+                if (Array.isArray(s.lyrics)) {
+                    if (s.lyrics.length > 0 && typeof s.lyrics[0] === 'string') {
+                        parsedLyrics = parseLyrics(s.lyrics.join('\n'));
+                    } else {
+                        parsedLyrics = s.lyrics;
+                    }
+                }
+                
                 if (existing) {
                     existing.title = s.title || existing.title;
                     existing.artist = s.artist || existing.artist;
-                    existing.lyrics = Array.isArray(s.lyrics) ? s.lyrics : existing.lyrics;
+                    existing.lyrics = parsedLyrics;
                 } else {
                     S.songs.push({
                         id: 's' + Date.now() + Math.random().toString(36).slice(2,5),
                         title: s.title || 'Untitled', artist: s.artist || 'Unknown',
                         videoId: id, localUrl: null, thumb: id ? thumb(id) : '',
-                        lyrics: Array.isArray(s.lyrics) ? s.lyrics : [],
+                        lyrics: parsedLyrics,
                     }); 
                     n++;
                 }
@@ -418,11 +427,12 @@
         if (!S.lyrics.length) { lyricsScroll.innerHTML = ''; return; }
         const ac = S.anim !== 'typewriter' ? `a-${S.anim}` : '';
         lyricsScroll.innerHTML = S.lyrics.map((l,i) => {
+            const textContent = typeof l === 'string' ? l : (l.text || '');
             if (S.anim === 'typewriter') {
-                const words = l.text.split(' ').map(w => `<span class="c">${esc(w)}</span>`).join(' ');
+                const words = textContent.split(' ').map(w => `<span class="c">${esc(w)}</span>`).join(' ');
                 return `<div class="ll" data-i="${i}">${words}</div>`;
             }
-            return `<div class="ll ${ac}" data-i="${i}">${esc(l.text)}</div>`;
+            return `<div class="ll ${ac}" data-i="${i}">${esc(textContent)}</div>`;
         }).join('');
 
         lyricsScroll.querySelectorAll('.ll').forEach(el => {
