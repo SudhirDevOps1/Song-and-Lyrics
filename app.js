@@ -195,7 +195,7 @@
         let m = url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/|^)([a-zA-Z0-9_-]{11})/);
         return m ? m[1] : null;
     }
-    function thumb(id) { return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`; } // high-res
+    function thumb(id) { return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
 
     /* ═══ ADDING MEDIA ═══ */
     function addSong(title, artist, videoId, localUrl, thumbUrl, lyrics) {
@@ -563,12 +563,7 @@
         else reelEl.classList.remove('fmt-portrait');
     });
     
-    /* ═══ INITIALIZATION ═══ */
-    window.addEventListener('message', e => {
-        if (e.data.event === 'onReady') {
-            yt = new YT.Player('ytPlayer', { events: { 'onStateChange': onPlayerStateChange }});
-        }
-    });
+
 
     /* ═══ THEME SWITCHER ═══ */
     const themeBtns = document.querySelectorAll('.pill-btn[data-theme]');
