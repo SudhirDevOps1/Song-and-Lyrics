@@ -47,6 +47,21 @@
 
     const sizeRange     = $('#sizeRange');
     const glowRange     = $('#glowRange');
+    const fontSelect    = $('#fontPills'); // This is actually a select dropdown now
+    const animBtns      = $$('#animPills .pill-btn');
+    const speedBtns     = $$('#speedPills .pill-btn');
+    const alignBtns     = $$('#alignPills .pill-btn');
+    const posBtns       = $$('#posPills .pill-btn');
+
+    // Guide Modal
+    const btnGuide      = $('#btnGuide');
+    const guideModal    = $('#guideModal');
+    const guideClose    = $('#guideClose');
+    const guideImg      = $('#guideImg');
+    const guidePrev     = $('#guidePrev');
+    const guideNext     = $('#guideNext');
+    const guideDots     = $('#guideDots');
+
     const canvas        = $('#particleCanvas');
 
     const audioEl = $('#localPlayer'); // Local HTML5 Audio
@@ -468,9 +483,21 @@
         }).join('');
 
         lyricsScroll.querySelectorAll('.ll').forEach(el => {
-            el.addEventListener('click', () => { const i = +el.dataset.i; seekTo(S.lyrics[i].time); if(!S.playing)play(); });
+            el.addEventListener('click', () => { 
+                scrollPause = true; clearTimeout(scrollTimer); scrollTimer = setTimeout(()=>scrollPause=false, 3000);
+                const i = +el.dataset.i; seekTo(S.lyrics[i].time); if(!S.playing)play(); 
+            });
         });
     }
+
+    let scrollPause = false;
+    let scrollTimer = null;
+    lyricsScroll.addEventListener('wheel', () => {
+        scrollPause = true; clearTimeout(scrollTimer); scrollTimer = setTimeout(()=>scrollPause=false, 3000);
+    }, {passive:true});
+    lyricsScroll.addEventListener('touchstart', () => {
+        scrollPause = true; clearTimeout(scrollTimer); scrollTimer = setTimeout(()=>scrollPause=false, 3000);
+    }, {passive:true});
 
     function syncLyric(t) {
         if (!S.lyrics.length) return;
@@ -485,12 +512,16 @@
 
     function highlight(box, ai) {
         box.querySelectorAll('.ll').forEach((el,i) => {
-            el.classList.remove('now','done');
+            el.classList.remove('active','done');
             const chars = el.querySelectorAll('.c');
             if (i===ai) {
-                el.classList.add('now');
+                el.classList.add('active');
                 if (S.anim==='typewriter') chars.forEach((c,ci) => setTimeout(()=>c.classList.add('v'), ci*40));
-                scrollTo(el, box);
+                
+                // Smart Auto Scroll
+                if (!scrollPause) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
             } else if (i<ai) {
                 el.classList.add('done');
                 chars.forEach(c=>c.classList.add('v'));
@@ -501,9 +532,7 @@
     }
 
     function scrollTo(el, box) {
-        const sr = box.closest('.lyrics-scroll') || box;
-        const br = sr.getBoundingClientRect(), er = el.getBoundingClientRect();
-        sr.scrollBy({ top: er.top - br.top - br.height/2 + er.height/2, behavior:'smooth' });
+        // Obsolete function, kept for legacy compatibility if called elsewhere
     }
 
     /* ═══ PILL BUTTONS UI HANDLERS ═══ */
@@ -582,12 +611,92 @@
         }
     });
 
+    /* ═══ CUSTOMIZATION PANEL LOGIC ═══ */
+    function setPillActive(btns, val, dataKey) {
+        btns.forEach(b => {
+            b.classList.toggle('active', b.dataset[dataKey] === val);
+        });
+    }
+
+    animBtns.forEach(b => b.addEventListener('click', () => { S.anim = b.dataset.anim; setPillActive(animBtns, S.anim, 'anim'); renderLyrics(); }));
+    
+    speedBtns.forEach(b => b.addEventListener('click', () => { 
+        S.speed = b.dataset.speed; 
+        setPillActive(speedBtns, S.speed, 'speed'); 
+        if (S.idx >= 0) {
+            // Re-parse the original text with new speed
+            S.songs[S.idx].lyrics = parseLyrics(edLyrics.value);
+            S.lyrics = S.songs[S.idx].lyrics;
+            renderLyrics();
+        }
+    }));
+
+    alignBtns.forEach(b => b.addEventListener('click', () => { 
+        S.align = b.dataset.align; 
+        setPillActive(alignBtns, S.align, 'align'); 
+        lyricsScroll.style.textAlign = S.align;
+        // Adjust transform origin for animations based on alignment
+        lyricsScroll.style.setProperty('--align-origin', S.align === 'left' ? 'left center' : (S.align === 'right' ? 'right center' : 'center center'));
+    }));
+
+    posBtns.forEach(b => b.addEventListener('click', () => { 
+        S.pos = b.dataset.pos; 
+        setPillActive(posBtns, S.pos, 'pos'); 
+        $('.lyrics-box').style.justifyContent = S.pos;
+    }));
+
+    if (fontSelect) {
+        fontSelect.addEventListener('change', () => {
+            document.documentElement.style.setProperty('--lyrics-font', `"${fontSelect.value}", sans-serif`);
+        });
+    }
+
     sizeRange.addEventListener('input', () => document.documentElement.style.setProperty('--lyrics-size', sizeRange.value + 'rem'));
     glowRange.addEventListener('input', () => {
         const v = glowRange.value / 100;
         document.documentElement.style.setProperty('--accent-glow', `rgba(0,212,255,${(v*0.35).toFixed(2)})`);
         document.documentElement.style.setProperty('--accent-glow-2', `rgba(0,212,255,${(v*0.6).toFixed(2)})`);
     });
+
+    /* ═══ USER GUIDE MODAL ═══ */
+    let guideStep = 1;
+    const maxSteps = 8;
+    
+    function updateGuide() {
+        guideImg.src = `img/step${guideStep}.png`;
+        guideDots.innerHTML = '';
+        for(let i=1; i<=maxSteps; i++) {
+            const d = document.createElement('div');
+            d.className = 'dot' + (i === guideStep ? ' active' : '');
+            d.onclick = () => { guideStep = i; updateGuide(); };
+            guideDots.appendChild(d);
+        }
+    }
+
+    if (btnGuide) {
+        btnGuide.addEventListener('click', () => {
+            guideStep = 1;
+            updateGuide();
+            guideModal.style.display = 'flex';
+            setTimeout(() => guideModal.style.opacity = '1', 10);
+        });
+        
+        guideClose.addEventListener('click', () => {
+            guideModal.style.display = 'none';
+        });
+        
+        guideNext.addEventListener('click', () => {
+            if (guideStep < maxSteps) guideStep++; else guideStep = 1;
+            updateGuide();
+        });
+        
+        guidePrev.addEventListener('click', () => {
+            if (guideStep > 1) guideStep--; else guideStep = maxSteps;
+            updateGuide();
+        });
+    }
+
+
 
 
 
@@ -622,6 +731,8 @@
     const waveCanvas = document.getElementById('audioWave');
     const waveCtx = waveCanvas.getContext('2d');
     let waveTime = 0;
+    let waveSpike = 0;
+    let lastWaveIdx = -1;
     
     (function drawWave() {
         requestAnimationFrame(drawWave);
@@ -632,6 +743,15 @@
         
         waveTime += isPlaying ? 0.05 : 0.005;
         
+        // SMART SYNC: Spike the wave when a new lyric line is hit!
+        if (isPlaying && S.lyricIdx !== lastWaveIdx && S.lyricIdx >= 0) {
+            waveSpike = 1.0;
+            lastWaveIdx = S.lyricIdx;
+        }
+        
+        // Decay the spike rapidly for a natural beat drop effect
+        waveSpike *= 0.92;
+        
         const bars = 40;
         const barWidth = waveCanvas.width / bars;
         
@@ -640,7 +760,6 @@
         waveCtx.fillStyle = accentStr;
         
         for (let i = 0; i < bars; i++) {
-            // Calculate a pseudo-random looking wave height using sine waves
             let h = 5; // minimum height
             
             if (isPlaying) {
@@ -649,14 +768,17 @@
                 const noise2 = Math.cos(i * 0.8 - waveTime * 3);
                 const noise3 = Math.sin(i * 0.2 + waveTime * 1.5);
                 
-                // Combine waves and add a bit of randomness
                 let magnitude = Math.abs(noise1 + noise2 + noise3) / 3;
+                
+                // Add the smart lyric spike! Randomize it slightly per bar so it looks like real audio frequencies
+                const localSpike = waveSpike * (0.5 + Math.random() * 0.8);
+                magnitude += localSpike;
                 
                 // Make the middle bars higher than the edges (bell curve)
                 const centerDist = 1 - Math.abs((i / bars) - 0.5) * 2;
                 magnitude = magnitude * Math.pow(centerDist, 0.5);
                 
-                h = 5 + (magnitude * 55); // Max height ~60
+                h = 5 + (magnitude * 55); // Max height
             }
             
             // Draw rounded bar

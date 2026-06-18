@@ -43,12 +43,14 @@ Click the **Play** button at the bottom of the screen. Your lyrics will perfectl
 
 ---
 
-## 🚀 Features at a Glance
-- **40+ Premium Google Fonts**
-- **Zero-Delay High-Performance Sync Engine**
-- **Smart AI Interpolation:** Automatically figures out exactly when to clear the screen if you leave empty lines.
-- **Custom Backgrounds:** Upload your own images or video loops.
-- **Dynamic Themes:** Neon, Snow, Rose, Gold, and Rainbow!
+## 🚀 Production Features
+- **Smart Audio Wave Sync:** Procedural audio visualizer that perfectly bounces and syncs with the lyrics in real-time.
+- **Smart Auto-Scroll Focus:** The active lyric line is always dynamically centered on the screen. Manual scrolling is supported with a 3-second auto-resume timer.
+- **Cinematic Text Animations:** Choose from Typewriter, Fade, Slide, Pop, and Glow.
+- **Premium Animated Themes:** Animated moving gradients for Rose, Matrix, Cyberpunk, and Rainbow themes.
+- **Advanced Customization Panel:** Manual sliders for Lyrics Size, Neon Glow intensity, Alignment (Left/Center/Right), and Vertical Positioning.
+- **Interactive Guide:** Built-in modal carousel for onboarding.
+- **Multilingual Font Support:** Premium Google Fonts including Poppins, Outfit, Noto Sans Devanagari, and Kalam.
 
 ---
 *Built with ❤️ by SongVibe*
