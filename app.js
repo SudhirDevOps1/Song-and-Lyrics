@@ -407,7 +407,8 @@
     function parseLyrics(text) {
         const lines = text.split('\n');
         const res = [];
-        const re = /^\[(\d+):([\d.]+)\]\s*(.*)/;
+        // Matches [0:15.0] Text OR (0:15 - 0:20): Text OR (0:15) Text
+        const re = /^(?:\[|\()(\d+):([\d.]+).*?(?:\]|\))\s*:?\s*(.*)/;
         const hasTm = lines.some(l => re.test(l));
         
         if (hasTm) {
