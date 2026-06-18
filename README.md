@@ -33,8 +33,38 @@ Click on the **Share** button and copy the YouTube link.
 Click on the **"Ask"** ✨ button (Gemini integration in YouTube).
 ![Ask Gemini](img/step3.png)
 
-### Step 4: Request Timestamps
-Ask Gemini to format the lyrics with timelines. *Example prompt: "es style mein do time line ke sath lyrics..."*
+### Step 4: Request Timestamps (Use these Prompts)
+Copy one of the prompts below based on your preferred language and paste it into Gemini. This will force Gemini to give you a perfectly color-coded, time-synced JSON block that you can directly paste into your app!
+
+**For Hinglish Lyrics (Recommended)**
+```text
+Is YouTube video gaane ke pure lyrics Hinglish (English alphabet mein Hindi) mein nikal kar do. 
+Mujhe output ek valid JSON format mein chahiye, jisme "title", "artist", "youtubeUrl", aur "lyrics" ho.
+"lyrics" ek array of strings hona chahiye.
+Har string is format mein honi chahiye: "[M:SS.S] [#hexcolor] lyric text".
+Gaane ke mood ke hisaab se har line ke liye alag alag vibrant HEX colors use karna (jaise #ff4444, #00ffcc, #ffaa00).
+Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.
+```
+
+**For Pure Hindi Lyrics (Devanagari)**
+```text
+Is YouTube video gaane ke pure lyrics Hindi font (Devanagari) mein nikal kar do. 
+Mujhe output ek valid JSON format mein chahiye, jisme "title", "artist", "youtubeUrl", aur "lyrics" ho.
+"lyrics" ek array of strings hona chahiye.
+Har string is format mein honi chahiye: "[M:SS.S] [#hexcolor] lyric text".
+Gaane ke mood ke hisaab se har line ke liye alag alag vibrant HEX colors use karna (jaise #ff4444, #00ffcc, #ffaa00).
+Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.
+```
+
+**For English Lyrics**
+```text
+Extract the full lyrics of this YouTube video song in English. 
+Provide the output as a valid JSON object containing "title", "artist", "youtubeUrl", and "lyrics".
+The "lyrics" must be an array of strings.
+Each string must follow this exact format: "[M:SS.S] [#hexcolor] lyric text".
+Assign a different vibrant HEX color to each line based on the mood of the song (e.g., #ff4444, #00ffcc, #ffaa00).
+Output strictly a valid JSON block so I can copy and paste it directly.
+```
 ![Request timestamps](img/step4.png)
 
 ### Step 5: Copy the Lyrics
