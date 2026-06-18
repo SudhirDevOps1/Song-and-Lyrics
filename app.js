@@ -506,7 +506,6 @@
         if (ai !== S.lyricIdx) {
             S.lyricIdx = ai;
             highlight(lyricsScroll, ai);
-            if (S.reel) highlight(reelBody, ai);
         }
     }
 
@@ -558,14 +557,9 @@
     setupPills('alignPills', 'align', (v) => { 
         document.documentElement.style.setProperty('--lyrics-align', v); 
         lyricsScroll.style.textAlign = v; 
-        reelBody.style.textAlign = v;
     });
     setupPills('posPills', 'pos', (v) => { 
-        reelBody.style.justifyContent = v; 
-    });
-    setupPills('formatPills', 'format', (v) => {
-        if (v === 'portrait') reelEl.classList.add('fmt-portrait');
-        else reelEl.classList.remove('fmt-portrait');
+        $('.lyrics-box').style.justifyContent = v; 
     });
     
 
@@ -638,7 +632,8 @@
 
     if (fontSelect) {
         fontSelect.addEventListener('change', () => {
-            document.documentElement.style.setProperty('--lyrics-font', `"${fontSelect.value}", sans-serif`);
+            // For English use Outfit/Poppins, and use the selected font for Hindi/Custom
+            document.documentElement.style.setProperty('--lyrics-font', `"${fontSelect.value}", 'Poppins', sans-serif`);
         });
     }
 
