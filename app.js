@@ -786,6 +786,7 @@
             if (guideStep > 1) guideStep--; else guideStep = maxSteps;
             updateGuide();
         });
+    }
     /* ═══ INTERACTIVE GUIDED TUTORIAL ═══ */
     const overlay = $('#guidedOverlay');
     const tooltip = $('#guidedTooltip');
@@ -803,7 +804,7 @@
             event: 'click' 
         },
         { 
-            target: '#themeBtns', 
+            target: '#themePills', 
             title: 'Premium Themes', 
             desc: 'Change the vibe of the entire player. Click on a Theme to see the magic!', 
             event: 'click' 
