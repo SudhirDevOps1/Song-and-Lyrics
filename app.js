@@ -30,8 +30,8 @@
     const bRepeat   = $('#bRepeat');
     const progTrack = $('#progTrack');
     const progFill  = $('#progFill');
-    const tCur      = $('#tCur');
-    const tTot      = $('#tTot');
+    const tCur      = $('#progTime');
+    const tTot      = $('#progTotal');
     const iPlay     = $('#iPlay');
     const iPause    = $('#iPause');
 
@@ -42,25 +42,8 @@
     const edLyrics  = $('#edLyrics');
     const applyBtn  = $('#applyBtn');
 
-    const reelEl    = $('#reel');
-    const reelCd    = $('#reelCd');
-    const reelBody  = $('#reelBody');
-    const reelWm    = $('#reelWm');
-    const reelT     = $('#reelT');
-    const reelA     = $('#reelA');
-    const reelF     = $('#reelF');
-    const reelBtn   = $('#reelBtn');
-    const reelX     = $('#reelX');
-    const reelCanvas = $('#reelCanvas');
-
     const fsBox     = $('#fsBox');
     const fsBoxBtn  = $('#fsBoxBtn');
-
-    const reelBgUpload = $('#reelBgUpload');
-    const removeBgBtn  = $('#removeBgBtn');
-    const reelBgImg    = $('#reelBgImg');
-    const reelBgVid    = $('#reelBgVid');
-    const recordBtn    = $('#recordBtn');
 
     const sizeRange     = $('#sizeRange');
     const glowRange     = $('#glowRange');
@@ -605,86 +588,7 @@
         document.documentElement.style.setProperty('--accent-glow-2', `rgba(0,212,255,${(v*0.6).toFixed(2)})`);
     });
 
-    /* ═══ REEL MODE & BACKGROUNDS ═══ */
-    reelBgUpload.addEventListener('change', e => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const url = URL.createObjectURL(file);
-        if (file.type.startsWith('video/')) {
-            reelBgVid.src = url; reelBgVid.style.display = 'block';
-            reelBgImg.style.display = 'none'; reelBgVid.play();
-        } else {
-            reelBgImg.src = url; reelBgImg.style.display = 'block';
-            reelBgVid.style.display = 'none';
-        }
-        removeBgBtn.style.display = 'block';
-    });
-    removeBgBtn.addEventListener('click', () => {
-        reelBgImg.src = ''; reelBgVid.src = '';
-        reelBgImg.style.display = 'none'; reelBgVid.style.display = 'none';
-        removeBgBtn.style.display = 'none'; reelBgUpload.value = '';
-    });
 
-    reelBtn.addEventListener('click', () => {
-        if (S.idx<0) return toast('Pehle song load karo!');
-        S.reel = true; reelEl.classList.add('on');
-        const s = S.songs[S.idx];
-        reelT.textContent = s.title; reelA.textContent = s.artist; 
-        reelF.textContent = (s.film ? s.film + ' ' : '') + (s.details ? `(${s.details})` : '');
-        reelWm.textContent = '';
-        reelBody.innerHTML = lyricsScroll.innerHTML; // clone lyrics
-        reelBody.style.textAlign = S.align;
-        reelBody.style.justifyContent = S.pos;
-        if (S.lyricIdx>=0) highlight(reelBody,S.lyricIdx);
-        let n=3; reelCd.textContent=n; reelCd.classList.add('pop');
-        const iv = setInterval(()=>{
-            n--;
-            if(n>0){ reelCd.textContent=n; reelCd.classList.remove('pop'); void reelCd.offsetWidth; reelCd.classList.add('pop'); } 
-            else { clearInterval(iv); reelCd.classList.remove('pop'); reelCd.textContent=''; seekTo(0); play(); }
-        },1000);
-        try{ reelEl.requestFullscreen(); }catch(e){}
-    });
-    
-    function exitReel() { S.reel=false; reelEl.classList.remove('on'); try{document.exitFullscreen();}catch(e){} }
-    reelX.addEventListener('click', exitReel);
-
-    /* ═══ EXPORT / SCREEN RECORDING ═══ */
-    let mediaRecorder = null;
-    let recordedChunks = [];
-    let isRecording = false;
-
-    recordBtn.addEventListener('click', async () => {
-        if (isRecording) {
-            mediaRecorder.stop();
-            recordBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none" width="16" height="16" style="color:#f43f5e;"><circle cx="12" cy="12" r="10"/></svg> Record Reel';
-            recordBtn.style.boxShadow = '0 0 20px rgba(244,63,94,0.4)';
-            toast('Processing Video...');
-            isRecording = false;
-            return;
-        }
-        try {
-            const stream = await navigator.mediaDevices.getDisplayMedia({ video: { displaySurface: 'browser' }, audio: true });
-            mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
-            mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
-            mediaRecorder.onstop = () => {
-                const blob = new Blob(recordedChunks, { type: 'video/webm' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url; a.download = `SongVibe_Reel_${Date.now()}.webm`; a.click();
-                recordedChunks = [];
-                toast('Video Downloaded!');
-                stream.getTracks().forEach(track => track.stop()); // Stop sharing
-            };
-            mediaRecorder.start();
-            isRecording = true;
-            recordBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none" width="16" height="16" style="color:#10b981;"><rect x="6" y="6" width="12" height="12"/></svg> Stop Recording';
-            recordBtn.style.boxShadow = '0 0 20px rgba(16,185,129,0.4)';
-            seekTo(0); play();
-            toast('Recording Started! Play audio to capture.');
-        } catch (e) {
-            toast('Recording failed: ' + e.message);
-        }
-    });
 
     /* ═══ UTILS & PARTICLES ═══ */
     function fmt(s) { if(!s||isNaN(s)) return '0:00'; return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'); }
