@@ -78,7 +78,6 @@
         theme: 'neon',
         shuffle: false,
         repeat: false,
-        reel: false,
         vol: 80,
         lyricsFont: 'Poppins',
         lyricsSize: 1.8,
@@ -394,10 +393,8 @@
     });
 
     document.addEventListener('keydown', e => {
-        const t = e.target.tagName;
-        if (t==='INPUT'||t==='TEXTAREA') return;
-        if (e.key===' ') { e.preventDefault(); toggle(); }
-        if (e.key==='Escape'&&S.reel) exitReel();
+        if (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+        if (e.code==='Space') { e.preventDefault(); if(S.playing) pause(); else play(); }
         if (e.key==='ArrowRight') seekTo(getCurTime()+5);
         if (e.key==='ArrowLeft') seekTo(Math.max(0,getCurTime()-5));
     });
