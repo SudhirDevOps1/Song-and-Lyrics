@@ -7,10 +7,8 @@
     <title>SongVibe — Reel Maker</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <canvas id="particleCanvas"></canvas>
-
-    <div class="app">
+<body class="theme-neon">
+    <div class="wrapper">
         <!-- HEADER -->
         <header class="header">
             <div class="logo">
@@ -74,46 +72,51 @@
 
                 <!-- Theme -->
                 <div>
-                    <div class="sec-label">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a7 7 0 0 0 0 20 4 4 0 0 1 0-8 4 4 0 0 0 0-8"/></svg>
-                        Theme
-                    </div>
-                    <div class="pill-row">
-                        <button class="pill-btn active" data-theme="neon">Neon</button>
-                        <button class="pill-btn" data-theme="snow">Snow</button>
-                        <button class="pill-btn" data-theme="rose">Rose</button>
-                        <button class="pill-btn" data-theme="gold">Gold</button>
-                    </div>
+                    <div class="sec-label" style="margin-top:24px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Theme
+                </div>
+                <div class="pill-row" id="themePills">
+                    <button class="pill-btn active" data-theme="neon">Neon</button>
+                    <button class="pill-btn" data-theme="snow">Snow</button>
+                    <button class="pill-btn" data-theme="rose">Rose</button>
+                    <button class="pill-btn" data-theme="gold">Gold</button>
+                    <button class="pill-btn" data-theme="rainbow">Rainbow</button>
+                </div>
                 </div>
             </aside>
 
-            <!-- CENTER PANEL -->
-            <section class="center">
-                <!-- Now Playing -->
-                <div class="now-playing">
+            <!-- CENTER CONTENT -->
+            <section class="main-content">
+                <canvas id="particleCanvas" style="position:absolute; inset:0; z-index:0; pointer-events:none; width:100%; height:100%;"></canvas>
+                <!-- Now Playing Top -->
+                <div class="now-playing" style="z-index:1; position:relative;">
                     <div class="np-art">
                         <img class="np-img" id="npImg" src="" alt="" onerror="this.style.background='var(--grad)';this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';">
                         <div class="np-glow"></div>
                     </div>
                     <div class="np-info">
-                        <h1 class="np-title" id="npTitle">SongVibe v4</h1>
-                        <p class="np-artist" id="npArtist">Upload MP3 ya YouTube link daalo</p>
+                        <div class="np-title" id="npTitle">SongVibe Ultimate</div>
+                        <div class="np-artist" id="npArtist">Select a song to start</div>
+                        <div class="np-artist" id="npFilm" style="color:var(--accent); font-size:0.75rem; font-weight:600;"></div>
                     </div>
                 </div>
 
                 <!-- Lyrics Box -->
-                <div class="lyrics-box">
+                <!-- Fullscreen button added to lyrics box -->
+                <div class="lyrics-box" id="fsBox">
+                    <button class="btn-ghost" id="fsBoxBtn" style="position:absolute; top:12px; right:12px; z-index:10; padding:6px; border-radius:8px; border: 1px solid var(--border);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                    </button>
                     <div class="lyrics-scroll" id="lyricsScroll"></div>
                 </div>
 
                 <!-- Player Controls -->
                 <div class="player">
                     <div class="prog-row">
-                        <span class="prog-time" id="tCur">0:00</span>
-                        <div class="prog-track" id="progTrack">
-                            <div class="prog-fill" id="progFill"></div>
-                        </div>
-                        <span class="prog-time" id="tTot">0:00</span>
+                        <div class="prog-time" id="progTime">0:00</div>
+                        <div class="prog-track" id="progTrack"><div class="prog-fill" id="progFill"></div></div>
+                        <div class="prog-time" id="progTotal">0:00</div>
                     </div>
                     <div class="ctrl-row">
                         <button class="c-btn" id="bShuffle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg></button>
@@ -134,7 +137,6 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-5"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                     Lyrics Editor
                 </div>
-
                 <div class="ed-field">
                     <label class="ed-label">Title</label>
                     <input type="text" class="input-base" id="edTitle" placeholder="Song Title...">
@@ -143,23 +145,75 @@
                     <label class="ed-label">Artist</label>
                     <input type="text" class="input-base" id="edArtist" placeholder="Artist Name...">
                 </div>
+                <div class="ed-field">
+                    <label class="ed-label">Film / Album (Optional)</label>
+                    <input type="text" class="input-base" id="edFilm" placeholder="e.g. Aashiqui 2...">
+                </div>
+                <div class="ed-field">
+                    <label class="ed-label">Extra Details (Optional)</label>
+                    <input type="text" class="input-base" id="edDetails" placeholder="e.g. 2026 Remastered...">
+                </div>
 
                 <div class="ed-field">
                     <label class="ed-label">Lyrics</label>
                     <textarea class="ed-textarea" id="edLyrics" placeholder="[0:02] Line one...
-[0:05] Line two..."></textarea>
+[0:05] [color:red] Red line..."></textarea>
                 </div>
 
-                <!-- Replace dropdowns with pills -->
                 <div class="ed-field">
-                    <label class="ed-label">Lyrics Font</label>
-                    <div class="pill-row" id="fontPills">
-                        <button class="pill-btn active" data-font="Poppins">Poppins</button>
-                        <button class="pill-btn" data-font="Inter">Inter</button>
-                        <button class="pill-btn" data-font="Outfit">Outfit</button>
-                        <button class="pill-btn" data-font="Playfair Display">Playfair</button>
-                        <button class="pill-btn" data-font="Space Grotesk">Space G.</button>
-                    </div>
+                    <label class="ed-label">Lyrics Font (40+ Options)</label>
+                    <select class="input-base" id="fontSelect" style="padding: 10px; cursor: pointer;">
+                        <option value="Poppins">Poppins</option>
+                        <option value="Inter">Inter</option>
+                        <option value="Outfit">Outfit</option>
+                        <option value="Playfair Display">Playfair Display</option>
+                        <option value="Space Grotesk">Space Grotesk</option>
+                        <option value="Abril Fatface">Abril Fatface</option>
+                        <option value="Bebas Neue">Bebas Neue</option>
+                        <option value="Caveat">Caveat</option>
+                        <option value="Cinzel">Cinzel</option>
+                        <option value="Comfortaa">Comfortaa</option>
+                        <option value="Cormorant Garamond">Cormorant Garamond</option>
+                        <option value="Dancing Script">Dancing Script</option>
+                        <option value="Dosis">Dosis</option>
+                        <option value="EB Garamond">EB Garamond</option>
+                        <option value="Exo 2">Exo 2</option>
+                        <option value="Fira Sans">Fira Sans</option>
+                        <option value="Great Vibes">Great Vibes</option>
+                        <option value="Heebo">Heebo</option>
+                        <option value="Hind">Hind</option>
+                        <option value="Inconsolata">Inconsolata</option>
+                        <option value="Indie Flower">Indie Flower</option>
+                        <option value="Josefin Sans">Josefin Sans</option>
+                        <option value="Jost">Jost</option>
+                        <option value="Kanit">Kanit</option>
+                        <option value="Karla">Karla</option>
+                        <option value="Lato">Lato</option>
+                        <option value="Lobster">Lobster</option>
+                        <option value="Lora">Lora</option>
+                        <option value="Manrope">Manrope</option>
+                        <option value="Merriweather">Merriweather</option>
+                        <option value="Montserrat">Montserrat</option>
+                        <option value="Mukta">Mukta</option>
+                        <option value="Nunito">Nunito</option>
+                        <option value="Oswald">Oswald</option>
+                        <option value="Pacifico">Pacifico</option>
+                        <option value="PT Sans">PT Sans</option>
+                        <option value="PT Serif">PT Serif</option>
+                        <option value="Quicksand">Quicksand</option>
+                        <option value="Raleway">Raleway</option>
+                        <option value="Righteous">Righteous</option>
+                        <option value="Roboto">Roboto</option>
+                        <option value="Roboto Condensed">Roboto Condensed</option>
+                        <option value="Roboto Mono">Roboto Mono</option>
+                        <option value="Roboto Slab">Roboto Slab</option>
+                        <option value="Rubik">Rubik</option>
+                        <option value="Teko">Teko</option>
+                        <option value="Titillium Web">Titillium Web</option>
+                        <option value="Ubuntu">Ubuntu</option>
+                        <option value="Varela Round">Varela Round</option>
+                        <option value="Work Sans">Work Sans</option>
+                    </select>
                 </div>
 
                 <div class="ed-field">
@@ -246,6 +300,7 @@
         <div class="reel-nfo" style="z-index:2;">
             <h2 id="reelT"></h2>
             <p id="reelA"></p>
+            <p id="reelF" style="font-size:0.8rem; color:var(--accent); font-weight:600; margin-top:4px;"></p>
         </div>
         
         <!-- Record Button -->

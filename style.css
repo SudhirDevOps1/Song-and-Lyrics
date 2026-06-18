@@ -1,8 +1,7 @@
 /* ============================================
-   SONGVIBE v4 — Ultra Premium UI
-   Fixes: Overlap, Colorful Lyrics, Dropdowns
+   SONGVIBE v5 — Ultimate Pro
    ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bebas+Neue&family=Caveat&family=Cinzel&family=Comfortaa&family=Cormorant+Garamond&family=Dancing+Script&family=Dosis&family=EB+Garamond&family=Exo+2&family=Fira+Sans&family=Great+Vibes&family=Heebo&family=Hind&family=Inconsolata&family=Indie+Flower&family=Inter&family=Josefin+Sans&family=Jost&family=Kanit&family=Karla&family=Lato&family=Lobster&family=Lora&family=Manrope&family=Merriweather&family=Montserrat&family=Mukta&family=Nunito&family=Oswald&family=Outfit&family=Pacifico&family=Playfair+Display&family=Poppins&family=PT+Sans&family=PT+Serif&family=Quicksand&family=Raleway&family=Righteous&family=Roboto&family=Roboto+Condensed&family=Roboto+Mono&family=Roboto+Slab&family=Rubik&family=Space+Grotesk&family=Teko&family=Titillium+Web&family=Ubuntu&family=Varela+Round&family=Work+Sans&display=swap');
 
 :root {
     --bg-0: #030308;
@@ -85,6 +84,11 @@ body {
 .main {
     display:grid; grid-template-columns: 300px 1fr 340px;
     flex:1; min-height:0; /* Fixes overlap/expansion issues */
+}
+.main-content:fullscreen {
+    background: var(--bg-0);
+    /* Inherit the theme gradients if possible, or just solid black if they want it clean */
+    background: radial-gradient(circle at center, var(--bg-1) 0%, var(--bg-0) 100%);
 }
 
 /* ═══ SIDEBARS (Left & Right) ═══ */

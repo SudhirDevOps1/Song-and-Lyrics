@@ -18,7 +18,8 @@
 
     const npTitle     = $('#npTitle');
     const npArtist    = $('#npArtist');
-    const npImg       = $('#npImg');
+    const npFilm      = $('#npFilm');
+    const npArt       = $('#npArt');
     const nowPlaying  = $('.now-playing');
     const lyricsScroll = $('#lyricsScroll');
 
@@ -36,6 +37,8 @@
 
     const edTitle   = $('#edTitle');
     const edArtist  = $('#edArtist');
+    const edFilm    = $('#edFilm');
+    const edDetails = $('#edDetails');
     const edLyrics  = $('#edLyrics');
     const applyBtn  = $('#applyBtn');
 
@@ -45,9 +48,13 @@
     const reelWm    = $('#reelWm');
     const reelT     = $('#reelT');
     const reelA     = $('#reelA');
+    const reelF     = $('#reelF');
     const reelBtn   = $('#reelBtn');
     const reelX     = $('#reelX');
     const reelCanvas = $('#reelCanvas');
+
+    const fsBox     = $('#fsBox');
+    const fsBoxBtn  = $('#fsBoxBtn');
 
     const reelBgUpload = $('#reelBgUpload');
     const removeBgBtn  = $('#removeBgBtn');
@@ -230,7 +237,7 @@
         const reader = new FileReader();
         reader.onload = function(evt) {
             S.songs[S.idx].thumb = evt.target.result;
-            npImg.src = evt.target.result;
+            npArt.src = evt.target.result;
             saveToLocal(); renderList();
             toast('Thumbnail updated!');
         };
@@ -333,7 +340,7 @@
             b.addEventListener('click', e => {
                 e.stopPropagation(); const i = +b.dataset.rm;
                 S.songs.splice(i,1); saveToLocal();
-                if (S.idx===i) { pause(); S.idx=-1; npTitle.textContent='SongVibe'; npImg.src=''; }
+                if (S.idx===i) { pause(); S.idx=-1; npTitle.textContent='SongVibe'; npArt.src=''; }
                 else if (S.idx>i) S.idx--;
                 renderList();
             });
@@ -348,12 +355,13 @@
         const s = S.songs[i];
         npTitle.textContent = s.title;
         npArtist.textContent = s.artist;
-        npImg.src = s.thumb || '';
+        npFilm.textContent = (s.film ? s.film + ' ' : '') + (s.details ? `(${s.details})` : '');
+        npArt.src = s.thumb || '';
         
-        S.lyrics = s.lyrics || [];
-        S.lyricIdx = -1;
         edTitle.value = s.title; edArtist.value = s.artist;
-        if (s.lyrics.length) edLyrics.value = s.lyrics.map(l => `[${fmtStamp(l.time)}] ${l.text}`).join('\n');
+        edFilm.value = s.film || ''; edDetails.value = s.details || '';
+        S.lyrics = s.lyrics || [];
+        if (S.lyrics.length) edLyrics.value = S.lyrics.map(l => `[${fmtStamp(l.time)}] ${l.text}`).join('\n');
         else edLyrics.value = '';
         renderLyrics(); renderList();
 
@@ -444,6 +452,8 @@
             s.lyrics = S.lyrics;
             if (edTitle.value.trim()) s.title = edTitle.value.trim();
             if (edArtist.value.trim()) s.artist = edArtist.value.trim();
+            s.film = edFilm.value.trim();
+            s.details = edDetails.value.trim();
             saveToLocal(); loadSong(S.idx);
         }
         toast('Changes applied!');
@@ -454,11 +464,22 @@
         const ac = S.anim !== 'typewriter' ? `a-${S.anim}` : '';
         lyricsScroll.innerHTML = S.lyrics.map((l,i) => {
             const textContent = typeof l === 'string' ? l : (l.text || '');
-            if (S.anim === 'typewriter') {
-                const words = textContent.split(' ').map(w => `<span class="c">${esc(w)}</span>`).join(' ');
-                return `<div class="ll" data-i="${i}">${words}</div>`;
+            let colorStyle = '';
+            let finalTxt = textContent;
+            
+            // Extract custom inline colors like [red] or [#00ff00]
+            const colorMatch = textContent.match(/^\[(?:color:)?(#[a-fA-F0-9]{3,6}|[a-zA-Z]+)\]\s*(.*)/);
+            if (colorMatch) {
+                const col = colorMatch[1];
+                colorStyle = `style="--grad-text: ${col}; --accent-glow-2: ${col}; --accent-glow: ${col};"`;
+                finalTxt = colorMatch[2];
             }
-            return `<div class="ll ${ac}" data-i="${i}">${esc(textContent)}</div>`;
+
+            if (S.anim === 'typewriter') {
+                const words = finalTxt.split(' ').map(w => `<span class="c">${esc(w)}</span>`).join(' ');
+                return `<div class="ll" data-i="${i}" ${colorStyle}>${words}</div>`;
+            }
+            return `<div class="ll ${ac}" data-i="${i}" ${colorStyle}>${esc(finalTxt)}</div>`;
         }).join('');
 
         lyricsScroll.querySelectorAll('.ll').forEach(el => {
@@ -501,20 +522,32 @@
     }
 
     /* ═══ PILL BUTTONS UI HANDLERS ═══ */
-    function setupPills(containerId, stateKey, cb) {
-        const cont = $('#'+containerId);
-        if(!cont) return;
-        cont.querySelectorAll('.pill-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                cont.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                S[stateKey] = btn.dataset[stateKey.replace('lyrics','')];
-                if (cb) cb(btn.dataset[stateKey.replace('lyrics','')]);
+    function setupPills(id, key, cb) {
+        const el = $('#'+id);
+        if(!el) return;
+        el.querySelectorAll('.pill-btn').forEach(b => {
+            if(b.dataset[key]===S[key]) b.classList.add('active');
+            else b.classList.remove('active');
+            b.addEventListener('click', () => {
+                el.querySelectorAll('.pill-btn').forEach(x=>x.classList.remove('active'));
+                b.classList.add('active');
+                S[key] = b.dataset[key];
+                if(cb) cb(S[key]);
+                saveToLocal();
             });
         });
     }
 
-    setupPills('fontPills', 'lyricsFont', (v) => document.documentElement.style.setProperty('--font-lyrics', `'${v}', sans-serif`));
+    // Font Select
+    const fontSelect = $('#fontSelect');
+    if (fontSelect) {
+        fontSelect.value = S.lyricsFont;
+        fontSelect.addEventListener('change', (e) => {
+            S.lyricsFont = e.target.value;
+            document.documentElement.style.setProperty('--font-lyrics', `'${S.lyricsFont}', sans-serif`);
+            saveToLocal();
+        });
+    }
     setupPills('animPills', 'anim', () => { if(S.lyrics.length) renderLyrics(); });
     setupPills('speedPills', 'speed', () => {});
     setupPills('alignPills', 'align', (v) => { 
@@ -532,10 +565,20 @@
     
     $$('.pill-row .pill-btn[data-theme]').forEach(btn => {
         btn.addEventListener('click', () => {
-            btn.parentElement.querySelectorAll('.pill-btn').forEach(b=>b.classList.remove('active'));
-            btn.classList.add('active');
-            document.body.className = btn.dataset.theme !== 'neon' ? `th-${btn.dataset.theme}` : '';
+            document.body.className = '';
+            document.body.classList.add(`theme-${btn.dataset.theme}`);
+            saveToLocal();
         });
+    });
+
+    /* ═══ FULLSCREEN LYRICS BOX (FOR RECORDING) ═══ */
+    const mainContent = $('.main-content');
+    fsBoxBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            mainContent.requestFullscreen().catch(err => toast('Fullscreen failed: ' + err.message));
+        } else {
+            document.exitFullscreen();
+        }
     });
 
     sizeRange.addEventListener('input', () => document.documentElement.style.setProperty('--lyrics-size', sizeRange.value + 'rem'));
@@ -569,7 +612,9 @@
         if (S.idx<0) return toast('Pehle song load karo!');
         S.reel = true; reelEl.classList.add('on');
         const s = S.songs[S.idx];
-        reelT.textContent = s.title; reelA.textContent = s.artist; reelWm.textContent = '';
+        reelT.textContent = s.title; reelA.textContent = s.artist; 
+        reelF.textContent = (s.film ? s.film + ' ' : '') + (s.details ? `(${s.details})` : '');
+        reelWm.textContent = '';
         reelBody.innerHTML = lyricsScroll.innerHTML; // clone lyrics
         reelBody.style.textAlign = S.align;
         reelBody.style.justifyContent = S.pos;
