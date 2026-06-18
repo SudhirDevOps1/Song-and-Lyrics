@@ -83,7 +83,8 @@
         lyricsFont: 'Poppins',
         lyricsSize: 1.8,
         particleMode: 'normal',
-        glowLevel: 60,
+        anim: 'glowPulse',
+        speed: 'medium',
         align: 'center',
         pos: 'center',
         source: 'none' // 'yt' or 'local'
@@ -491,8 +492,8 @@
             const fontFamilyStr = isHindi ? `var(--font-hi, 'Yatra One', sans-serif)` : `var(--font-en, 'Poppins', sans-serif)`;
 
             if (S.anim === 'typewriter') {
-                const words = finalTxt.split(' ').map(w => `<span class="c">${esc(w)}</span>`).join(' ');
-                return `<div class="ll" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${words}</div>`;
+                const words = finalTxt.split(' ').map((w, wi) => `<span class="c" style="animation-delay: ${wi * 0.15}s">${esc(w)}</span>`).join(' ');
+                return `<div class="ll ${ac}" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${words}</div>`;
             }
             return `<div class="ll ${ac}" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${esc(finalTxt)}</div>`;
         }).join('');
@@ -621,6 +622,7 @@
     alignBtns.forEach(b => b.addEventListener('click', () => { 
         S.align = b.dataset.align; 
         setPillActive(alignBtns, S.align, 'align'); 
+        lyricsScroll.style.alignItems = S.align === 'left' ? 'flex-start' : (S.align === 'right' ? 'flex-end' : 'center');
         lyricsScroll.style.textAlign = S.align;
         // Adjust transform origin for animations based on alignment
         lyricsScroll.style.setProperty('--align-origin', S.align === 'left' ? 'left center' : (S.align === 'right' ? 'right center' : 'center center'));
@@ -629,7 +631,13 @@
     posBtns.forEach(b => b.addEventListener('click', () => { 
         S.pos = b.dataset.pos; 
         setPillActive(posBtns, S.pos, 'pos'); 
-        $('.lyrics-box').style.justifyContent = S.pos;
+        if (S.pos === 'flex-start') {
+            lyricsScroll.style.padding = '10vh 0 50vh 0';
+        } else if (S.pos === 'flex-end') {
+            lyricsScroll.style.padding = '50vh 0 10vh 0';
+        } else {
+            lyricsScroll.style.padding = '50vh 0';
+        }
     }));
 
     if (fontSelectEn) {
