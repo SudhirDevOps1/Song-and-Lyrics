@@ -89,7 +89,8 @@
             <section class="main-content">
                 <canvas id="particleCanvas" style="position:absolute; inset:0; z-index:0; pointer-events:none; width:100%; height:100%;"></canvas>
                 <!-- Now Playing Top -->
-                <div class="now-playing" style="z-index:1; position:relative;">
+                <div class="now-playing" style="z-index:1; position:relative; overflow:hidden;">
+                    <canvas id="audioWave" class="audio-wave" width="300" height="80"></canvas>
                     <div class="np-art">
                         <img class="np-img" id="npImg" src="" alt="" onerror="this.style.background='var(--grad)';this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';">
                         <div class="np-glow"></div>

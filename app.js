@@ -617,5 +617,57 @@
         });
         requestAnimationFrame(drawLoop);
     })();
+    /* ═══ AUDIO WAVE VISUALIZER ═══ */
+    const waveCanvas = document.getElementById('audioWave');
+    const waveCtx = waveCanvas.getContext('2d');
+    let waveTime = 0;
+    
+    (function drawWave() {
+        requestAnimationFrame(drawWave);
+        waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+        
+        // Only animate if playing
+        const isPlaying = document.body.classList.contains('playing');
+        
+        waveTime += isPlaying ? 0.05 : 0.005;
+        
+        const bars = 40;
+        const barWidth = waveCanvas.width / bars;
+        
+        // Get accent color from CSS variables
+        const accentStr = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#00d4ff';
+        waveCtx.fillStyle = accentStr;
+        
+        for (let i = 0; i < bars; i++) {
+            // Calculate a pseudo-random looking wave height using sine waves
+            let h = 5; // minimum height
+            
+            if (isPlaying) {
+                // Procedural generation of wave based on time and bar index
+                const noise1 = Math.sin(i * 0.5 + waveTime * 2);
+                const noise2 = Math.cos(i * 0.8 - waveTime * 3);
+                const noise3 = Math.sin(i * 0.2 + waveTime * 1.5);
+                
+                // Combine waves and add a bit of randomness
+                let magnitude = Math.abs(noise1 + noise2 + noise3) / 3;
+                
+                // Make the middle bars higher than the edges (bell curve)
+                const centerDist = 1 - Math.abs((i / bars) - 0.5) * 2;
+                magnitude = magnitude * Math.pow(centerDist, 0.5);
+                
+                h = 5 + (magnitude * 55); // Max height ~60
+            }
+            
+            // Draw rounded bar
+            const x = i * barWidth + (barWidth * 0.2);
+            const y = waveCanvas.height - h;
+            const w = barWidth * 0.6;
+            
+            waveCtx.beginPath();
+            waveCtx.roundRect(x, y, w, h, 3);
+            waveCtx.fill();
+        }
+    })();
+
 
 })();
