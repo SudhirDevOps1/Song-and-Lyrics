@@ -877,11 +877,13 @@
     }
 
     function startTutorial() {
+        document.body.classList.add('guided-active');
         overlay.classList.add('active');
         showTutStep(0);
     }
 
     function endTutorial() {
+        document.body.classList.remove('guided-active');
         overlay.classList.remove('active');
         tooltip.classList.remove('active');
         if (activeTarget) {
