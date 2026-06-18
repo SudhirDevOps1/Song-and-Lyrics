@@ -786,22 +786,123 @@
             if (guideStep > 1) guideStep--; else guideStep = maxSteps;
             updateGuide();
         });
+    /* ═══ INTERACTIVE GUIDED TUTORIAL ═══ */
+    const overlay = $('#guidedOverlay');
+    const tooltip = $('#guidedTooltip');
+    const gTitle = $('#guidedTitleText');
+    const gDesc = $('#guidedDescText');
+    const gStep = $('#guidedStepText');
+    const gArrow = $('#guidedArrow');
+    const gSkip = $('#guidedSkip');
+
+    const tutSteps = [
+        { 
+            target: '#animPills', 
+            title: 'Cinematic Animations', 
+            desc: 'Want your lyrics to bounce, fade, or pop? Click any animation here to test it instantly!', 
+            event: 'click' 
+        },
+        { 
+            target: '#themeBtns', 
+            title: 'Premium Themes', 
+            desc: 'Change the vibe of the entire player. Click on a Theme to see the magic!', 
+            event: 'click' 
+        },
+        { 
+            target: '#fontSelectHi', 
+            title: 'Stylish Fonts', 
+            desc: 'Change English or Hindi fonts. Try clicking and selecting a new Hindi Font!', 
+            event: 'change' 
+        }
+    ];
+
+    let currentStep = 0;
+    let activeHandler = null;
+    let activeTarget = null;
+
+    function posTooltip(targetEl) {
+        const rect = targetEl.getBoundingClientRect();
+        const tWidth = 280;
+        const tHeight = tooltip.offsetHeight || 150;
+        
+        // Try positioning to the left of the target (since target is in right sidebar)
+        let left = rect.left - tWidth - 30;
+        let top = rect.top + (rect.height / 2) - (tHeight / 2);
+        
+        gArrow.className = 'guided-arrow right';
+        
+        // Adjust if out of bounds vertically
+        if (top < 20) top = 20;
+        if (top + tHeight > window.innerHeight - 20) top = window.innerHeight - tHeight - 20;
+        
+        tooltip.style.left = left + 'px';
+        tooltip.style.top = top + 'px';
     }
 
-    /* ═══ TUTORIAL POPUP ═══ */
-    const tutPopup = $('#tutPopup');
-    const tutGotIt = $('#tutGotIt');
-    if (tutPopup && tutGotIt) {
-        if (!localStorage.getItem('songvibe_tut_done')) {
-            setTimeout(() => {
-                tutPopup.style.display = 'block';
-            }, 1500); // Show after 1.5s
+    function showTutStep(idx) {
+        if (idx >= tutSteps.length) { endTutorial(); return; }
+        
+        if (activeTarget) {
+            activeTarget.classList.remove('guided-highlight');
+            if (activeHandler) activeTarget.removeEventListener(tutSteps[currentStep-1].event, activeHandler);
         }
-        tutGotIt.addEventListener('click', () => {
-            tutPopup.style.display = 'none';
-            localStorage.setItem('songvibe_tut_done', 'true');
-        });
+
+        currentStep = idx;
+        const step = tutSteps[idx];
+        activeTarget = $(step.target);
+        
+        if (!activeTarget) { showTutStep(idx + 1); return; }
+        
+        gTitle.innerText = step.title;
+        gDesc.innerText = step.desc;
+        gStep.innerText = `${idx + 1} / ${tutSteps.length}`;
+        
+        activeTarget.classList.add('guided-highlight');
+        activeTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Reposition after scroll
+        setTimeout(() => {
+            posTooltip(activeTarget);
+            tooltip.classList.add('active');
+        }, 300);
+
+        activeHandler = () => {
+            tooltip.classList.remove('active');
+            setTimeout(() => showTutStep(idx + 1), 400);
+        };
+        
+        // Add event listener (capture phase to ensure we catch it on the parent container)
+        activeTarget.addEventListener(step.event, activeHandler, { once: true, capture: true });
     }
+
+    function startTutorial() {
+        overlay.classList.add('active');
+        showTutStep(0);
+    }
+
+    function endTutorial() {
+        overlay.classList.remove('active');
+        tooltip.classList.remove('active');
+        if (activeTarget) {
+            activeTarget.classList.remove('guided-highlight');
+            if (activeHandler) activeTarget.removeEventListener(tutSteps[currentStep].event, activeHandler);
+        }
+        localStorage.setItem('songvibe_tut_done_v2', 'true');
+    }
+
+    if (gSkip) gSkip.addEventListener('click', endTutorial);
+
+    // Start if not done
+    if (overlay && tooltip && !localStorage.getItem('songvibe_tut_done_v2')) {
+        setTimeout(startTutorial, 2000);
+    }
+
+    // Adjust tooltip on resize
+    window.addEventListener('resize', () => {
+        if (overlay && overlay.classList.contains('active') && activeTarget) {
+            posTooltip(activeTarget);
+        }
+    });
 
 
 

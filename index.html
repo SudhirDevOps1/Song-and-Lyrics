@@ -224,18 +224,7 @@
                     </div>
                 </div>
 
-                <div class="ed-field" style="position: relative;">
-                    <!-- TUTORIAL POPUP -->
-                    <div id="tutPopup" class="tut-popup" style="display: none;">
-                        <div class="tut-content">
-                            <h4>✨ Customize Anything!</h4>
-                            <p>Click on these settings to instantly change Fonts, Animations, Colors, and Layout.</p>
-                            <button id="tutGotIt" class="btn btn-primary" style="margin-top:8px; padding:6px 12px; font-size:0.7rem;">Got it!</button>
-                        </div>
-                        <div class="tut-arrow"></div>
-                    </div>
-
-                    <label class="ed-label">Cinematic Animations (22 Options)</label>
+                <div class="ed-field">
                     <div class="pill-row" id="animPills">
                         <button class="pill-btn" data-anim="typewriter">Type</button>
                         <button class="pill-btn" data-anim="fadeUpIn">Fade Up</button>
@@ -394,6 +383,20 @@ Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.</pre>
     </div>
 
     <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- GUIDED TUTORIAL OVERLAY -->
+    <div id="guidedOverlay" class="guided-overlay">
+        <button id="guidedSkip" class="guided-skip">Skip Tutorial</button>
+    </div>
+    <div id="guidedTooltip" class="guided-tooltip">
+        <div class="guided-title">✨ <span id="guidedTitleText">Step 1</span></div>
+        <div class="guided-desc" id="guidedDescText">Description goes here</div>
+        <div class="guided-action">
+            <span class="guided-step" id="guidedStepText">1 / 3</span>
+            <div style="font-size: 0.8rem; color: var(--accent); animation: breathe 1.5s infinite;">Click to proceed 👉</div>
+        </div>
+        <div id="guidedArrow" class="guided-arrow left"></div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
