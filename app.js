@@ -83,10 +83,9 @@
         lyricsFont: 'Poppins',
         lyricsSize: 1.8,
         particleMode: 'normal',
-        anim: 'glow',
-        speed: 'medium',
         align: 'center',
         pos: 'center',
+        bars: 40,
         source: 'none' // 'yt' or 'local'
     };
 
@@ -156,11 +155,28 @@
         renderList(); // update active icon
     }
 
+    let audioCtx, analyser, dataArray;
+    function initAudio() {
+        if(!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 256;
+            const src = audioCtx.createMediaElementSource(audioEl);
+            src.connect(analyser);
+            analyser.connect(audioCtx.destination);
+            dataArray = new Uint8Array(analyser.frequencyBinCount);
+        }
+    }
+
     function play() {
         if (S.idx < 0) return;
         try {
             if (S.source === 'yt' && yt) yt.playVideo();
-            else if (S.source === 'local') audioEl.play();
+            else if (S.source === 'local') {
+                if(!audioCtx) initAudio();
+                if(audioCtx.state === 'suspended') audioCtx.resume();
+                audioEl.play();
+            }
         } catch(e){}
     }
     
@@ -259,8 +275,13 @@
     });
 
     /* ═══ LOCAL STORAGE & JSON ═══ */
+    function savePrefs() {
+        localStorage.setItem('songvibe_prefs', JSON.stringify({
+            anim: S.anim, speed: S.speed, theme: S.theme, align: S.align, pos: S.pos, bars: S.bars, lyricsSize: S.lyricsSize
+        }));
+    }
+    
     function saveToLocal() { localStorage.setItem('songvibe_songs', JSON.stringify(S.songs)); }
-    function loadFromLocal() {
         try {
             const saved = localStorage.getItem('songvibe_songs');
             if (saved) {
@@ -614,38 +635,42 @@
         });
     }
 
-    animBtns.forEach(b => b.addEventListener('click', () => { S.anim = b.dataset.anim; setPillActive(animBtns, S.anim, 'anim'); renderLyrics(); }));
+    animBtns.forEach(b => b.addEventListener('click', () => { S.anim = b.dataset.anim; setPillActive(animBtns, S.anim, 'anim'); renderLyrics(); savePrefs(); }));
     
     speedBtns.forEach(b => b.addEventListener('click', () => { 
         S.speed = b.dataset.speed; 
         setPillActive(speedBtns, S.speed, 'speed'); 
         if (S.idx >= 0) {
-            // Re-parse the original text with new speed
             S.songs[S.idx].lyrics = parseLyrics(edLyrics.value);
             S.lyrics = S.songs[S.idx].lyrics;
             renderLyrics();
+            saveToLocal();
         }
+        savePrefs();
     }));
+
+    function applyVisuals() {
+        lyricsScroll.style.alignItems = S.align === 'left' ? 'flex-start' : (S.align === 'right' ? 'flex-end' : 'center');
+        lyricsScroll.style.textAlign = S.align;
+        lyricsScroll.style.setProperty('--align-origin', S.align === 'left' ? 'left center' : (S.align === 'right' ? 'right center' : 'center center'));
+        
+        if (S.pos === 'flex-start') lyricsScroll.style.padding = '10vh 0 50vh 0';
+        else if (S.pos === 'flex-end') lyricsScroll.style.padding = '50vh 0 10vh 0';
+        else lyricsScroll.style.padding = '50vh 0';
+    }
 
     alignBtns.forEach(b => b.addEventListener('click', () => { 
         S.align = b.dataset.align; 
         setPillActive(alignBtns, S.align, 'align'); 
-        lyricsScroll.style.alignItems = S.align === 'left' ? 'flex-start' : (S.align === 'right' ? 'flex-end' : 'center');
-        lyricsScroll.style.textAlign = S.align;
-        // Adjust transform origin for animations based on alignment
-        lyricsScroll.style.setProperty('--align-origin', S.align === 'left' ? 'left center' : (S.align === 'right' ? 'right center' : 'center center'));
+        applyVisuals();
+        savePrefs();
     }));
 
     posBtns.forEach(b => b.addEventListener('click', () => { 
         S.pos = b.dataset.pos; 
         setPillActive(posBtns, S.pos, 'pos'); 
-        if (S.pos === 'flex-start') {
-            lyricsScroll.style.padding = '10vh 0 50vh 0';
-        } else if (S.pos === 'flex-end') {
-            lyricsScroll.style.padding = '50vh 0 10vh 0';
-        } else {
-            lyricsScroll.style.padding = '50vh 0';
-        }
+        applyVisuals();
+        savePrefs();
     }));
 
     if (fontSelectEn) {
@@ -661,12 +686,52 @@
         });
     }
 
-    sizeRange.addEventListener('input', () => document.documentElement.style.setProperty('--lyrics-size', sizeRange.value + 'rem'));
+    sizeRange.addEventListener('input', () => {
+        S.lyricsSize = sizeRange.value;
+        document.documentElement.style.setProperty('--lyrics-size', S.lyricsSize + 'rem');
+        savePrefs();
+    });
+    
     glowRange.addEventListener('input', () => {
         const v = glowRange.value / 100;
         document.documentElement.style.setProperty('--accent-glow', `rgba(0,212,255,${(v*0.35).toFixed(2)})`);
         document.documentElement.style.setProperty('--accent-glow-2', `rgba(0,212,255,${(v*0.6).toFixed(2)})`);
     });
+
+    const waveRange = $('#waveRange');
+    if (waveRange) {
+        waveRange.addEventListener('input', () => {
+            S.bars = parseInt(waveRange.value);
+            savePrefs();
+        });
+    }
+
+    try {
+        const p = JSON.parse(localStorage.getItem('songvibe_prefs'));
+        if (p) {
+            if (p.anim) S.anim = p.anim;
+            if (p.speed) S.speed = p.speed;
+            if (p.theme) S.theme = p.theme;
+            if (p.align) S.align = p.align;
+            if (p.pos) S.pos = p.pos;
+            if (p.bars) S.bars = p.bars;
+            if (p.lyricsSize) S.lyricsSize = p.lyricsSize;
+            
+            setPillActive(animBtns, S.anim, 'anim');
+            setPillActive(speedBtns, S.speed, 'speed');
+            setPillActive(themePills, S.theme, 'theme');
+            setPillActive(alignBtns, S.align, 'align');
+            setPillActive(posBtns, S.pos, 'pos');
+            
+            if(waveRange) waveRange.value = S.bars || 40;
+            if(sizeRange) sizeRange.value = S.lyricsSize || 1.8;
+            
+            document.body.className = `theme-${S.theme}`;
+            document.documentElement.style.setProperty('--lyrics-size', S.lyricsSize + 'rem');
+            
+            applyVisuals();
+        }
+    } catch(e) {}
 
     /* ═══ USER GUIDE MODAL ═══ */
     let guideStep = 1;
@@ -762,43 +827,52 @@
         // Decay the spike rapidly for a natural beat drop effect
         waveSpike *= 0.92;
         
-        const bars = 40;
+        const bars = parseInt(S.bars || 40);
         const barWidth = waveCanvas.width / bars;
         
         // Get accent color from CSS variables
         const accentStr = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#00d4ff';
         waveCtx.fillStyle = accentStr;
         
-        for (let i = 0; i < bars; i++) {
-            let h = 5; // minimum height
-            
-            if (isPlaying) {
-                // Procedural generation of wave based on time and bar index
-                const noise1 = Math.sin(i * 0.5 + waveTime * 2);
-                const noise2 = Math.cos(i * 0.8 - waveTime * 3);
-                const noise3 = Math.sin(i * 0.2 + waveTime * 1.5);
-                
-                let magnitude = Math.abs(noise1 + noise2 + noise3) / 3;
-                
-                // Add the smart lyric spike! Randomize it slightly per bar so it looks like real audio frequencies
-                const localSpike = waveSpike * (0.5 + Math.random() * 0.8);
-                magnitude += localSpike;
-                
-                // Make the middle bars higher than the edges (bell curve)
-                const centerDist = 1 - Math.abs((i / bars) - 0.5) * 2;
-                magnitude = magnitude * Math.pow(centerDist, 0.5);
-                
-                h = 5 + (magnitude * 55); // Max height
+        if (S.source === 'local' && typeof analyser !== 'undefined' && isPlaying) {
+            analyser.getByteFrequencyData(dataArray);
+            const step = Math.max(1, Math.floor(dataArray.length / bars));
+            for (let i = 0; i < bars; i++) {
+                const val = dataArray[i * step] || 0;
+                let h = 5 + (val / 255) * 55; // Real frequency height
+                const x = i * barWidth + (barWidth * 0.2);
+                const y = waveCanvas.height - h;
+                const w = barWidth * 0.6;
+                waveCtx.beginPath();
+                waveCtx.roundRect(x, y, w, h, 3);
+                waveCtx.fill();
             }
-            
-            // Draw rounded bar
-            const x = i * barWidth + (barWidth * 0.2);
-            const y = waveCanvas.height - h;
-            const w = barWidth * 0.6;
-            
-            waveCtx.beginPath();
-            waveCtx.roundRect(x, y, w, h, 3);
-            waveCtx.fill();
+        } else {
+            for (let i = 0; i < bars; i++) {
+                let h = 5; // minimum height
+                
+                if (isPlaying) {
+                    const noise1 = Math.sin(i * 0.5 + waveTime * 2);
+                    const noise2 = Math.cos(i * 0.8 - waveTime * 3);
+                    const noise3 = Math.sin(i * 0.2 + waveTime * 1.5);
+                    
+                    let magnitude = Math.abs(noise1 + noise2 + noise3) / 3;
+                    const localSpike = waveSpike * (0.5 + Math.random() * 0.8);
+                    magnitude += localSpike;
+                    const centerDist = 1 - Math.abs((i / bars) - 0.5) * 2;
+                    magnitude = magnitude * Math.pow(centerDist, 0.5);
+                    
+                    h = 5 + (magnitude * 55);
+                }
+                
+                const x = i * barWidth + (barWidth * 0.2);
+                const y = waveCanvas.height - h;
+                const w = barWidth * 0.6;
+                
+                waveCtx.beginPath();
+                waveCtx.roundRect(x, y, w, h, 3);
+                waveCtx.fill();
+            }
         }
     })();
 
