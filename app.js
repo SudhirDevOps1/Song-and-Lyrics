@@ -441,6 +441,14 @@
         if (e.code==='Space') { e.preventDefault(); if(S.playing) pause(); else play(); }
         if (e.key==='ArrowRight') seekTo(getCurTime()+5);
         if (e.key==='ArrowLeft') seekTo(Math.max(0,getCurTime()-5));
+        if (e.key==='f' || e.key==='F') {
+            e.preventDefault();
+            if (!document.fullscreenElement) {
+                mainContent.requestFullscreen().catch(()=>{});
+            } else {
+                document.exitFullscreen();
+            }
+        }
     });
 
     /* ═══ LYRICS PARSING & SYNC ═══ */
