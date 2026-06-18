@@ -479,6 +479,13 @@ body.theme-neon { --bg-1: #000000; background: radial-gradient(circle at 50% 0%,
 .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: 0.3s; }
 .dot.active { background: var(--accent); box-shadow: 0 0 8px var(--accent-glow-2); transform: scale(1.2); }
 
+/* ═══ TUTORIAL POPUP ═══ */
+.tut-popup { position: absolute; top: 0px; left: -260px; width: 240px; background: rgba(10, 15, 30, 0.95); border: 2px solid var(--accent); border-radius: 12px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 20px var(--accent-glow); z-index: 1000; animation: bounceX 2s infinite; }
+.tut-content h4 { color: var(--accent); font-size: 0.9rem; margin-bottom: 6px; font-weight: 800; }
+.tut-content p { color: var(--text-1); font-size: 0.75rem; line-height: 1.4; }
+.tut-arrow { position: absolute; top: 20px; right: -12px; width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 10px solid var(--accent); }
+@keyframes bounceX { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-10px); } }
+
 .toast { position:fixed; bottom:28px; left:50%; transform:translate(-50%, 16px); padding:11px 22px; background:rgba(3,3,8,0.85); backdrop-filter:blur(20px); border:1px solid var(--border-accent); border-radius:var(--r); color:var(--text-1); font-size:0.82rem; font-weight:600; z-index:9999; opacity:0; transition:all 0.35s ease; pointer-events:none; }
 .toast.show { opacity:1; transform:translate(-50%, 0); }
 

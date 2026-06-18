@@ -788,6 +788,21 @@
         });
     }
 
+    /* ═══ TUTORIAL POPUP ═══ */
+    const tutPopup = $('#tutPopup');
+    const tutGotIt = $('#tutGotIt');
+    if (tutPopup && tutGotIt) {
+        if (!localStorage.getItem('songvibe_tut_done')) {
+            setTimeout(() => {
+                tutPopup.style.display = 'block';
+            }, 1500); // Show after 1.5s
+        }
+        tutGotIt.addEventListener('click', () => {
+            tutPopup.style.display = 'none';
+            localStorage.setItem('songvibe_tut_done', 'true');
+        });
+    }
+
 
 
 

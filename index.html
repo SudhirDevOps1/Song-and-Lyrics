@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="SongVibe — Premium Song Player with Local & YouTube Support">
     <title>SongVibe — Reel Maker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Poppins:wght@400;600;800&family=Hind:wght@400;600;700&family=Kalam:wght@400;700&family=Noto+Sans+Devanagari:wght@400;600;800&family=Yatra+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=Anton&family=Bebas+Neue&family=Caveat:wght@400;700&family=Cinzel:wght@400;700&family=Dancing+Script:wght@400;700&family=Eczar:wght@400;700&family=Hind:wght@400;600&family=Kalam:wght@400;700&family=Montserrat:wght@400;700;800&family=Mukta:wght@400;700&family=Outfit:wght@400;600;800&family=Oswald:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@400;600;800&family=Rozha+One&family=Syne:wght@400;700&family=Teko:wght@400;600&family=Tiro+Devanagari+Hindi:ital@0;1&family=Vesper+Libre:wght@400;700&family=Yatra+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-neon">
@@ -200,8 +200,11 @@
                             <option value="Playfair Display">Playfair Display</option>
                             <option value="Bebas Neue">Bebas Neue</option>
                             <option value="Dancing Script">Dancing Script</option>
-                            <option value="Space Grotesk">Space Grotesk</option>
+                            <option value="Anton">Anton</option>
                             <option value="Cinzel">Cinzel</option>
+                            <option value="Caveat">Caveat</option>
+                            <option value="Syne">Syne</option>
+                            <option value="Oswald">Oswald</option>
                         </select>
                     </div>
                     <div style="flex:1;">
@@ -210,16 +213,28 @@
                             <option value="Yatra One">Yatra One</option>
                             <option value="Kalam">Kalam</option>
                             <option value="Hind">Hind</option>
-                            <option value="Noto Sans Devanagari">Noto Sans Dev</option>
+                            <option value="Tiro Devanagari Hindi">Tiro Devanagari Hindi</option>
+                            <option value="Amita">Amita</option>
+                            <option value="Teko">Teko</option>
                             <option value="Rozha One">Rozha One</option>
-                            <option value="Rajdhani">Rajdhani</option>
                             <option value="Mukta">Mukta</option>
-                            <option value="Gotu">Gotu</option>
+                            <option value="Eczar">Eczar</option>
+                            <option value="Vesper Libre">Vesper Libre</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="ed-field">
+                <div class="ed-field" style="position: relative;">
+                    <!-- TUTORIAL POPUP -->
+                    <div id="tutPopup" class="tut-popup" style="display: none;">
+                        <div class="tut-content">
+                            <h4>✨ Customize Anything!</h4>
+                            <p>Click on these settings to instantly change Fonts, Animations, Colors, and Layout.</p>
+                            <button id="tutGotIt" class="btn btn-primary" style="margin-top:8px; padding:6px 12px; font-size:0.7rem;">Got it!</button>
+                        </div>
+                        <div class="tut-arrow"></div>
+                    </div>
+
                     <label class="ed-label">Cinematic Animations (22 Options)</label>
                     <div class="pill-row" id="animPills">
                         <button class="pill-btn" data-anim="typewriter">Type</button>
