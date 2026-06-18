@@ -483,7 +483,7 @@
             const colorMatch = textContent.match(/^\[(?:color:)?(#[a-fA-F0-9]{3,6}|[a-zA-Z]+)\]\s*(.*)/);
             if (colorMatch) {
                 const col = colorMatch[1];
-                colorStyle = `style="--grad-text: ${col}; --accent-glow-2: ${col}; --accent-glow: ${col};"`;
+                colorStyle = `style="color: ${col} !important; --grad-text: ${col}; --accent-glow-2: ${col}; --accent-glow: ${col};"`;
                 finalTxt = colorMatch[2];
             }
 
@@ -491,8 +491,8 @@
             const isHindi = /[\u0900-\u097F]/.test(finalTxt);
             const fontFamilyStr = isHindi ? `var(--font-hi, 'Yatra One', sans-serif)` : `var(--font-en, 'Poppins', sans-serif)`;
 
-            if (S.anim === 'typewriter') {
-                const words = finalTxt.split(' ').map((w, wi) => `<span class="c" style="transition-delay: ${wi * 0.15}s">${esc(w)}</span>`).join(' ');
+            if (S.anim === 'typewriter' || S.anim === 'wave') {
+                const words = finalTxt.split(' ').map((w, wi) => `<span class="c" style="transition-delay: ${S.anim === 'typewriter' ? wi * 0.15 : 0}s">${esc(w)}</span>`).join(' ');
                 return `<div class="ll ${ac}" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${words}</div>`;
             }
             return `<div class="ll ${ac}" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${esc(finalTxt)}</div>`;
