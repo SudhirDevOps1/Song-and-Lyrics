@@ -83,7 +83,7 @@
         lyricsFont: 'Poppins',
         lyricsSize: 1.8,
         particleMode: 'normal',
-        anim: 'glowPulse',
+        anim: 'glow',
         speed: 'medium',
         align: 'center',
         pos: 'center',
