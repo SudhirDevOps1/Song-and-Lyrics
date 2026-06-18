@@ -200,9 +200,9 @@ body {
     display:flex; flex-direction:column; gap:20px;
     padding:20px 16px; background: rgba(3,3,8,0.5);
     backdrop-filter: blur(12px);
-    min-height: 0; height: 100%;
+    min-height: 0;
 }
-.sidebar { border-right:1px solid var(--border); overflow: hidden; }
+.sidebar { border-right:1px solid var(--border); overflow-y: auto; overflow-x: hidden; }
 .editor { border-left:1px solid var(--border); overflow-y: auto; overflow-x: hidden; }
 
 .sec-label {
@@ -247,7 +247,7 @@ body {
 .url-btn:hover { transform:scale(1.05); box-shadow: 0 6px 20px var(--accent-glow-2); }
 
 /* Playlist */
-.song-list { display:flex; flex-direction:column; gap:6px; flex:1; overflow-y:auto; min-height: 0; padding-right: 4px; }
+.song-list { display:flex; flex-direction:column; gap:6px; height: 260px; overflow-y:auto; padding-right: 4px; border: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.15); border-radius: 12px; padding: 8px; flex-shrink: 0; }
 .song-card {
     display:flex; align-items:center; gap:12px; padding:10px 14px;
     border-radius:12px; cursor:pointer; transition:var(--tr);
