@@ -47,7 +47,8 @@
 
     const sizeRange     = $('#sizeRange');
     const glowRange     = $('#glowRange');
-    const fontSelect    = $('#fontPills'); // This is actually a select dropdown now
+    const fontSelectEn  = $('#fontSelectEn');
+    const fontSelectHi  = $('#fontSelectHi');
     const animBtns      = $$('#animPills .pill-btn');
     const speedBtns     = $$('#speedPills .pill-btn');
     const alignBtns     = $$('#alignPills .pill-btn');
@@ -472,11 +473,15 @@
                 finalTxt = colorMatch[2];
             }
 
+            // Custom Font Check: If line contains Hindi characters, use fontHi, else use fontEn
+            const isHindi = /[\u0900-\u097F]/.test(finalTxt);
+            const fontFamilyStr = isHindi ? `var(--font-hi, 'Yatra One', sans-serif)` : `var(--font-en, 'Poppins', sans-serif)`;
+
             if (S.anim === 'typewriter') {
                 const words = finalTxt.split(' ').map(w => `<span class="c">${esc(w)}</span>`).join(' ');
-                return `<div class="ll" data-i="${i}" ${colorStyle}>${words}</div>`;
+                return `<div class="ll" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${words}</div>`;
             }
-            return `<div class="ll ${ac}" data-i="${i}" ${colorStyle}>${esc(finalTxt)}</div>`;
+            return `<div class="ll ${ac}" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${esc(finalTxt)}</div>`;
         }).join('');
 
         lyricsScroll.querySelectorAll('.ll').forEach(el => {
@@ -614,10 +619,16 @@
         $('.lyrics-box').style.justifyContent = S.pos;
     }));
 
-    if (fontSelect) {
-        fontSelect.addEventListener('change', () => {
-            // For English use Outfit/Poppins, and use the selected font for Hindi/Custom
-            document.documentElement.style.setProperty('--lyrics-font', `"${fontSelect.value}", 'Poppins', sans-serif`);
+    if (fontSelectEn) {
+        fontSelectEn.addEventListener('change', () => {
+            document.documentElement.style.setProperty('--font-en', `"${fontSelectEn.value}", 'Poppins', sans-serif`);
+            if(S.lyrics.length) renderLyrics();
+        });
+    }
+    if (fontSelectHi) {
+        fontSelectHi.addEventListener('change', () => {
+            document.documentElement.style.setProperty('--font-hi', `"${fontSelectHi.value}", 'Yatra One', sans-serif`);
+            if(S.lyrics.length) renderLyrics();
         });
     }
 

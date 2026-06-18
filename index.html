@@ -78,13 +78,12 @@
                     Theme
                 </div>
                 <div class="pill-row" id="themePills">
-                    <button class="pill-btn active" data-theme="neon">Neon</button>
-                    <button class="pill-btn" data-theme="snow">Snow</button>
-                    <button class="pill-btn" data-theme="rose">Rose</button>
-                    <button class="pill-btn" data-theme="gold">Gold</button>
-                    <button class="pill-btn" data-theme="rainbow">Rainbow</button>
-                    <button class="pill-btn" data-theme="cyberpunk">Cyberpunk</button>
-                    <button class="pill-btn" data-theme="matrix">Matrix</button>
+                    <button class="pill-btn active" data-theme="midnight">Midnight Mesh</button>
+                    <button class="pill-btn" data-theme="sunset">Sunset Vibes</button>
+                    <button class="pill-btn" data-theme="ocean">Deep Ocean</button>
+                    <button class="pill-btn" data-theme="vaporwave">Vaporwave</button>
+                    <button class="pill-btn" data-theme="rosegold">Rose Gold</button>
+                    <button class="pill-btn" data-theme="neon">Neon Dark</button>
                 </div>
                 </div>
             </aside>
@@ -164,76 +163,60 @@
 [0:05] [color:red] Red line..."></textarea>
                 </div>
 
-                <div class="ed-field">
-                    <label class="ed-label">Lyrics Font (40+ Options)</label>
-                    <select class="input-base" id="fontSelect" style="padding: 10px; cursor: pointer;">
-                        <option value="Poppins">Poppins</option>
-                        <option value="Inter">Inter</option>
-                        <option value="Outfit">Outfit</option>
-                        <option value="Playfair Display">Playfair Display</option>
-                        <option value="Space Grotesk">Space Grotesk</option>
-                        <option value="Abril Fatface">Abril Fatface</option>
-                        <option value="Bebas Neue">Bebas Neue</option>
-                        <option value="Caveat">Caveat</option>
-                        <option value="Cinzel">Cinzel</option>
-                        <option value="Comfortaa">Comfortaa</option>
-                        <option value="Cormorant Garamond">Cormorant Garamond</option>
-                        <option value="Dancing Script">Dancing Script</option>
-                        <option value="Dosis">Dosis</option>
-                        <option value="EB Garamond">EB Garamond</option>
-                        <option value="Exo 2">Exo 2</option>
-                        <option value="Fira Sans">Fira Sans</option>
-                        <option value="Great Vibes">Great Vibes</option>
-                        <option value="Heebo">Heebo</option>
-                        <option value="Hind">Hind</option>
-                        <option value="Inconsolata">Inconsolata</option>
-                        <option value="Indie Flower">Indie Flower</option>
-                        <option value="Josefin Sans">Josefin Sans</option>
-                        <option value="Jost">Jost</option>
-                        <option value="Kanit">Kanit</option>
-                        <option value="Karla">Karla</option>
-                        <option value="Lato">Lato</option>
-                        <option value="Lobster">Lobster</option>
-                        <option value="Lora">Lora</option>
-                        <option value="Manrope">Manrope</option>
-                        <option value="Merriweather">Merriweather</option>
-                        <option value="Montserrat">Montserrat</option>
-                        <option value="Mukta">Mukta</option>
-                        <option value="Nunito">Nunito</option>
-                        <option value="Oswald">Oswald</option>
-                        <option value="Outfit">Outfit</option>
-                        <option value="Pacifico">Pacifico</option>
-                        <option value="PT Sans">PT Sans</option>
-                        <option value="PT Serif">PT Serif</option>
-                        <option value="Quicksand">Quicksand</option>
-                        <option value="Raleway">Raleway</option>
-                        <option value="Righteous">Righteous</option>
-                        <option value="Roboto">Roboto</option>
-                        <option value="Hind">Hind (Hindi)</option>
-                        <option value="Noto Sans Devanagari">Noto Sans (Hindi)</option>
-                        <option value="Yatra One">Yatra One (Hindi)</option>
-                        <option value="Kalam">Kalam (Hindi)</option>
-                        <option value="Roboto">Roboto</option>
-                        <option value="Roboto Condensed">Roboto Condensed</option>
-                        <option value="Roboto Mono">Roboto Mono</option>
-                        <option value="Roboto Slab">Roboto Slab</option>
-                        <option value="Rubik">Rubik</option>
-                        <option value="Teko">Teko</option>
-                        <option value="Titillium Web">Titillium Web</option>
-                        <option value="Ubuntu">Ubuntu</option>
-                        <option value="Varela Round">Varela Round</option>
-                        <option value="Work Sans">Work Sans</option>
-                    </select>
+                <div class="ed-field" style="display:flex; gap:10px;">
+                    <div style="flex:1;">
+                        <label class="ed-label">English Font</label>
+                        <select class="input-base" id="fontSelectEn" style="padding: 10px; cursor: pointer;">
+                            <option value="Poppins">Poppins</option>
+                            <option value="Outfit">Outfit</option>
+                            <option value="Montserrat">Montserrat</option>
+                            <option value="Playfair Display">Playfair Display</option>
+                            <option value="Bebas Neue">Bebas Neue</option>
+                            <option value="Dancing Script">Dancing Script</option>
+                            <option value="Space Grotesk">Space Grotesk</option>
+                            <option value="Cinzel">Cinzel</option>
+                        </select>
+                    </div>
+                    <div style="flex:1;">
+                        <label class="ed-label">Hindi Font</label>
+                        <select class="input-base" id="fontSelectHi" style="padding: 10px; cursor: pointer;">
+                            <option value="Yatra One">Yatra One</option>
+                            <option value="Kalam">Kalam</option>
+                            <option value="Hind">Hind</option>
+                            <option value="Noto Sans Devanagari">Noto Sans Dev</option>
+                            <option value="Rozha One">Rozha One</option>
+                            <option value="Rajdhani">Rajdhani</option>
+                            <option value="Mukta">Mukta</option>
+                            <option value="Gotu">Gotu</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="ed-field">
-                    <label class="ed-label">Animation Style</label>
+                    <label class="ed-label">Cinematic Animations (22 Options)</label>
                     <div class="pill-row" id="animPills">
                         <button class="pill-btn active" data-anim="typewriter">Type</button>
-                        <button class="pill-btn" data-anim="fade">Fade</button>
-                        <button class="pill-btn" data-anim="slide">Slide</button>
-                        <button class="pill-btn" data-anim="glow">Glow</button>
-                        <button class="pill-btn" data-anim="bounce">Pop</button>
+                        <button class="pill-btn" data-anim="fadeUpIn">Fade Up</button>
+                        <button class="pill-btn" data-anim="slideIn">Slide In</button>
+                        <button class="pill-btn" data-anim="popIn">Pop In</button>
+                        <button class="pill-btn" data-anim="blurDrop">Blur Drop</button>
+                        <button class="pill-btn" data-anim="focusIn">Focus In</button>
+                        <button class="pill-btn" data-anim="bounceUp">Bounce Up</button>
+                        <button class="pill-btn" data-anim="elastic">Elastic</button>
+                        <button class="pill-btn" data-anim="zoomOut">Zoom Out</button>
+                        <button class="pill-btn" data-anim="zoomIn">Zoom In</button>
+                        <button class="pill-btn" data-anim="flipX">Flip X</button>
+                        <button class="pill-btn" data-anim="flipY">Flip Y</button>
+                        <button class="pill-btn" data-anim="swing">Swing</button>
+                        <button class="pill-btn" data-anim="rotateIn">Rotate In</button>
+                        <button class="pill-btn" data-anim="trackingIn">Tracking In</button>
+                        <button class="pill-btn" data-anim="glitch">Glitch</button>
+                        <button class="pill-btn" data-anim="neonFlash">Neon Flash</button>
+                        <button class="pill-btn" data-anim="wave">Wave</button>
+                        <button class="pill-btn" data-anim="kenBurns">Ken Burns</button>
+                        <button class="pill-btn" data-anim="panRight">Pan Right</button>
+                        <button class="pill-btn" data-anim="jello">Jello</button>
+                        <button class="pill-btn" data-anim="glowPulse">Glow Pulse</button>
                     </div>
                 </div>
 
