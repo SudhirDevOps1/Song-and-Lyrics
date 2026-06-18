@@ -831,6 +831,24 @@
             title: 'Stylish Fonts', 
             desc: 'Change English or Hindi fonts. Try clicking and selecting a new Hindi Font!', 
             event: 'change' 
+        },
+        { 
+            target: '#speedField', 
+            title: 'Auto Timing Speed', 
+            desc: 'Control how fast your lyrics animate based on the song tempo. Click a speed to test!', 
+            event: 'click' 
+        },
+        { 
+            target: '#alignField', 
+            title: 'Text Alignment', 
+            desc: 'Center, Left, or Right? Align your lyrics exactly how you want them!', 
+            event: 'click' 
+        },
+        { 
+            target: '#posField', 
+            title: 'Vertical Position', 
+            desc: 'Shift the lyrics to the Top, Middle, or Bottom of the screen. Click to see the change!', 
+            event: 'click' 
         }
     ];
 
