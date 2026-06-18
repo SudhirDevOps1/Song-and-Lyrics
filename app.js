@@ -741,7 +741,7 @@
         waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
         
         // Only animate if playing
-        const isPlaying = document.body.classList.contains('playing');
+        const isPlaying = S.playing;
         
         waveTime += isPlaying ? 0.05 : 0.005;
         
