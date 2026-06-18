@@ -490,16 +490,26 @@ body.guided-active .app,
 body.guided-active .main,
 body.guided-active .editor,
 body.guided-active .sidebar,
-body.guided-active .center {
+body.guided-active .center,
+body.guided-active .ed-field {
     z-index: auto !important;
     backdrop-filter: none !important;
     transform: none !important;
     filter: none !important;
+    isolation: auto !important;
+    contain: none !important;
+    opacity: 1 !important;
+    position: static !important;
+    clip-path: none !important;
+    will-change: auto !important;
 }
 
-body.guided-active .editor, body.guided-active .sidebar { background: rgba(3,3,8,0.98) !important; }
+body.guided-active .editor, body.guided-active .sidebar { 
+    background: rgba(3,3,8,0.98) !important; 
+    overflow: visible !important;
+}
 
-.guided-highlight { position: relative !important; z-index: 10000 !important; pointer-events: auto !important; box-shadow: 0 0 0 4px var(--accent), 0 0 30px var(--accent-glow) !important; border-radius: 12px; background: rgba(20,20,35,0.95) !important; animation: pulseHighlight 2s infinite; padding: 10px !important; }
+body.guided-active .guided-highlight, .guided-highlight { position: relative !important; z-index: 10000 !important; pointer-events: auto !important; box-shadow: 0 0 0 4px var(--accent), 0 0 30px var(--accent-glow) !important; border-radius: 12px; background: rgba(20,20,35,0.95) !important; animation: pulseHighlight 2s infinite; padding: 10px !important; }
 
 .guided-tooltip { position: fixed; background: var(--bg-card); border: 2px solid var(--accent); border-radius: 16px; padding: 24px; box-shadow: 0 15px 40px rgba(0,0,0,0.8), 0 0 30px var(--accent-glow); z-index: 10001; width: 280px; opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateY(20px); }
 .guided-tooltip.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
