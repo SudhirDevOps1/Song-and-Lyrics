@@ -81,26 +81,6 @@
                 { "time": 174.0, "text": "" },
                 { "time": 176.0, "text": "Aaja Ve Aaja, Aaja Ve Aaja, Aaja Ve Aaja, Aaja Ve Aaja" }
             ]
-        },
-        {
-            "id": "song_tu_agar_meri",
-            "title": "Tu Agar Meri",
-            "artist": "SongVibe",
-            "youtubeUrl": "https://youtu.be/MxIEUzBJn8U",
-            "lyrics": [
-                { "time": 21.0, "text": "Tu agar meri ye hawaayein teri" },
-                { "time": 26.0, "text": "Tu agar meri saari raahein teri" },
-                { "time": 32.0, "text": "Tu agar meri main hoon tera" },
-                { "time": 36.0, "text": "Tu agar meri ye ujaale tere" },
-                { "time": 42.0, "text": "Tu agar meri dil hawaale tere" },
-                { "time": 47.0, "text": "Tu agar meri main hoon tera" },
-                { "time": 51.0, "text": "Betaab sa mohabbbat ka tu inqalab hai" },
-                { "time": 61.0, "text": "Mera jahan teri baahon mein khaab khaab hai" },
-                { "time": 65.0, "text": "Gehra hua, gehra hua" },
-                { "time": 74.0, "text": "Rang aashiqui, gehra hua" },
-                { "time": 85.0, "text": "Gehra hua, dariya dua" },
-                { "time": 96.0, "text": "Gehra hua, tera hua" }
-            ]
         }
     ]
 }

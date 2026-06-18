@@ -248,13 +248,9 @@
     function loadJSON() {
         fetch('data/songs.json?v=' + Date.now()).then(r => r.json()).then(d => {
             if (!d.songs) return;
-            let n = 0;
+            
+            const newSongs = [];
             d.songs.forEach(s => {
-                const id = vidId(s.youtubeUrl || '');
-                let existing = null;
-                if (id) existing = S.songs.find(x => x.videoId === id);
-                else existing = S.songs.find(x => x.title === s.title);
-                
                 let parsedLyrics = [];
                 if (Array.isArray(s.lyrics)) {
                     if (s.lyrics.length > 0 && typeof s.lyrics[0] === 'string') {
@@ -264,31 +260,36 @@
                     }
                 }
                 
-                if (existing) {
-                    existing.title = s.title || existing.title;
-                    existing.artist = s.artist || existing.artist;
-                    existing.lyrics = parsedLyrics;
-                } else {
-                    S.songs.push({
-                        id: 's' + Date.now() + Math.random().toString(36).slice(2,5),
-                        title: s.title || 'Untitled', artist: s.artist || 'Unknown',
-                        videoId: id, localUrl: null, thumb: id ? thumb(id) : '',
-                        lyrics: parsedLyrics,
-                    }); 
-                    n++;
-                }
+                const id = vidId(s.youtubeUrl || '');
+                newSongs.push({
+                    id: 's' + Date.now() + Math.random().toString(36).slice(2,5),
+                    title: s.title || 'Untitled', 
+                    artist: s.artist || 'Unknown',
+                    videoId: id, 
+                    localUrl: null, 
+                    thumb: id ? thumb(id) : '',
+                    lyrics: parsedLyrics,
+                });
             });
-            saveToLocal(); renderList(); 
-            if (n>0) toast(`${n} new songs loaded from JSON`);
-            else toast('Data synced with JSON!');
             
-            if (S.idx < 0 && S.songs.length > 0) loadSong(0);
-            else if (S.idx >= 0) {
+            S.songs = newSongs; // HARD SYNC
+            saveToLocal(); 
+            renderList(); 
+            toast('Data fully synced with JSON!');
+            
+            if (S.idx < 0 && S.songs.length > 0) {
+                loadSong(0);
+            } else if (S.idx >= 0) {
+                if (S.idx >= S.songs.length) S.idx = 0;
                 S.lyrics = S.songs[S.idx].lyrics;
                 if (S.lyrics.length) edLyrics.value = S.lyrics.map(l => `[${fmtStamp(l.time)}] ${l.text}`).join('\n');
                 renderLyrics();
+                loadSong(S.idx); // Reload completely to ensure UI updates
             }
-        }).catch(e => console.log('No JSON found', e));
+        }).catch(e => {
+            console.log('No JSON found or invalid JSON syntax', e);
+            toast('Error: Invalid JSON syntax in songs.json');
+        });
     }
 
     if (!window.YT) loadFromLocal(); // If YT blocked, load anyway
