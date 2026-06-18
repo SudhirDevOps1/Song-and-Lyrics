@@ -180,7 +180,7 @@ body {
 }
 
 /* ═══ CENTER PANEL ═══ */
-.center { display:flex; flex-direction:column; overflow:hidden; position:relative; min-width: 0; }
+.main-content { display:flex; flex-direction:column; overflow:hidden; position:relative; min-width: 0; }
 
 .now-playing { display:flex; align-items:center; gap:20px; padding:24px 36px; flex-shrink:0; }
 .np-art { position:relative; width:76px; height:76px; flex-shrink:0; }
