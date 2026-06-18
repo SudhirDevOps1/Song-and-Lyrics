@@ -81,6 +81,80 @@
                 { "time": 174.0, "text": "" },
                 { "time": 176.0, "text": "[#00ffcc] Aaja Ve Aaja, Aaja Ve Aaja, Aaja Ve Aaja, Aaja Ve Aaja" }
             ]
+        },
+        {
+            "id": "song_jeene_laga",
+            "title": "Jeene Laga Hoon",
+            "artist": "Ramaiya Vastavaiya",
+            "youtubeUrl": "https://youtu.be/qpIdoaaPa6U",
+            "lyrics": [
+                "[0:39.0] [#ff4444] Main mera dil aur tum ho yahan",
+                "[0:44.0] [#ff4444] Phir kyun ho palkein jhukayein wahan",
+                "[0:49.0] [#ff4444] Tum sa haseen maine dekha nahin",
+                "[0:54.0] [#ff4444] Tum isse pehle the jaane kahan",
+                "[1:00.0] [#44aaff] Jeene laga hoon pehle se zyada",
+                "[1:06.0] [#44aaff] Pehle se zyada tumpe marne laga",
+                "[1:40.0] [#ffaa00] Rehte ho aa ke jo, tum paas mere",
+                "[1:45.0] [#ffaa00] Tham jaye pal yeh wahin",
+                "[1:50.0] [#ffaa00] Bass main yeh sochun, sochun main",
+                "[1:55.0] [#ffaa00] Tham jaye pal yeh, paas mere jab ho tum",
+                "[2:03.0] [#aa44ff] Chalti hai saansein, pehle se zyada",
+                "[2:08.0] [#aa44ff] Dil theharne laga",
+                "[2:31.0] [#ff4444] Tanhaiyon mein tujhe dhoondhe mera dil",
+                "[2:36.0] [#ff4444] Har pal yeh tujhko hi soche bhala kyun",
+                "[2:41.0] [#ff4444] Tanhai mein dhoondhe tujhe dil",
+                "[2:46.0] [#ff4444] Har pal tujhko soche",
+                "[2:52.0] [#44aaff] Milne lage dil, pehle se zyada",
+                "[2:58.0] [#44aaff] Pehle se zyada, ishq hone laga"
+            ]
+        },
+        {
+            "id": "song_shararat",
+            "title": "Shararat",
+            "artist": "Madhubanti Bagchi, Jasmine Sandlas",
+            "youtubeUrl": "https://youtu.be/YyepU5ztLf4",
+            "lyrics": [
+                "[0:07.0] [#ff0066] Tune parda uthaaya, haaye kya baat ho gayi",
+                "[0:15.0] [#ff0066] Haaye, Ye mulakaat, vaardaat ho gayi",
+                "[0:28.0] [#00ffcc] Nain milaaye humne ik dooje se yoon",
+                "[0:36.0] [#00ffcc] Raat hui, Phir din, Phir se raat ho gayi",
+                "[1:02.0] [#ffcc00] Kachhi kali sadda maasoom chehra",
+                "[1:09.0] [#ffcc00] Neeyat noorani Sadda dil hai sunehra",
+                "[1:16.0] [#ff0066] Parde de peeche ki hai Kisnoo pata",
+                "[1:25.0] [#00ffcc] Ik afeemi main chaskha chakhaanwan",
+                "[1:32.0] [#00ffcc] Tennu shararat sikhaanwan, Jaddon naina ladaawan",
+                "[1:43.0] [#ffcc00] Naina ch mere ik neela samandar",
+                "[1:50.0] [#ffcc00] Iss samandar mein dubki lawaanwan",
+                "[1:57.0] [#ffcc00] Tennu shararat sikhaanwan, Jaddon naina ladaawan",
+                "[2:23.0] [#ff0066] Tum bhi ho tanha Aur hum akele",
+                "[2:27.0] [#ff0066] Jo saath huye laajawab ho gaye",
+                "[2:32.0] [#00ffcc] Tum bhi haseen aur hum aashqeen",
+                "[2:35.0] [#00ffcc] Jo raat huyi benaqaab ho gaye",
+                "[2:38.0] [#ffcc00] Mere labon pe saji surkhiyan",
+                "[2:41.0] [#ffcc00] Gulabi ye sharbat pilaanwan",
+                "[2:49.0] [#ff0066] Tennu shararat sikhaanwan, Jaddon naina ladaawan",
+                "[3:04.0] [#00ffcc] Naina ch mere ik neela samandar",
+                "[3:11.0] [#00ffcc] Iss samandar mein dubki lawaanwan",
+                "[3:18.0] [#00ffcc] Tennu shararat sikhaanwan, Jaddon naina ladaawan"
+            ]
+        },
+        {
+            "id": "song_pal_pal",
+            "title": "Pal Pal",
+            "artist": "Afusic",
+            "youtubeUrl": "https://youtu.be/8of5w7RgcTc",
+            "lyrics": [
+                "[0:17.0] [#ffaa00] पल पल जीना मुहाल मेरा तेरे बिना",
+                "[0:24.0] [#ffaa00] ये सारे नशे बेकार तेरी आंखों के सिवा",
+                "[0:32.0] [#ff3366] घर नहीं जाता मैं बाहर, रहता तेरा इंतज़ार",
+                "[0:39.0] [#ff3366] मेरे ख्वाबों में आना करके सोला सिंगार",
+                "[0:46.0] [#33ccff] मैं अब क्यों होश में आता नहीं",
+                "[0:49.0] [#33ccff] सुकून ये दिल क्यों पाता नहीं",
+                "[0:53.0] [#ffaa00] क्यों तोडूं खुद से जो थे वादे",
+                "[1:01.0] [#ffaa00] अब ये इश्क निभाना नहीं",
+                "[1:10.0] [#ff3366] सोनिया यूं तेरा शर्माना...",
+                "[1:20.0] [#ff3366] तेरी नजरें मुझसे क्या कहती हैं..."
+            ]
         }
     ]
 }
