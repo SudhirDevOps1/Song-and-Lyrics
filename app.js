@@ -111,7 +111,11 @@
             height: '1', width: '1',
             playerVars: { autoplay:0, controls:0, disablekb:1, fs:0, modestbranding:1, rel:0 },
             events: { 
-                onReady: () => { if(yt) yt.setVolume(S.vol); loadFromLocal(); }, 
+                onReady: () => { 
+                    if(yt) yt.setVolume(S.vol); 
+                    if (S.songs.length === 0) loadFromLocal();
+                    else if (S.idx >= 0 && S.source === 'yt') yt.loadVideoById(S.songs[S.idx].videoId);
+                },
                 onStateChange: onYtState,
                 onError: onYtError
             },
