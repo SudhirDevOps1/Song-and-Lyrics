@@ -106,6 +106,7 @@
     let ticker = null;
 
     window.onYouTubeIframeAPIReady = function () {
+        if (window.ytFallbackTimer) clearTimeout(window.ytFallbackTimer);
         ytOk = true;
         yt = new YT.Player('ytPlayer', {
             height: '1', width: '1',
@@ -267,6 +268,7 @@
                 if (Array.isArray(parsed) && parsed.length > 0) {
                     S.songs = parsed; renderList();
                     if (S.idx < 0) loadSong(0);
+                    return; // Return so we don't accidentally overwrite with loadJSON()
                 }
             }
         } catch (e) {}
@@ -321,7 +323,9 @@
         });
     }
 
-    if (!window.YT) loadFromLocal(); // If YT blocked, load anyway
+    window.ytFallbackTimer = setTimeout(() => {
+        if (!window.YT) loadFromLocal(); // If YT blocked or slow, load anyway
+    }, 3000);
 
     /* ═══ RENDER SONG LIST ═══ */
     function renderList() {
@@ -388,7 +392,7 @@
         } else if (s.videoId) {
             S.source = 'yt';
             audioEl.pause();
-            if (yt && yt.loadVideoById) { yt.loadVideoById(s.videoId); yt.pauseVideo(); }
+            if (yt && yt.cueVideoById) { yt.cueVideoById(s.videoId); }
         }
     }
 
