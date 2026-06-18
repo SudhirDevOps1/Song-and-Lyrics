@@ -39,9 +39,19 @@ Copy one of the prompts below based on your preferred language and paste it into
 **For Hinglish Lyrics (Recommended)**
 ```text
 Is YouTube video gaane ke pure lyrics Hinglish (English alphabet mein Hindi) mein nikal kar do. 
-Mujhe output ek valid JSON format mein chahiye, jisme "title", "artist", "youtubeUrl", aur "lyrics" ho.
-"lyrics" ek array of strings hona chahiye.
-Har string is format mein honi chahiye: "[M:SS.S] [#hexcolor] lyric text".
+Mujhe output ek valid JSON format mein chahiye, bilkul is example ki tarah:
+
+{
+    "id": "song_unique_id",
+    "title": "Song Title",
+    "artist": "Artist Name",
+    "youtubeUrl": "https://youtu.be/...",
+    "lyrics": [
+        "(0:21 - 0:35): [#00ffff] Tu agar meri ye hawayein teri",
+        "(0:36 - 0:50): [#ff00ff] Tu agar meri ye ujale tere"
+    ]
+}
+
 Gaane ke mood ke hisaab se har line ke liye alag alag vibrant HEX colors use karna (jaise #ff4444, #00ffcc, #ffaa00).
 Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.
 ```
@@ -49,9 +59,19 @@ Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.
 **For Pure Hindi Lyrics (Devanagari)**
 ```text
 Is YouTube video gaane ke pure lyrics Hindi font (Devanagari) mein nikal kar do. 
-Mujhe output ek valid JSON format mein chahiye, jisme "title", "artist", "youtubeUrl", aur "lyrics" ho.
-"lyrics" ek array of strings hona chahiye.
-Har string is format mein honi chahiye: "[M:SS.S] [#hexcolor] lyric text".
+Mujhe output ek valid JSON format mein chahiye, bilkul is example ki tarah:
+
+{
+    "id": "song_tu_agar_meri",
+    "title": "Tu Agar Meri",
+    "artist": "Arijit Singh",
+    "youtubeUrl": "https://youtu.be/GVizJ_jpUnw",
+    "lyrics": [
+        "(0:21 - 0:35): [#00ffff] तू अगर मेरी ये हवाएं तेरी",
+        "(0:36 - 0:50): [#ff00ff] तू अगर मेरी ये उजाले तेरे"
+    ]
+}
+
 Gaane ke mood ke hisaab se har line ke liye alag alag vibrant HEX colors use karna (jaise #ff4444, #00ffcc, #ffaa00).
 Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.
 ```
@@ -59,9 +79,19 @@ Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.
 **For English Lyrics**
 ```text
 Extract the full lyrics of this YouTube video song in English. 
-Provide the output as a valid JSON object containing "title", "artist", "youtubeUrl", and "lyrics".
-The "lyrics" must be an array of strings.
-Each string must follow this exact format: "[M:SS.S] [#hexcolor] lyric text".
+Provide the output as a valid JSON object, strictly following this example:
+
+{
+    "id": "song_unique_id",
+    "title": "Song Title",
+    "artist": "Artist Name",
+    "youtubeUrl": "https://youtu.be/...",
+    "lyrics": [
+        "(0:21 - 0:35): [#00ffff] If you are mine, these winds are yours",
+        "(0:36 - 0:50): [#ff00ff] If you are mine, this light is yours"
+    ]
+}
+
 Assign a different vibrant HEX color to each line based on the mood of the song (e.g., #ff4444, #00ffcc, #ffaa00).
 Output strictly a valid JSON block so I can copy and paste it directly.
 ```
