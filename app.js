@@ -869,7 +869,7 @@
         
         if (activeTarget) {
             activeTarget.classList.remove('guided-highlight');
-            if (activeHandler) activeTarget.removeEventListener(tutSteps[currentStep-1].event, activeHandler);
+            if (activeHandler) activeTarget.removeEventListener(tutSteps[currentStep].event, activeHandler, { capture: true });
         }
 
         currentStep = idx;
