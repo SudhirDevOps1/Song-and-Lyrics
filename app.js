@@ -86,7 +86,9 @@
         align: 'center',
         pos: 'center',
         bars: 40,
-        source: 'none' // 'yt' or 'local'
+        source: 'none', // 'yt' or 'local'
+        fontEn: 'Caveat',
+        fontHi: 'Amita'
     };
 
     const SPEED = { slow: 4, medium: 3, fast: 2 };
@@ -798,19 +800,19 @@
 
     const tutSteps = [
         { 
-            target: '#animPills', 
+            target: '#animField', 
             title: 'Cinematic Animations', 
             desc: 'Want your lyrics to bounce, fade, or pop? Click any animation here to test it instantly!', 
             event: 'click' 
         },
         { 
-            target: '#themePills', 
+            target: '#themeField', 
             title: 'Premium Themes', 
             desc: 'Change the vibe of the entire player. Click on a Theme to see the magic!', 
             event: 'click' 
         },
         { 
-            target: '#fontSelectHi', 
+            target: '#fontField', 
             title: 'Stylish Fonts', 
             desc: 'Change English or Hindi fonts. Try clicking and selecting a new Hindi Font!', 
             event: 'change' 
@@ -826,11 +828,18 @@
         const tWidth = 280;
         const tHeight = tooltip.offsetHeight || 150;
         
-        // Try positioning to the left of the target (since target is in right sidebar)
-        let left = rect.left - tWidth - 30;
-        let top = rect.top + (rect.height / 2) - (tHeight / 2);
+        let left, top;
+        top = rect.top + (rect.height / 2) - (tHeight / 2);
         
-        gArrow.className = 'guided-arrow right';
+        // If target is on the left half of screen, put tooltip on its right
+        if (rect.left < window.innerWidth / 2) {
+            left = rect.right + 30;
+            gArrow.className = 'guided-arrow left';
+        } else {
+            // Put tooltip on its left
+            left = rect.left - tWidth - 30;
+            gArrow.className = 'guided-arrow right';
+        }
         
         // Adjust if out of bounds vertically
         if (top < 20) top = 20;

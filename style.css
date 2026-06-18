@@ -497,7 +497,7 @@ body.guided-active .center {
     filter: none !important;
 }
 
-body.guided-active .editor { background: rgba(3,3,8,0.98) !important; }
+body.guided-active .editor, body.guided-active .sidebar { background: rgba(3,3,8,0.98) !important; }
 
 .guided-highlight { position: relative !important; z-index: 10000 !important; pointer-events: auto !important; box-shadow: 0 0 0 4px var(--accent), 0 0 30px var(--accent-glow) !important; border-radius: 12px; background: rgba(20,20,35,0.95) !important; animation: pulseHighlight 2s infinite; padding: 10px !important; }
 

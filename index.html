@@ -190,7 +190,7 @@
 [0:05] [color:red] Red line..."></textarea>
                 </div>
 
-                <div class="ed-field" style="display:flex; gap:10px;">
+                <div class="ed-field" style="display:flex; gap:10px;" id="fontField">
                     <div style="flex:1;">
                         <label class="ed-label">English Font</label>
                         <select class="input-base" id="fontSelectEn" style="padding: 10px; cursor: pointer;">
@@ -202,7 +202,7 @@
                             <option value="Dancing Script">Dancing Script</option>
                             <option value="Anton">Anton</option>
                             <option value="Cinzel">Cinzel</option>
-                            <option value="Caveat">Caveat</option>
+                            <option value="Caveat" selected>Caveat</option>
                             <option value="Syne">Syne</option>
                             <option value="Oswald">Oswald</option>
                         </select>
@@ -214,7 +214,7 @@
                             <option value="Kalam">Kalam</option>
                             <option value="Hind">Hind</option>
                             <option value="Tiro Devanagari Hindi">Tiro Devanagari Hindi</option>
-                            <option value="Amita">Amita</option>
+                            <option value="Amita" selected>Amita</option>
                             <option value="Teko">Teko</option>
                             <option value="Rozha One">Rozha One</option>
                             <option value="Mukta">Mukta</option>
@@ -224,7 +224,8 @@
                     </div>
                 </div>
 
-                <div class="ed-field">
+                <div class="ed-field" id="animField">
+                    <label class="ed-label">Cinematic Animations (22 Options)</label>
                     <div class="pill-row" id="animPills">
                         <button class="pill-btn" data-anim="typewriter">Type</button>
                         <button class="pill-btn" data-anim="fadeUpIn">Fade Up</button>
