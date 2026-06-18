@@ -282,6 +282,7 @@
     }
     
     function saveToLocal() { localStorage.setItem('songvibe_songs', JSON.stringify(S.songs)); }
+    function loadFromLocal() {
         try {
             const saved = localStorage.getItem('songvibe_songs');
             if (saved) {
