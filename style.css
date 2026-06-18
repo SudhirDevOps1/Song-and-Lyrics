@@ -199,10 +199,10 @@ body {
 .sidebar, .editor {
     display:flex; flex-direction:column; gap:20px;
     padding:20px 16px; background: rgba(3,3,8,0.5);
-    backdrop-filter: blur(12px); overflow-y:auto; overflow-x:hidden;
+    backdrop-filter: blur(12px);
 }
-.sidebar { border-right:1px solid var(--border); }
-.editor { border-left:1px solid var(--border); }
+.sidebar { border-right:1px solid var(--border); overflow: hidden; }
+.editor { border-left:1px solid var(--border); overflow-y: auto; overflow-x: hidden; }
 
 .sec-label {
     display:flex; align-items:center; gap:8px; font-size:0.75rem;
