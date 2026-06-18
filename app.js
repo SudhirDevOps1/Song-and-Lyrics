@@ -481,20 +481,10 @@
 
         lyricsScroll.querySelectorAll('.ll').forEach(el => {
             el.addEventListener('click', () => { 
-                scrollPause = true; clearTimeout(scrollTimer); scrollTimer = setTimeout(()=>scrollPause=false, 3000);
                 const i = +el.dataset.i; seekTo(S.lyrics[i].time); if(!S.playing)play(); 
             });
         });
     }
-
-    let scrollPause = false;
-    let scrollTimer = null;
-    lyricsScroll.addEventListener('wheel', () => {
-        scrollPause = true; clearTimeout(scrollTimer); scrollTimer = setTimeout(()=>scrollPause=false, 3000);
-    }, {passive:true});
-    lyricsScroll.addEventListener('touchstart', () => {
-        scrollPause = true; clearTimeout(scrollTimer); scrollTimer = setTimeout(()=>scrollPause=false, 3000);
-    }, {passive:true});
 
     function syncLyric(t) {
         if (!S.lyrics.length) return;
@@ -513,11 +503,8 @@
             if (i===ai) {
                 el.classList.add('active');
                 if (S.anim==='typewriter') chars.forEach((c,ci) => setTimeout(()=>c.classList.add('v'), ci*40));
-                
-                // Smart Auto Scroll
-                if (!scrollPause) {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
+                // Smart Auto Scroll (Aggressive Focus)
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else if (i<ai) {
                 el.classList.add('done');
                 chars.forEach(c=>c.classList.add('v'));
