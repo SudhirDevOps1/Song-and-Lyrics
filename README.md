@@ -13,6 +13,8 @@ This tool lets you sync, customize, and record breathtaking lyric videos nativel
 - **Dual Language Font Engine:** Automatically detects Hindi (`Yatra One`) and English (`Poppins`) characters in the same song and renders them with beautiful contrasting typography.
 - **Spotify-Style Real-time Typing:** Word-by-word karaoke-style text fill that syncs smoothly with the music cadence.
 - **Advanced Customization Panel:** Manual sliders for Lyrics Size, Neon Glow intensity, Alignment (Left/Center/Right), and Vertical Positioning (Top/Middle/Bottom).
+- **Responsive Smart Playlist:** The playlist automatically adapts its height from mobile sizes up to desktop, guaranteeing it never overlaps other elements, while enabling full sidebar scrolling for smaller screens.
+- **Zero-Delay Playback Engine:** Highly optimized background architecture eliminating YouTube API race conditions and DOM-reading delays, ensuring perfect frame rates and instant play/pause responses.
 - **YouTube Restriction Detector:** Seamlessly handles official YouTube videos that block embedding and alerts the user to use an alternative link.
 
 ---

@@ -21,3 +21,27 @@ This document tracks all the critical bugs that were identified and successfully
 ## 5. 🐛 Missing Keyframes for Advanced Animations
 **Issue:** When adding 22 new cinematic animations via `app.js`, the corresponding `@keyframes` were initially absent in `style.css`, causing the lyrics to stay permanently blurry/invisible.
 **Fix:** Generated and mapped 22 customized `@keyframes` (e.g., `fadeUpIn`, `glitch`, `kenBurns`) and integrated them into `style.css`.
+
+## 6. 🐛 Playlist Flexbox Collapse & Overlap
+**Issue:** On smaller screens, CSS Grid and Flexbox intrinsic sizing bugs caused the `Playlist` to collapse to 0 height (disappearing entirely) or overlap with the Theme labels.
+**Fix:** Refactored the left sidebar by adding explicit `min-height: 0` and `height: 100%` constraints to the Grid columns. Replaced the expanding `flex: 1` playlist with a `height: clamp(200px, 35vh, 500px)` fixed-height container and made the entire sidebar globally scrollable via `overflow-y: auto`.
+
+## 7. 🐛 Inline Custom Color Override Bug
+**Issue:** When users specified custom inline hex colors (e.g. `[#00ffff]`), the color failed to apply to non-typewriter animations because the `.ll.active` CSS rule explicitly enforced `color: var(--text-1)`.
+**Fix:** Updated the regex parser in `app.js` to inject `color: ${col} !important;` into the inline style tag, forcing the custom color to take precedence over the stylesheet.
+
+## 8. 🐛 Wave Animation Not Triggering
+**Issue:** The `wave` animation requires individual letters to be wrapped in `<span class="c">` to stagger the delay. The javascript only wrapped spans for the `typewriter` animation, breaking the `wave` animation completely.
+**Fix:** Expanded the condition in `app.js` to generate `<span>` elements if `S.anim === 'typewriter' || S.anim === 'wave'`.
+
+## 9. 🐛 YouTube API Race Condition & Playback Spam
+**Issue:** "Sometimes it plays, sometimes it doesn't." Immediate calls to `loadFromLocal()` raced against the async YouTube API initialization, causing videos to fail to load. Furthermore, rapid `loadVideoById -> pauseVideo -> playVideo` commands caused the iframe to drop requests and freeze.
+**Fix:** Introduced a `ytFallbackTimer` to cleanly wait for the YouTube API. Swapped `loadVideoById` with `cueVideoById` to silently buffer the video without triggering auto-play blocks.
+
+## 10. 🐛 Local Storage Data Wipe by JSON
+**Issue:** `loadFromLocal()` mistakenly called `loadJSON()` even after successfully loading local data, which then hard-synced and permanently overwrote the user's custom `localStorage` with `songs.json`.
+**Fix:** Added an explicit `return;` statement upon successfully parsing local storage to prevent the destructive fallback.
+
+## 11. 🐛 Audio Wave Visualizer Permanently Frozen
+**Issue:** The `requestAnimationFrame` loop for the Audio Wave visualizer checked `document.body.classList.contains('playing')`, but the `playing` class was applied to `.now-playing`, rendering `isPlaying` perpetually false.
+**Fix:** Replaced the expensive DOM lookup with a highly-performant direct state check (`S.playing`), restoring the reactive audio wave spikes and ambient visualizer movement.

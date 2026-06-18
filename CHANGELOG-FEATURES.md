@@ -45,3 +45,11 @@ This document highlights all the new professional features added to the SongVibe
 ## 10. 💊 Premium UI Elements
 - Replaced all ugly native HTML `<select>` dropdowns with customized `.pill-row` buttons.
 - Fully dynamic interaction; clicking a pill visually updates the active state and instantly applies the effect to the App state.
+
+## 11. 📱 Responsive Smart Playlist
+- Added dynamic `clamp()` calculation to the playlist container so it seamlessly adapts from 200px (mobile) to 35vh (desktop).
+- Implemented a robust global sidebar scroll to ensure the playlist never collapses on small screens while keeping all controls accessible.
+
+## 12. ⚡ Architectural Reliability & Visualizer
+- Overhauled YouTube's asynchronous IFrame loading sequence with a `fallbackTimer` to eliminate race conditions.
+- Upgraded the Audio Wave visualizer to bypass expensive DOM reads (`classList.contains`) in favor of direct Global State reads (`S.playing`), significantly boosting frame rates and unlocking the intelligent audio wave spikes.
