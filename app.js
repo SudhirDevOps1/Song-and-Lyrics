@@ -643,6 +643,9 @@
                 if (p.pos) S.pos = p.pos;
                 if (p.bars) S.bars = p.bars;
                 if (p.lyricsSize) S.lyricsSize = p.lyricsSize;
+                if (p.lyricsSize) S.lyricsSize = p.lyricsSize;
+                if (p.fontEn) S.fontEn = p.fontEn;
+                if (p.fontHi) S.fontHi = p.fontHi;
                 
                 setPillActive(animBtns, S.anim, 'anim');
                 setPillActive(speedBtns, S.speed, 'speed');
@@ -659,6 +662,18 @@
                 applyVisuals();
             }
         } catch(e) {}
+        
+        // Always apply fonts (whether from prefs or default)
+        const fontSelectEn = document.getElementById('fontSelectEn');
+        const fontSelectHi = document.getElementById('fontSelectHi');
+        if(fontSelectEn) {
+            fontSelectEn.value = S.fontEn || 'Caveat';
+            document.documentElement.style.setProperty('--font-en', `"${S.fontEn}", 'Poppins', sans-serif`);
+        }
+        if(fontSelectHi) {
+            fontSelectHi.value = S.fontHi || 'Amita';
+            document.documentElement.style.setProperty('--font-hi', `"${S.fontHi}", 'Yatra One', sans-serif`);
+        }
     }
 
     loadPrefs();
