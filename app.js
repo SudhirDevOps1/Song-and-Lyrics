@@ -625,6 +625,36 @@
         });
     }
 
+    function loadPrefs() {
+        try {
+            const p = JSON.parse(localStorage.getItem('songvibe_prefs'));
+            if (p) {
+                if (p.anim) S.anim = p.anim;
+                if (p.speed) S.speed = p.speed;
+                if (p.theme) S.theme = p.theme;
+                if (p.align) S.align = p.align;
+                if (p.pos) S.pos = p.pos;
+                if (p.bars) S.bars = p.bars;
+                if (p.lyricsSize) S.lyricsSize = p.lyricsSize;
+                
+                setPillActive(animBtns, S.anim, 'anim');
+                setPillActive(speedBtns, S.speed, 'speed');
+                setPillActive(themeBtns, S.theme, 'theme');
+                setPillActive(alignBtns, S.align, 'align');
+                setPillActive(posBtns, S.pos, 'pos');
+                
+                if(waveRange) waveRange.value = S.bars || 40;
+                if(sizeRange) sizeRange.value = S.lyricsSize || 1.8;
+                
+                document.body.className = `theme-${S.theme}`;
+                document.documentElement.style.setProperty('--lyrics-size', S.lyricsSize + 'rem');
+                
+                applyVisuals();
+            }
+        } catch(e) {}
+    }
+
+    loadPrefs();
     loadFromLocal();
 
     /* ═══ FULLSCREEN LYRICS BOX (FOR RECORDING) ═══ */
@@ -714,33 +744,6 @@
             savePrefs();
         });
     }
-
-    try {
-        const p = JSON.parse(localStorage.getItem('songvibe_prefs'));
-        if (p) {
-            if (p.anim) S.anim = p.anim;
-            if (p.speed) S.speed = p.speed;
-            if (p.theme) S.theme = p.theme;
-            if (p.align) S.align = p.align;
-            if (p.pos) S.pos = p.pos;
-            if (p.bars) S.bars = p.bars;
-            if (p.lyricsSize) S.lyricsSize = p.lyricsSize;
-            
-            setPillActive(animBtns, S.anim, 'anim');
-            setPillActive(speedBtns, S.speed, 'speed');
-            setPillActive(themePills, S.theme, 'theme');
-            setPillActive(alignBtns, S.align, 'align');
-            setPillActive(posBtns, S.pos, 'pos');
-            
-            if(waveRange) waveRange.value = S.bars || 40;
-            if(sizeRange) sizeRange.value = S.lyricsSize || 1.8;
-            
-            document.body.className = `theme-${S.theme}`;
-            document.documentElement.style.setProperty('--lyrics-size', S.lyricsSize + 'rem');
-            
-            applyVisuals();
-        }
-    } catch(e) {}
 
     /* ═══ USER GUIDE MODAL ═══ */
     let guideStep = 1;
