@@ -85,19 +85,28 @@
                     <button class="pill-btn" data-theme="vaporwave">Vaporwave</button>
                     <button class="pill-btn" data-theme="rosegold">Rose Gold</button>
                     <button class="pill-btn" data-theme="neon">Neon Dark</button>
-                </div>
-                </div>
+                <!-- Premium Footer Section -->
+                <div style="margin-top: 20px; padding: 14px; border-radius: var(--radius); background: var(--bg-glass); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; position: relative; overflow: hidden;">
+                    
+                    <!-- Background Glow -->
+                    <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 60%); opacity: 0.1; pointer-events: none;"></div>
 
-                <!-- Footer Section -->
-                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border); text-align: center; font-size: 0.75rem; color: var(--text-muted); flex-shrink: 0;">
-                    <div>Copyright &copy; 2026 <strong>Sudhir</strong></div>
-                    <div style="margin-top: 5px;">
-                        <a href="https://sudhirdevops1.pages.dev/" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">Know about me (Portfolio)</a>
+                    <!-- Branding & Copyright -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; z-index: 1;">
+                        <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px;">&copy; 2026 SONGVIBE</span>
+                        <span style="font-size: 0.85rem; font-weight: 800; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">By Sudhir</span>
                     </div>
-                    <div style="margin-top: 5px;">
-                        <a href="https://github.com/SudhirDevOps1/Song-and-Lyrics" target="_blank" style="color: var(--text-secondary); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 4px; transition: 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                            Star on GitHub
+
+                    <!-- Action Buttons -->
+                    <div style="display: flex; gap: 8px; z-index: 1;">
+                        <a href="https://sudhirdevops1.pages.dev/" target="_blank" style="flex: 1; text-decoration: none; padding: 8px 0; border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); color: var(--text-primary); font-size: 0.7rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.3s;" onmouseover="this.style.background='var(--bg-glass-hover)'; this.style.borderColor='var(--border-active)'; this.style.color='var(--accent)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.03)'; this.style.borderColor='var(--border)'; this.style.color='var(--text-primary)';">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            Portfolio
+                        </a>
+
+                        <a href="https://github.com/SudhirDevOps1/Song-and-Lyrics" target="_blank" style="flex: 1; text-decoration: none; padding: 8px 0; border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); color: var(--text-primary); font-size: 0.7rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.3s;" onmouseover="this.style.background='var(--bg-glass-hover)'; this.style.borderColor='var(--border-active)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.03)'; this.style.borderColor='var(--border)';">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                            Star Repo
                         </a>
                     </div>
                 </div>
