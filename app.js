@@ -552,16 +552,7 @@
         });
     }
 
-    // Font Select
-    const fontSelect = $('#fontSelect');
-    if (fontSelect) {
-        fontSelect.value = S.lyricsFont;
-        fontSelect.addEventListener('change', (e) => {
-            S.lyricsFont = e.target.value;
-            document.documentElement.style.setProperty('--font-lyrics', `'${S.lyricsFont}', sans-serif`);
-            saveToLocal();
-        });
-    }
+
     setupPills('animPills', 'anim', () => { if(S.lyrics.length) renderLyrics(); });
     setupPills('speedPills', 'speed', () => {});
     setupPills('alignPills', 'align', (v) => { 
