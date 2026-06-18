@@ -19,7 +19,7 @@
     const npTitle     = $('#npTitle');
     const npArtist    = $('#npArtist');
     const npFilm      = $('#npFilm');
-    const npArt       = $('#npArt');
+    const npArt       = $('#npImg');
     const nowPlaying  = $('.now-playing');
     const lyricsScroll = $('#lyricsScroll');
 
