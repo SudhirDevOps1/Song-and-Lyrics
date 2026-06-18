@@ -784,10 +784,9 @@
 
     if (btnGuide) {
         btnGuide.addEventListener('click', () => {
-            guideStep = 1;
-            updateGuide();
-            guideModal.style.display = 'flex';
-            setTimeout(() => guideModal.style.opacity = '1', 10);
+            // Remove the done flag so it can run again
+            localStorage.removeItem('songvibe_tut_done_v3');
+            startTutorial();
         });
         
         guideClose.addEventListener('click', () => {
@@ -930,15 +929,15 @@
         tooltip.classList.remove('active');
         if (activeTarget) {
             activeTarget.classList.remove('guided-highlight');
-            if (activeHandler) activeTarget.removeEventListener(tutSteps[currentStep].event, activeHandler);
+            if (activeHandler) activeTarget.removeEventListener(tutSteps[currentStep].event, activeHandler, { capture: true });
         }
-        localStorage.setItem('songvibe_tut_done_v2', 'true');
+        localStorage.setItem('songvibe_tut_done_v3', 'true');
     }
 
     if (gSkip) gSkip.addEventListener('click', endTutorial);
 
     // Start if not done
-    if (overlay && tooltip && !localStorage.getItem('songvibe_tut_done_v2')) {
+    if (overlay && tooltip && !localStorage.getItem('songvibe_tut_done_v3')) {
         setTimeout(startTutorial, 2000);
     }
 
