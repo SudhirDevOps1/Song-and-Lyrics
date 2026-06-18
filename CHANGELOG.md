@@ -1,19 +1,31 @@
-# Changelog
+# 📑 SongVibe Master Changelog
 
-All notable changes to the SongVibe Ultimate Pro project will be documented in this file.
+Welcome to the Master Changelog for **SongVibe Ultimate Pro**. This document provides a high-level overview of version history. For granular details, please see:
+- [Features Log](CHANGELOG-FEATURES.md)
+- [Bug Fixes Log](CHANGELOG-BUGS.md)
 
-## [Ultimate Pro Version] - 2026-06-18
+---
 
-### Added
-- **Massive Font Library**: Added 40+ trending Google Fonts (Poppins, Inter, Outfit, Dancing Script, etc.) via a clean dropdown selector.
-- **7-Color Rainbow Theme**: A new dynamic theme that flows 7 beautiful colors across the active lyrics.
-- **Per-Line Custom Colors**: Added syntax support `[color:red]` or `[#ff00ff]` directly in the lyrics editor to colorize specific lines.
-- **Fullscreen Recording Mode**: Added a dedicated Fullscreen button `[🔲]` to the main lyrics box. This allows the user to expand the core player UI (including the dynamic particle background) to fill the entire screen, making it perfect for clean screen recording (OBS/Game Bar) without the sidebars.
-- **Film & Extra Metadata**: Added inputs for "Film / Album" and "Extra Details" in the Editor. These details now beautifully display on the Now Playing screen.
-- **Visual Guide**: Added a comprehensive 8-step visual guide to `README.md` explaining how to extract time-synced lyrics from YouTube using Gemini.
+## [v5.0.0] - Ultimate Pro Upgrade
+**Major Overhaul & Enhancements**
+- **Dual Language Engine:** Integrated regex-based language detection (`/[\u0900-\u097F]/`) to dynamically apply distinct premium fonts (`Yatra One` for Hindi, `Poppins` for English) on a line-by-line basis.
+- **Cinematic Text Animations:** Added an entire suite of 22 modern `@keyframes` including Glitch, Ken Burns, Fade Up In, Pop In, Neon Flash, and Jello.
+- **Spotify Typewriter:** Reworked the Typewriter algorithm to render word-by-word via sequenced `transition-delay` inline variables, effectively creating a karaoke-like effect perfectly synced to the music.
+- **Original Glow Restored:** Brought back the beloved original `glow` animation from older builds and set it as the default animation.
+- **Premium Moving Gradients:** Transformed static backgrounds into animated radial gradients. Added Midnight Mesh, Deep Ocean, Sunset, Rose Gold, Vaporwave, and Spotify Green.
+- **Smart Alignment Flexbox:** Solved long-standing UI layout bugs where manual Top/Bottom/Left/Right alignments conflicted with the Auto-Center mode by dynamically altering Flexbox padding and `alignItems` through JavaScript.
+- **YouTube Error Catcher:** Added `onError` event handling to the YouTube IFrame API to catch copyright block codes (101/150) and notify users immediately.
 
-### Fixed
-- **CSS Layout Breakage**: Fixed a critical CSS issue where renaming `.center` to `.main-content` broke the flex layout, causing the player controls (Play, Pause, Progress Bar) to disappear off-screen.
-- **Blank Line Timestamp Interpolation**: Fixed a bug where empty lines in the lyrics editor were being deleted. The parser now intelligently preserves blank lines and automatically calculates/interpolates intermediate timestamps for them, creating perfect instrumental gaps.
-- **JSON Parsing Crash**: Bulletproofed the `localStorage` and `songs.json` parser to prevent fatal app crashes if lyrics were accidentally provided as raw strings instead of timestamped objects.
-- **Zero-Delay Sync**: Verified and optimized the `requestAnimationFrame` timing loop to guarantee 0-millisecond delay accuracy between the audio track and lyric highlighting.
+---
+
+## [v4.0.0] - Pro Production Build
+**Features**
+- **Reel Recording:** Added HTML5 `MediaRecorder` support for natively capturing video output in the browser.
+- **Custom Uploads:** Users can now upload their own `.mp4`/`.webm` or `.jpg`/`.png` backgrounds for absolute creative freedom.
+- **9:16 Aspect Ratio Lock:** Added a toggle to enforce mobile aspect ratios for desktop monitors, ensuring perfect recordings for Instagram and YouTube Shorts.
+- **Hybrid Player Engine:** Integrated an invisible HTML5 Audio instance alongside the YouTube API. Both use the unified progress slider and play buttons.
+- **Pill UI:** Replaced all `<select>` inputs with `.pill-row` multi-state buttons for an elegant premium feel.
+- **Built-in Guide:** Added a step-by-step modal guide detailing how to use Gemini to rip and sync lyrics directly from YouTube.
+
+---
+*Maintained by the SongVibe Development Team.*

@@ -1,23 +1,23 @@
-# 🛠️ Bugs Fixed (v4 & v5 Upgrade)
+# 🐛 Bugs Fixed (v5 Ultimate Pro)
 
-This document highlights the major bugs and layout issues resolved in the SongVibe application overhaul.
+This document tracks all the critical bugs that were identified and successfully resolved during the Ultimate Pro updates.
 
-## 1. 🐛 JSON "Live Fetch" Sync Bug
-**The Problem**: The app was previously bypassing the `songs.json` file if it found *any* existing data in the browser's `localStorage`. This meant that if the developer edited lyrics in the JSON file directly, users wouldn't see the updates without clearing their site data.
-**The Fix**: Rewrote the `loadJSON` logic. Now, on every load, the app fetches `songs.json` and intelligently merges it with `localStorage`. If a song already exists in the cache but its lyrics or metadata changed in the JSON file, the app updates the cached version automatically.
+## 1. 🐛 YouTube Embed Silently Failing
+**Issue:** If a user attempted to load a video restricted from embedding by copyright owners (like T-Series), the YouTube IFrame API silently failed without throwing a Javascript error. The app would appear frozen ("song hi nahi play ho raha hain").
+**Fix:** Added an `onError` listener (`onYtError`) to the IFrame API instantiation to specifically catch error codes 101 and 150. Now displays a clear, localized Toast message alerting the user to use a different link.
 
-## 2. 🐛 Editor Textarea Overlapping UI (Layout Crash)
-**The Problem**: The Lyrics Editor `<textarea>` was using `flex: 1` inside a container without strict bounds. When filled with long text, it pushed elements outside the screen and physically overlapped the "Animation Style" and "Lyrics Font" buttons, making them unclickable.
-**The Fix**: Removed the inline `flex` styles. Assigned a strict `height: 180px` and `resize: vertical` to the textarea. Wrapped the flex layout properly in CSS to ensure the editor column handles scrolling gracefully without overlapping its siblings.
+## 2. 🐛 Karaoke Typewriter Delay Desync
+**Issue:** When changing the `.a-typewriter` logic to animate word-by-word, using `animation-delay` did not work because the `.c` elements animate via CSS `transition`, not `@keyframes`.
+**Fix:** Switched inline CSS from `animation-delay` to `transition-delay: ${wi * 0.15}s`, ensuring perfectly synchronized Spotify-style typing over the track.
 
-## 3. 🐛 Malformed SVG Error Injection
-**The Problem**: If a YouTube thumbnail or local image failed to load, the `onerror` fallback string attempted to inject a raw SVG (`ICO.music`). The double-quotes within the SVG conflicted with the `onerror` attribute, breaking the HTML structure and rendering raw `'">` text alongside a massive broken icon across the screen.
-**The Fix**: Escaped the JS string interpolation properly and replaced the raw SVG injection with a simple, safe text emoji fallback (`🎵`) within a correctly encapsulated `<div>`.
+## 3. 🐛 Vertical Position & Alignment Override
+**Issue:** Because `.lyrics-scroll` was wrapped in a Flexbox container with `padding: 50vh 0` (for auto-scroll centering), clicking manual `Vertical Position (Top/Bottom)` or `Alignment (Left/Right)` did not properly align the lyrics to the edges.
+**Fix:** Added explicit logic in `app.js` to modify `.lyrics-scroll.style.alignItems` and dynamically recalculate `padding` (e.g. `10vh 0 50vh 0` for Top) when the user clicks the pill buttons.
 
-## 4. 🐛 General UI Bleed & Responsiveness
-**The Problem**: The central lyrics display box bled out of its container on smaller screens.
-**The Fix**: Applied strict `min-height: 0` limiters on the grid containers and proper `overflow-y: auto` to ensure scrollbars appear inside the containers rather than pushing the entire layout off-screen.
+## 4. 🐛 Local Storage Syncing Collision
+**Issue:** If a user reloaded the page before explicitly clicking "Reload JSON", the app would load old state variables from `localStorage` but fail to sync with the new string-based `lyrics` arrays added to `songs.json`.
+**Fix:** Hardened the Regex parser in `loadJSON()` so it seamlessly evaluates both string arrays and pre-parsed objects, ensuring smooth backward compatibility.
 
-## 5. 🐛 Typewriter Animation Wrapping
-**The Problem**: The previous typewriter animation split text by character (`c`). If a long word reached the end of the line mid-animation, it would break the word in half.
-**The Fix**: Changed the JS parser to split text by spaces (`w`), wrapping entire words in `<span>` tags. The animation now flows smoothly and respects standard word-wrapping rules.
+## 5. 🐛 Missing Keyframes for Advanced Animations
+**Issue:** When adding 22 new cinematic animations via `app.js`, the corresponding `@keyframes` were initially absent in `style.css`, causing the lyrics to stay permanently blurry/invisible.
+**Fix:** Generated and mapped 22 customized `@keyframes` (e.g., `fadeUpIn`, `glitch`, `kenBurns`) and integrated them into `style.css`.

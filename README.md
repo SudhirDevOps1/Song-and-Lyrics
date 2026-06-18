@@ -5,6 +5,18 @@ This tool lets you sync, customize, and record breathtaking lyric videos nativel
 
 ---
 
+## 🚀 Production Features
+- **Smart Audio Wave Sync:** Procedural audio visualizer that perfectly bounces and syncs with the lyrics in real-time.
+- **Smart Auto-Scroll Focus:** The active lyric line is always dynamically centered on the screen. Manual scrolling is supported with a 3-second auto-resume timer.
+- **Cinematic Text Animations (22+ Options):** Choose from Typewriter, Fade Up, Slide In, Pop In, Blur Drop, Glitch, Neon Flash, Wave, Ken Burns, Glow Pulse, and many more.
+- **Premium Animated Themes:** Animated moving gradients for Midnight Mesh, Deep Ocean, Vaporwave, Sunset, Rose Gold, Neon Dark, and the classic Spotify Green.
+- **Dual Language Font Engine:** Automatically detects Hindi (`Yatra One`) and English (`Poppins`) characters in the same song and renders them with beautiful contrasting typography.
+- **Spotify-Style Real-time Typing:** Word-by-word karaoke-style text fill that syncs smoothly with the music cadence.
+- **Advanced Customization Panel:** Manual sliders for Lyrics Size, Neon Glow intensity, Alignment (Left/Center/Right), and Vertical Positioning (Top/Middle/Bottom).
+- **YouTube Restriction Detector:** Seamlessly handles official YouTube videos that block embedding and alerts the user to use an alternative link.
+
+---
+
 ## 📸 Step-by-Step Visual Guide (How to Use)
 
 Follow these simple steps to extract time-synced lyrics directly from YouTube using Gemini and play them in SongVibe!
@@ -40,17 +52,6 @@ In the right sidebar (Lyrics Editor), paste the lyrics you copied from Gemini in
 ### Step 8: Play and Enjoy!
 Click the **Play** button at the bottom of the screen. Your lyrics will perfectly sync with the music! You can now hit the Fullscreen button and record your Reel.
 ![Play video](img/step8.png)
-
----
-
-## 🚀 Production Features
-- **Smart Audio Wave Sync:** Procedural audio visualizer that perfectly bounces and syncs with the lyrics in real-time.
-- **Smart Auto-Scroll Focus:** The active lyric line is always dynamically centered on the screen. Manual scrolling is supported with a 3-second auto-resume timer.
-- **Cinematic Text Animations:** Choose from Typewriter, Fade, Slide, Pop, and Glow.
-- **Premium Animated Themes:** Animated moving gradients for Rose, Matrix, Cyberpunk, and Rainbow themes.
-- **Advanced Customization Panel:** Manual sliders for Lyrics Size, Neon Glow intensity, Alignment (Left/Center/Right), and Vertical Positioning.
-- **Interactive Guide:** Built-in modal carousel for onboarding.
-- **Multilingual Font Support:** Premium Google Fonts including Poppins, Outfit, Noto Sans Devanagari, and Kalam.
 
 ---
 *Built with ❤️ by SongVibe*
