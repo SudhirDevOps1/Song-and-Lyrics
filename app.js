@@ -563,13 +563,34 @@
         else reelEl.classList.remove('fmt-portrait');
     });
     
-    $$('.pill-row .pill-btn[data-theme]').forEach(btn => {
+    /* ═══ INITIALIZATION ═══ */
+    window.addEventListener('message', e => {
+        if (e.data.event === 'onReady') {
+            yt = new YT.Player('ytPlayer', { events: { 'onStateChange': onPlayerStateChange }});
+        }
+    });
+
+    /* ═══ THEME SWITCHER ═══ */
+    const themeBtns = document.querySelectorAll('.pill-btn[data-theme]');
+    themeBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            document.body.className = '';
-            document.body.classList.add(`theme-${btn.dataset.theme}`);
-            saveToLocal();
+            themeBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.body.className = 'theme-' + btn.dataset.theme;
+            localStorage.setItem('songvibe_theme', btn.dataset.theme);
         });
     });
+
+    // Restore Theme on Load
+    const savedTheme = localStorage.getItem('songvibe_theme');
+    if (savedTheme) {
+        document.body.className = 'theme-' + savedTheme;
+        themeBtns.forEach(b => {
+            b.classList.toggle('active', b.dataset.theme === savedTheme);
+        });
+    }
+
+    loadFromLocal();
 
     /* ═══ FULLSCREEN LYRICS BOX (FOR RECORDING) ═══ */
     const mainContent = $('.main-content');

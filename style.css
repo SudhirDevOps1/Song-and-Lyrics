@@ -30,6 +30,75 @@
     --lyrics-size: 1.8rem;
 }
 
+/* ═══ THEMES ═══ */
+body.theme-snow {
+    --bg-0: #e2e8f0; --bg-card: rgba(255,255,255,0.7);
+    --bg-glass: rgba(0,0,0,0.03); --bg-glass-2: rgba(0,0,0,0.05); --bg-glass-3: rgba(0,0,0,0.08);
+    --text-1: #0f172a; --text-2: #475569; --text-3: #94a3b8;
+    --accent: #3b82f6; --accent-glow: rgba(59,130,246,0.15); --accent-glow-2: rgba(59,130,246,0.3);
+    --grad: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+    --grad-text: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+    --border: rgba(0,0,0,0.06); --border-2: rgba(0,0,0,0.1); --border-accent: rgba(59,130,246,0.3);
+}
+
+body.theme-rose {
+    --bg-0: #1a0b16; --bg-card: rgba(43,18,36,0.65);
+    --text-1: #fff1f2; --text-2: #fda4af; --text-3: #e11d48;
+    --accent: #f43f5e; --accent-glow: rgba(244,63,94,0.15); --accent-glow-2: rgba(244,63,94,0.4);
+    --grad: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%);
+    --grad-text: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%);
+}
+
+body.theme-gold {
+    --bg-0: #11110b; --bg-card: rgba(25,25,10,0.65);
+    --text-1: #fefce8; --text-2: #fef08a; --text-3: #ca8a04;
+    --accent: #eab308; --accent-glow: rgba(234,179,8,0.15); --accent-glow-2: rgba(234,179,8,0.4);
+    --grad: linear-gradient(135deg, #eab308 0%, #f59e0b 100%);
+    --grad-text: linear-gradient(135deg, #eab308 0%, #f59e0b 100%);
+}
+
+body.theme-cyberpunk {
+    --bg-0: #0d0221; --bg-card: rgba(20,5,50,0.7);
+    --text-1: #00ffcc; --text-2: #ff00ff; --text-3: #5a005a;
+    --accent: #ff00ff; --accent-glow: rgba(255,0,255,0.2); --accent-glow-2: rgba(255,0,255,0.5);
+    --grad: linear-gradient(135deg, #00ffcc 0%, #ff00ff 100%);
+    --grad-text: linear-gradient(135deg, #00ffcc 0%, #ff00ff 100%);
+}
+
+body.theme-matrix {
+    --bg-0: #000000; --bg-card: rgba(0,20,0,0.8);
+    --text-1: #00ff00; --text-2: #00cc00; --text-3: #005500;
+    --accent: #00ff00; --accent-glow: rgba(0,255,0,0.15); --accent-glow-2: rgba(0,255,0,0.4);
+    --grad: linear-gradient(135deg, #00ff00 0%, #00aa00 100%);
+    --grad-text: linear-gradient(135deg, #00ff00 0%, #00aa00 100%);
+}
+
+/* ═══ SELECT DROPDOWN STYLE ═══ */
+select.input-base {
+    appearance: none; -webkit-appearance: none;
+    background-color: var(--bg-0); /* Dark background */
+    color: var(--text-1);
+    border: 1px solid var(--border-2);
+    padding: 10px 13px;
+    border-radius: var(--r-sm);
+    font-family: var(--font);
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239494b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 32px;
+}
+select.input-base option {
+    background-color: var(--bg-0);
+    color: var(--text-1);
+    padding: 10px;
+}
+select.input-base:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 8px var(--accent-glow);
+}
+
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html, body { height: 100%; overflow: hidden; }
 
