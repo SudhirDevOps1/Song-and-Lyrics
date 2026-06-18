@@ -274,14 +274,70 @@
 
     <!-- User Guide Modal -->
     <div id="guideModal" class="modal-overlay" style="display:none;">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 800px; max-height: 90vh; overflow-y: auto; padding: 30px;">
             <button class="modal-close" id="guideClose">&times;</button>
-            <div class="carousel-container">
+            <h2 style="margin-bottom: 20px; font-weight: 800; color: var(--text-primary);">Visual Guide</h2>
+            <div class="carousel-container" style="height: 300px;">
                 <button class="carousel-btn prev" id="guidePrev">&lt;</button>
-                <img id="guideImg" class="carousel-img" src="img/step1.png" alt="Guide Step">
+                <img id="guideImg" class="carousel-img" src="img/step1.png" alt="Guide Step" style="max-height: 100%; object-fit: contain;">
                 <button class="carousel-btn next" id="guideNext">&gt;</button>
             </div>
             <div class="carousel-dots" id="guideDots"></div>
+
+            <div style="margin-top: 40px; text-align: left; border-top: 1px solid var(--border); padding-top: 30px;">
+                <h2 style="margin-bottom: 15px; font-weight: 800; color: var(--accent);">Gemini Prompts (Click to Copy)</h2>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px;">Use these exact prompts in Gemini to get perfectly formatted, color-coded lyrics!</p>
+
+                <!-- Prompt 1 (Hinglish Style 1) -->
+                <div style="background: var(--bg-glass); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 20px; position: relative;">
+                    <div style="font-weight: 700; font-size: 0.8rem; color: var(--text-primary); margin-bottom: 10px;">Format Style 1: Hinglish with Bracket Arrays</div>
+                    <button class="btn-ghost" style="position: absolute; top: 15px; right: 15px; padding: 6px 12px; font-size: 0.75rem;" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000);">Copy</button>
+                    <pre style="font-size: 0.75rem; color: var(--text-secondary); white-space: pre-wrap; font-family: monospace;">Is YouTube video gaane ke pure lyrics Hinglish (English alphabet mein Hindi) mein nikal kar do. 
+Mujhe output ek valid JSON format mein chahiye, bilkul is example ki tarah:
+
+{
+    "id": "song_shararat",
+    "title": "Shararat",
+    "artist": "Madhubanti Bagchi, Jasmine Sandlas",
+    "youtubeUrl": "https://youtu.be/YyepU5ztLf4",
+    "lyrics": [
+        "[0:07.0] [#ff0066] Tune parda uthaaya, haaye kya baat ho gayi",
+        "[0:15.0] [#ff0066] Haaye, Ye mulakaat, vaardaat ho gayi",
+        "[0:28.0] [#00ffcc] Nain milaaye humne ik dooje se yoon",
+        "[0:36.0] [#00ffcc] Raat hui, Phir din, Phir se raat ho gayi",
+        "[1:02.0] [#ffcc00] Kachhi kali sadda maasoom chehra",
+        "[1:09.0] [#ffcc00] Neeyat noorani Sadda dil hai sunehra",
+        "[1:16.0] [#ff0066] Parde de peeche ki hai Kisnoo pata"
+    ]
+}
+
+Gaane ke mood ke hisaab se har line ke liye alag alag vibrant HEX colors use karna (jaise #ff4444, #00ffcc, #ffaa00).
+Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.</pre>
+                </div>
+
+                <!-- Prompt 2 (Hindi Style 2) -->
+                <div style="background: var(--bg-glass); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 20px; position: relative;">
+                    <div style="font-weight: 700; font-size: 0.8rem; color: var(--text-primary); margin-bottom: 10px;">Format Style 2: Pure Hindi with Time Ranges</div>
+                    <button class="btn-ghost" style="position: absolute; top: 15px; right: 15px; padding: 6px 12px; font-size: 0.75rem;" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000);">Copy</button>
+                    <pre style="font-size: 0.75rem; color: var(--text-secondary); white-space: pre-wrap; font-family: monospace;">Is YouTube video gaane ke pure lyrics Hindi font (Devanagari) mein nikal kar do. 
+Mujhe output ek valid JSON format mein chahiye, bilkul is example ki tarah:
+
+{
+    "id": "song_tu_agar_meri",
+    "title": "Tu Agar Meri",
+    "artist": "Arijit Singh",
+    "youtubeUrl": "https://youtu.be/GVizJ_jpUnw",
+    "lyrics": [
+        "(0:21 - 0:35): [#00ffff] तू अगर मेरी ये हवाएं तेरी, तू अगर मेरी सारी राहें तेरी, तू अगर मेरी मैं हूं तेरा",
+        "(0:36 - 0:50): [#ff00ff] तू अगर मेरी ये उजाले तेरे, तू अगर मेरी दिल हवाले तेरे, तू अगर मेरी मैं हूं तेरा",
+        "(0:51 - 1:05): [#ff9900] बेताब सा मोहब्बत का तू इंकलाब है, मेरा जहां तेरी बाहों में ख्वाब ख्वाब है"
+    ]
+}
+
+Gaane ke mood ke hisaab se har line ke liye alag alag vibrant HEX colors use karna (jaise #ff4444, #00ffcc, #ffaa00).
+Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.</pre>
+                </div>
+            </div>
         </div>
     </div>
 

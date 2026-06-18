@@ -63,6 +63,31 @@ Gaane ke mood ke hisaab se har line ke liye alag alag vibrant HEX colors use kar
 Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.
 ```
 
+**Alternative Style: Short Timestamps `[M:SS.S]`**
+```text
+Is YouTube video gaane ke pure lyrics Hinglish mein nikal kar do. 
+Mujhe output ek valid JSON format mein chahiye, bilkul is example ki tarah:
+
+{
+    "id": "song_shararat",
+    "title": "Shararat",
+    "artist": "Madhubanti Bagchi, Jasmine Sandlas",
+    "youtubeUrl": "https://youtu.be/YyepU5ztLf4",
+    "lyrics": [
+        "[0:07.0] [#ff0066] Tune parda uthaaya, haaye kya baat ho gayi",
+        "[0:15.0] [#ff0066] Haaye, Ye mulakaat, vaardaat ho gayi",
+        "[0:28.0] [#00ffcc] Nain milaaye humne ik dooje se yoon",
+        "[0:36.0] [#00ffcc] Raat hui, Phir din, Phir se raat ho gayi",
+        "[1:02.0] [#ffcc00] Kachhi kali sadda maasoom chehra",
+        "[1:09.0] [#ffcc00] Neeyat noorani Sadda dil hai sunehra",
+        "[1:16.0] [#ff0066] Parde de peeche ki hai Kisnoo pata"
+    ]
+}
+
+Gaane ke mood ke hisaab se har line ke liye alag alag vibrant HEX colors use karna (jaise #ff4444, #00ffcc, #ffaa00).
+Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.
+```
+
 **For Pure Hindi Lyrics (Devanagari)**
 ```text
 Is YouTube video gaane ke pure lyrics Hindi font (Devanagari) mein nikal kar do. 
