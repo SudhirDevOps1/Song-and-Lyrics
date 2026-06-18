@@ -74,7 +74,7 @@
         playing: false,
         lyrics: [],
         lyricIdx: -1,
-        anim: 'typewriter',
+        anim: 'glow',
         speed: 'medium',
         theme: 'neon',
         shuffle: false,
@@ -283,6 +283,7 @@
     
     function saveToLocal() { localStorage.setItem('songvibe_songs', JSON.stringify(S.songs)); }
     function loadFromLocal() {
+        if (S.songs.length > 0) return; // Prevent redundant loading
         try {
             const saved = localStorage.getItem('songvibe_songs');
             if (saved) {
@@ -728,8 +729,8 @@
     sizeRange.addEventListener('input', () => {
         S.lyricsSize = sizeRange.value;
         document.documentElement.style.setProperty('--lyrics-size', S.lyricsSize + 'rem');
-        savePrefs();
     });
+    sizeRange.addEventListener('change', () => savePrefs());
     
     glowRange.addEventListener('input', () => {
         const v = glowRange.value / 100;
@@ -741,8 +742,8 @@
     if (waveRange) {
         waveRange.addEventListener('input', () => {
             S.bars = parseInt(waveRange.value);
-            savePrefs();
         });
+        waveRange.addEventListener('change', () => savePrefs());
     }
 
     /* ═══ USER GUIDE MODAL ═══ */
