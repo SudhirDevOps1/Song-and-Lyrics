@@ -109,7 +109,11 @@
         yt = new YT.Player('ytPlayer', {
             height: '1', width: '1',
             playerVars: { autoplay:0, controls:0, disablekb:1, fs:0, modestbranding:1, rel:0 },
-            events: { onReady: () => { if(yt) yt.setVolume(S.vol); loadFromLocal(); }, onStateChange: onYtState },
+            events: { 
+                onReady: () => { if(yt) yt.setVolume(S.vol); loadFromLocal(); }, 
+                onStateChange: onYtState,
+                onError: onYtError
+            },
         });
     };
 
@@ -121,6 +125,15 @@
             setPlayState(false);
             if (S.repeat) { yt.seekTo(0); yt.playVideo(); } else doNext();
         }
+    }
+
+    function onYtError(e) {
+        if (e.data === 101 || e.data === 150) {
+            toast('🚫 YouTube Blocked: The owner has disabled embedding for this video.');
+        } else {
+            toast('⚠️ YouTube Error: Could not play video (' + e.data + ')');
+        }
+        setPlayState(false);
     }
 
     /* ═══ LOCAL AUDIO PLAYER ═══ */
