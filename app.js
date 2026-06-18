@@ -350,7 +350,7 @@
         songList.querySelectorAll('.song-card').forEach(el => {
             el.addEventListener('click', e => {
                 if (e.target.closest('.sc-del')) return;
-                loadSong(+el.dataset.i); play();
+                loadSong(+el.dataset.i, true);
             });
         });
         songList.querySelectorAll('.sc-del').forEach(b => {
@@ -365,7 +365,7 @@
     }
 
     /* ═══ LOAD SONG ═══ */
-    function loadSong(i) {
+    function loadSong(i, playNow = false) {
         if (i<0||i>=S.songs.length) return;
         pause();
         S.idx = i;
@@ -389,15 +389,19 @@
             if (yt) yt.pauseVideo();
             audioEl.src = s.localUrl;
             audioEl.load();
+            if (playNow) audioEl.play();
         } else if (s.videoId) {
             S.source = 'yt';
             audioEl.pause();
-            if (yt && yt.cueVideoById) { yt.cueVideoById(s.videoId); }
+            if (yt) { 
+                if (playNow && yt.loadVideoById) yt.loadVideoById(s.videoId);
+                else if (yt.cueVideoById) yt.cueVideoById(s.videoId); 
+            }
         }
     }
 
-    function doNext() { if(S.songs.length) { loadSong(S.shuffle ? Math.floor(Math.random()*S.songs.length) : (S.idx+1)%S.songs.length); play(); } }
-    function doPrev() { if(S.songs.length) { if(getCurTime()>3) { seekTo(0); } else { loadSong((S.idx-1+S.songs.length)%S.songs.length); play(); } } }
+    function doNext() { if(S.songs.length) { loadSong(S.shuffle ? Math.floor(Math.random()*S.songs.length) : (S.idx+1)%S.songs.length, true); } }
+    function doPrev() { if(S.songs.length) { if(getCurTime()>3) { seekTo(0); } else { loadSong((S.idx-1+S.songs.length)%S.songs.length, true); } } }
 
     /* ═══ CONTROLS ═══ */
     bPlay.addEventListener('click', toggle);
