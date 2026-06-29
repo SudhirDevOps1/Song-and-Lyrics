@@ -1423,14 +1423,21 @@
         const bars = parseInt(S.bars || 40);
         const barWidth = waveCanvas.width / bars;
         
-        // Premium Gradient
-        const c1 = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#00e5ff';
-        const c2 = getComputedStyle(document.body).getPropertyValue('--accent-2').trim() || '#7c4dff';
+        // Premium Dynamic & Colorful Gradient
+        const hueBase = (waveTime * 40) % 360;
         const grad = waveCtx.createLinearGradient(0, 0, waveCanvas.width, 0);
-        grad.addColorStop(0, c1);
-        grad.addColorStop(0.5, c2);
-        grad.addColorStop(1, c1);
+        grad.addColorStop(0, `hsl(${hueBase}, 100%, 65%)`);
+        grad.addColorStop(0.2, `hsl(${(hueBase + 40) % 360}, 100%, 55%)`);
+        grad.addColorStop(0.5, `hsl(${(hueBase + 80) % 360}, 100%, 50%)`);
+        grad.addColorStop(0.8, `hsl(${(hueBase + 120) % 360}, 100%, 55%)`);
+        grad.addColorStop(1, `hsl(${(hueBase + 160) % 360}, 100%, 65%)`);
+        
+        // Add a premium glowing neon shadow effect to ALL visualizers!
+        waveCtx.shadowBlur = 16;
+        waveCtx.shadowColor = `hsla(${(hueBase + 40) % 360}, 100%, 60%, 0.6)`;
+        
         waveCtx.fillStyle = grad;
+        waveCtx.strokeStyle = grad;
         
         let waveH = [];
         
@@ -1520,19 +1527,15 @@
             waveCtx.stroke();
             waveCtx.lineWidth = 1;
         } else if (S.waveType === 'retro') {
-            // Synthwave Hollow Lines + Glow
-            waveCtx.shadowBlur = 15;
-            waveCtx.shadowColor = c1;
+            // Synthwave Hollow Lines + Global Glow
             waveCtx.moveTo(0, waveCanvas.height / 2 - waveH[0]/2);
             for (let i = 1; i < bars; i++) {
                 const x = i * barWidth + (barWidth / 2);
                 const y = (waveCanvas.height / 2) - (waveH[i] / 2);
                 waveCtx.lineTo(x, y);
             }
-            waveCtx.lineWidth = 3;
-            waveCtx.strokeStyle = grad;
+            waveCtx.lineWidth = 4;
             waveCtx.stroke();
-            waveCtx.shadowBlur = 0;
             waveCtx.lineWidth = 1;
         } else {
             // Bars, Dots, DJ, Immersive
@@ -1568,10 +1571,16 @@
                     // Sparkles jumping off peaks
                     if (h > 20 && Math.random() > 0.7) {
                         waveCtx.beginPath();
-                        waveCtx.arc(x + w/2, y - Math.random() * 40 - 10, w/2, 0, Math.PI*2);
-                        waveCtx.fillStyle = c2;
+                        waveCtx.arc(x + w/2, y - Math.random() * 40 - 10, w/2 * (0.5 + Math.random()), 0, Math.PI*2);
+                        waveCtx.fillStyle = '#ffffff';
+                        waveCtx.shadowBlur = 25;
+                        waveCtx.shadowColor = '#ffffff';
                         waveCtx.fill();
-                        waveCtx.fillStyle = grad; // restore
+                        
+                        // Restore global gradient and glow
+                        waveCtx.fillStyle = grad;
+                        waveCtx.shadowBlur = 16;
+                        waveCtx.shadowColor = `hsla(${(hueBase + 40) % 360}, 100%, 60%, 0.6)`;
                     }
                 } else {
                     // Default bars
