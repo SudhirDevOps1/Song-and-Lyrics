@@ -9,6 +9,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-neon">
+    <!-- INITIAL FULLSCREEN LOADER -->
+    <div id="initialLoader" style="position:fixed; inset:0; z-index:999999; background:#050505; display:flex; flex-direction:column; align-items:center; justify-content:center; transition: opacity 0.8s ease, visibility 0.8s ease;">
+        <div style="width: 240px; height: 240px; display:grid; place-items:center;">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true" style="width:100%; height:100%; overflow:visible;">
+                <defs>
+                    <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ff4081" />
+                        <stop offset="100%" stop-color="#ff6e40" />
+                    </linearGradient>
+                </defs>
+                <g id="groupInitialLoader">
+                    <path id="pathInitialLoader" stroke="url(#pinkGrad)" stroke-linecap="round" stroke-linejoin="round" opacity="0.2"></path>
+                </g>
+            </svg>
+        </div>
+        <div style="margin-top:20px; font-weight:800; font-size:2rem; letter-spacing:4px; background: linear-gradient(135deg, #ff4081, #ff6e40); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: fadeInOut 1.5s infinite alternate;">SONGVIBE</div>
+    </div>
+
     <div class="app">
         <!-- HEADER -->
         <header class="header">

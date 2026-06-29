@@ -1197,7 +1197,7 @@
     })();
 
     /* ═══ HEART WAVE LOADER ═══ */
-    function initHeartWave() {
+    function initHeartWave(groupId, pathId) {
         const SVG_NS = 'http://www.w3.org/2000/svg';
         const config = {
             name: "Heart Wave",
@@ -1227,8 +1227,8 @@
             }
         };
         
-        const group = document.querySelector('#groupLoader');
-        const path = document.querySelector('#pathLoader');
+        const group = document.querySelector(groupId);
+        const path = document.querySelector(pathId);
         if (!group || !path) return;
         
         path.setAttribute('stroke-width', String(config.strokeWidth));
@@ -1280,6 +1280,17 @@
         }
         requestAnimationFrame(render);
     }
-    initHeartWave();
+    initHeartWave('#groupLoader', '#pathLoader');
+    initHeartWave('#groupInitialLoader', '#pathInitialLoader');
+
+    // Fade out initial loading screen after 2.5 seconds
+    setTimeout(() => {
+        const initL = document.getElementById('initialLoader');
+        if (initL) {
+            initL.style.opacity = '0';
+            initL.style.visibility = 'hidden';
+            setTimeout(() => { initL.style.display = 'none'; }, 850);
+        }
+    }, 2500);
 
 })();
