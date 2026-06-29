@@ -1874,25 +1874,78 @@
             }
 
             try {
-                // Request Screen + System Audio
+                // Request Screen + System Audio immediately on click (user gesture)
                 const stream = await navigator.mediaDevices.getDisplayMedia({
                     video: { frameRate: { ideal: 60, max: 60 } },
                     audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
                 });
 
-                // Check if audio was shared
+                // Prepare UI for layout calculation
+                const appContainer = document.querySelector('.app');
+                if (!mainContent.classList.contains('reels-mode') && !mainContent.classList.contains('tablet-mode')) {
+                    mainContent.classList.add('reels-mode'); // default to mobile if desktop
+                }
+                appContainer.classList.add('mobile-active');
+                document.body.classList.add('recording-active');
+
+                // Wait for CSS transitions/layout to settle before measuring
+                await new Promise(r => setTimeout(r, 150));
+
+                const isReels = mainContent.classList.contains('reels-mode') && !mainContent.classList.contains('tablet-mode');
+                const isTablet = mainContent.classList.contains('tablet-mode');
+                
+                let finalStream = stream;
+                let cropCanvas = null;
+                let cropCtx = null;
+                let cropVideo = null;
+                let animationFrameId = null;
+
+                // Smart Cropping Engine
+                if (isReels || isTablet) {
+                    cropVideo = document.createElement('video');
+                    cropVideo.srcObject = stream;
+                    cropVideo.muted = true;
+                    await cropVideo.play();
+
+                    cropCanvas = document.createElement('canvas');
+                    cropCtx = cropCanvas.getContext('2d', { alpha: false });
+                    
+                    const rect = mainContent.getBoundingClientRect();
+                    const scaleX = cropVideo.videoWidth / window.innerWidth;
+                    const scaleY = cropVideo.videoHeight / window.innerHeight;
+                    
+                    const cropX = rect.left * scaleX;
+                    const cropY = rect.top * scaleY;
+                    const cropW = rect.width * scaleX;
+                    const cropH = rect.height * scaleY;
+
+                    cropCanvas.width = cropW;
+                    cropCanvas.height = cropH;
+
+                    function drawCrop() {
+                        cropCtx.drawImage(cropVideo, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
+                        animationFrameId = requestAnimationFrame(drawCrop);
+                    }
+                    drawCrop();
+
+                    const canvasStream = cropCanvas.captureStream(60);
+                    finalStream = new MediaStream([
+                        ...canvasStream.getVideoTracks(),
+                        ...stream.getAudioTracks()
+                    ]);
+                }
+
                 const audioTracks = stream.getAudioTracks();
                 if (audioTracks.length === 0) {
                     alert("⚠️ IMPORTANT: You didn't check 'Share tab audio' in the popup! The video will be silent.");
                 }
 
                 recordedChunks = [];
-                // Use WebM with VP9/VP8, most reliable in browsers
                 const options = MediaRecorder.isTypeSupported('video/webm; codecs=vp9') 
                     ? { mimeType: 'video/webm; codecs=vp9', videoBitsPerSecond: 8000000 } 
                     : { mimeType: 'video/webm', videoBitsPerSecond: 5000000 };
                     
-                mediaRecorder = new MediaRecorder(stream, options);
+                mediaRecorder = new MediaRecorder(finalStream, options);
 
                 mediaRecorder.ondataavailable = (e) => {
                     if (e.data.size > 0) recordedChunks.push(e.data);
@@ -1904,6 +1957,14 @@
                     btnRecordReel.classList.remove('btn-recording');
                     btnRecordReel.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg> Record Reel';
                     
+                    // Clean up Cropping Engine
+                    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                    if (cropVideo) {
+                        cropVideo.srcObject = null;
+                        cropVideo.remove();
+                    }
+                    if (cropCanvas) cropCanvas.remove();
+
                     // Create Video Blob & Download
                     const blob = new Blob(recordedChunks, { type: 'video/webm' });
                     const url = URL.createObjectURL(blob);
@@ -1920,17 +1981,10 @@
                         window.URL.revokeObjectURL(url);
                     }, 1000);
                     
-                    // Stop tracks completely
+                    // Stop tracks
                     stream.getTracks().forEach(track => track.stop());
+                    finalStream.getTracks().forEach(track => track.stop());
                 };
-
-                // Prepare UI & Auto-play
-                const appContainer = document.querySelector('.app');
-                if (!mainContent.classList.contains('reels-mode') && !mainContent.classList.contains('tablet-mode')) {
-                    mainContent.classList.add('reels-mode');
-                }
-                appContainer.classList.add('mobile-active');
-                document.body.classList.add('recording-active');
 
                 // 3-Second Cinematic Countdown
                 const countdownOverlay = document.getElementById('countdownOverlay');
@@ -1957,13 +2011,11 @@
                     audioPlayer.play();
                 }
 
-                // Wait a tiny bit for video to start before recording frames
                 setTimeout(() => {
                     if (mediaRecorder.state !== 'inactive') return;
                     mediaRecorder.start();
                 }, 500);
 
-                // Stop recording if user manually stops screen share from browser UI "Stop sharing" button
                 stream.getVideoTracks()[0].onended = () => {
                     if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop();
                 };
