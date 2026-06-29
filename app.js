@@ -284,7 +284,7 @@
     /* ═══ LOCAL STORAGE & JSON ═══ */
     function savePrefs() {
         localStorage.setItem('songvibe_prefs', JSON.stringify({
-            anim: S.anim, speed: S.speed, theme: S.theme, align: S.align, pos: S.pos, bars: S.bars, lyricsSize: S.lyricsSize, fontEn: S.fontEn, fontHi: S.fontHi
+            anim: S.anim, speed: S.speed, theme: S.theme, align: S.align, pos: S.pos, bars: S.bars, lyricsSize: S.lyricsSize, fontEn: S.fontEn, fontHi: S.fontHi, glow: glowRange ? glowRange.value : 60
         }));
     }
     
@@ -613,21 +613,25 @@
     
 
 
-    /* ═══ THEME SWITCHER ═══ */
     const themeBtns = document.querySelectorAll('.pill-btn[data-theme]');
     themeBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             themeBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            document.body.className = 'theme-' + btn.dataset.theme;
+            // Remove old theme classes without wiping other classes like guided-active
+            document.body.classList.forEach(cls => { if(cls.startsWith('theme-')) document.body.classList.remove(cls); });
+            document.body.classList.add('theme-' + btn.dataset.theme);
+            S.theme = btn.dataset.theme;
             localStorage.setItem('songvibe_theme', btn.dataset.theme);
+            savePrefs();
         });
     });
 
     // Restore Theme on Load
     const savedTheme = localStorage.getItem('songvibe_theme');
     if (savedTheme) {
-        document.body.className = 'theme-' + savedTheme;
+        document.body.classList.forEach(cls => { if(cls.startsWith('theme-')) document.body.classList.remove(cls); });
+        document.body.classList.add('theme-' + savedTheme);
         themeBtns.forEach(b => {
             b.classList.toggle('active', b.dataset.theme === savedTheme);
         });
@@ -656,8 +660,17 @@
                 if(waveRange) waveRange.value = S.bars || 40;
                 if(sizeRange) sizeRange.value = S.lyricsSize || 1.8;
                 
-                document.body.className = `theme-${S.theme}`;
+                document.body.classList.forEach(cls => { if(cls.startsWith('theme-')) document.body.classList.remove(cls); });
+                document.body.classList.add(`theme-${S.theme}`);
                 document.documentElement.style.setProperty('--lyrics-size', S.lyricsSize + 'rem');
+                
+                // Restore glow
+                if (p.glow && glowRange) {
+                    glowRange.value = p.glow;
+                    const v = p.glow / 100;
+                    document.documentElement.style.setProperty('--accent-glow', `rgba(0,212,255,${(v*0.35).toFixed(2)})`);
+                    document.documentElement.style.setProperty('--accent-glow-2', `rgba(0,212,255,${(v*0.6).toFixed(2)})`);
+                }
                 
                 applyVisuals();
             }
@@ -734,14 +747,18 @@
 
     if (fontSelectEn) {
         fontSelectEn.addEventListener('change', () => {
+            S.fontEn = fontSelectEn.value;
             document.documentElement.style.setProperty('--font-en', `"${fontSelectEn.value}", 'Poppins', sans-serif`);
             if(S.lyrics.length) renderLyrics();
+            savePrefs();
         });
     }
     if (fontSelectHi) {
         fontSelectHi.addEventListener('change', () => {
+            S.fontHi = fontSelectHi.value;
             document.documentElement.style.setProperty('--font-hi', `"${fontSelectHi.value}", 'Yatra One', sans-serif`);
             if(S.lyrics.length) renderLyrics();
+            savePrefs();
         });
     }
 
