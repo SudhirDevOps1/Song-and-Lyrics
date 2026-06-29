@@ -323,28 +323,37 @@
     
     function saveToLocal() { localStorage.setItem('songvibe_songs', JSON.stringify(S.songs)); }
     function loadFromLocal() {
-        if (S.songs.length > 0) return; // Prevent redundant loading
+        let hasLocal = false;
         try {
             const saved = localStorage.getItem('songvibe_songs');
             if (saved) {
                 const parsed = JSON.parse(saved);
                 if (Array.isArray(parsed) && parsed.length > 0) {
-                    S.songs = parsed; renderList();
+                    S.songs = parsed;
+                    renderList();
                     if (S.idx < 0) loadSong(0);
-                    return; // Return so we don't accidentally overwrite with loadJSON()
+                    hasLocal = true;
                 }
             }
         } catch (e) {}
-        loadJSON(); // fallback
+        
+        // Always fetch live JSON to get any new songs added to the server
+        loadJSON(hasLocal);
     }
 
-    loadJsonBtn.addEventListener('click', loadJSON);
-    function loadJSON() {
+    if (loadJsonBtn) loadJsonBtn.addEventListener('click', () => loadJSON(false));
+    
+    function loadJSON(merge = false) {
         fetch('data/songs.json?v=' + Date.now()).then(r => r.json()).then(d => {
             if (!d.songs) return;
             
-            const newSongs = [];
+            let changed = false;
             d.songs.forEach(s => {
+                const songId = s.id || ('s_' + vidId(s.youtubeUrl||'') || Date.now());
+                
+                // If merging, skip if we already have this song ID
+                if (merge && S.songs.some(existing => existing.id === songId)) return;
+                
                 let parsedLyrics = [];
                 if (Array.isArray(s.lyrics)) {
                     if (s.lyrics.length > 0 && typeof s.lyrics[0] === 'string') {
@@ -355,20 +364,36 @@
                 }
                 
                 const id = vidId(s.youtubeUrl || '');
-                newSongs.push({
-                    id: 's' + Date.now() + Math.random().toString(36).slice(2,5),
+                const newSong = {
+                    id: songId,
                     title: s.title || 'Untitled', 
                     artist: s.artist || 'Unknown',
                     videoId: id, 
                     localUrl: null, 
                     thumb: id ? thumb(id) : '',
                     lyrics: parsedLyrics,
-                });
+                };
+                
+                if (merge) {
+                    S.songs.push(newSong);
+                } else {
+                    if (!S._tempNewSongs) S._tempNewSongs = [];
+                    S._tempNewSongs.push(newSong);
+                }
+                changed = true;
             });
             
-            S.songs = newSongs; // HARD SYNC
-            saveToLocal(); 
-            renderList(); 
+            if (!merge && S._tempNewSongs) {
+                S.songs = S._tempNewSongs;
+                S._tempNewSongs = null;
+                changed = true;
+            }
+            
+            if (changed) {
+                saveToLocal(); 
+                renderList();
+            }
+            
             toast('Data fully synced with JSON!');
             
             if (S.idx < 0 && S.songs.length > 0) {
@@ -627,7 +652,8 @@
     function syncLyric(t) {
         if (!S.lyrics.length) return;
         let ai = -1;
-        for (let i=S.lyrics.length-1; i>=0; i--) { if (t>=S.lyrics[i].time-0.1) { ai=i; break; } }
+        // Exact timing without early offset
+        for (let i=S.lyrics.length-1; i>=0; i--) { if (t >= S.lyrics[i].time) { ai = i; break; } }
         if (ai !== S.lyricIdx) {
             S.lyricIdx = ai;
             highlight(lyricsScroll, ai);
