@@ -201,7 +201,14 @@
             else if (S.source === 'local') {
                 if(!audioCtx) initAudio();
                 if(audioCtx.state === 'suspended') audioCtx.resume();
-                audioEl.play();
+                let p = audioEl.play();
+                if (p !== undefined) {
+                    p.catch(e => {
+                        toast('⚠️ Audio playback blocked or file missing');
+                        setPlayState(false);
+                        setLoading(false);
+                    });
+                }
             }
         } catch(e){}
     }
@@ -412,7 +419,12 @@
                 const title = S.songs[i].title;
                 confirmDialog(`Delete "${title}"?`, () => {
                     S.songs.splice(i,1); saveToLocal();
-                    if (S.idx===i) { pause(); S.idx=-1; npTitle.textContent='SongVibe'; npArt.src=''; }
+                    if (S.idx===i) { 
+                        pause(); S.idx=-1; 
+                        npTitle.textContent='SongVibe'; npArtist.textContent=''; npFilm.textContent=''; npArt.src='';
+                        S.lyrics = []; renderLyrics();
+                        progFill.style.width = '0%'; tCur.textContent = '0:00'; tTot.textContent = '0:00';
+                    }
                     else if (S.idx>i) S.idx--;
                     renderList();
                     toast('Song deleted');
