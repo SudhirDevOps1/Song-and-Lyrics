@@ -1146,40 +1146,48 @@
     
     (function drawWave() {
         requestAnimationFrame(drawWave);
+        
+        // Dynamically resize canvas to match its actual CSS size for high DPI crispness
+        if (waveCanvas.width !== waveCanvas.clientWidth || waveCanvas.height !== waveCanvas.clientHeight) {
+            waveCanvas.width = waveCanvas.clientWidth;
+            waveCanvas.height = waveCanvas.clientHeight;
+        }
+        
         waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
         
-        // Only animate if playing
         const isPlaying = S.playing;
-        
         waveTime += isPlaying ? 0.05 : 0.005;
         
-        // SMART SYNC: Spike the wave when a new lyric line is hit!
         if (isPlaying && S.lyricIdx !== lastWaveIdx && S.lyricIdx >= 0) {
             waveSpike = 1.0;
             lastWaveIdx = S.lyricIdx;
         }
-        
-        // Decay the spike rapidly for a natural beat drop effect
         waveSpike *= 0.92;
         
         const bars = parseInt(S.bars || 40);
         const barWidth = waveCanvas.width / bars;
         
-        // Get accent color from CSS variables
-        const accentStr = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#00d4ff';
-        waveCtx.fillStyle = accentStr;
+        // Premium Gradient
+        const c1 = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#00e5ff';
+        const c2 = getComputedStyle(document.body).getPropertyValue('--accent-2').trim() || '#7c4dff';
+        const grad = waveCtx.createLinearGradient(0, 0, waveCanvas.width, 0);
+        grad.addColorStop(0, c1);
+        grad.addColorStop(0.5, c2);
+        grad.addColorStop(1, c1);
+        waveCtx.fillStyle = grad;
         
         if (S.source === 'local' && typeof analyser !== 'undefined' && isPlaying) {
             analyser.getByteFrequencyData(dataArray);
             const step = Math.max(1, Math.floor(dataArray.length / bars));
             for (let i = 0; i < bars; i++) {
                 const val = dataArray[i * step] || 0;
-                let h = 5 + (val / 255) * 55; // Real frequency height
-                const x = i * barWidth + (barWidth * 0.2);
-                const y = waveCanvas.height - h;
+                let h = 5 + (val / 255) * (waveCanvas.height * 0.75); // Real frequency height
                 const w = barWidth * 0.6;
+                const x = i * barWidth + (barWidth * 0.2);
+                const y = (waveCanvas.height / 2) - (h / 2); // Centered vertically
+                
                 waveCtx.beginPath();
-                waveCtx.roundRect(x, y, w, h, 3);
+                waveCtx.roundRect(x, y, w, h, w/2);
                 waveCtx.fill();
             }
         } else {
@@ -1197,15 +1205,15 @@
                     const centerDist = 1 - Math.abs((i / bars) - 0.5) * 2;
                     magnitude = magnitude * Math.pow(centerDist, 0.5);
                     
-                    h = 5 + (magnitude * 55);
+                    h = 5 + (magnitude * (waveCanvas.height * 0.7)); // Scale dynamically
                 }
                 
-                const x = i * barWidth + (barWidth * 0.2);
-                const y = waveCanvas.height - h;
                 const w = barWidth * 0.6;
+                const x = i * barWidth + (barWidth * 0.2);
+                const y = (waveCanvas.height / 2) - (h / 2); // Centered vertically
                 
                 waveCtx.beginPath();
-                waveCtx.roundRect(x, y, w, h, 3);
+                waveCtx.roundRect(x, y, w, Math.max(h, 5), w/2);
                 waveCtx.fill();
             }
         }
