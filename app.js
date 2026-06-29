@@ -262,16 +262,18 @@
     /* ═══ TICKER & SYNC ═══ */
     function startTick() {
         stopTick();
-        ticker = setInterval(() => {
+        function tick() {
             const c = getCurTime() || 0;
             const d = getDuration() || 0;
             progFill.style.width = (d > 0 ? (c/d)*100 : 0) + '%';
             tCur.textContent = fmt(c);
             tTot.textContent = fmt(d);
             syncLyric(c);
-        }, 50);
+            ticker = requestAnimationFrame(tick);
+        }
+        ticker = requestAnimationFrame(tick);
     }
-    function stopTick() { if (ticker) { clearInterval(ticker); ticker = null; } }
+    function stopTick() { if (ticker) { cancelAnimationFrame(ticker); ticker = null; } }
 
     function vidId(url) {
         if (!url) return null;
