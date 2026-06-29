@@ -148,6 +148,9 @@
         else if (e.data === YT.PlayerState.BUFFERING) {
             setLoading(true);
         }
+        else if (e.data === YT.PlayerState.CUED || e.data === -1) {
+            setLoading(false);
+        }
     }
 
     function onYtError(e) {
