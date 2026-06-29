@@ -2011,9 +2011,9 @@
                 if (S.source === 'yt' && yt && typeof yt.seekTo === 'function') {
                     yt.seekTo(0);
                     yt.playVideo();
-                } else if (S.source === 'local' && audioPlayer) {
-                    audioPlayer.currentTime = 0;
-                    audioPlayer.play();
+                } else if (S.source === 'local' && audioEl) {
+                    audioEl.currentTime = 0;
+                    audioEl.play();
                 }
 
                 setTimeout(() => {
