@@ -1,17 +1,20 @@
-# 🎵 SongVibe Ultimate Pro (v7.0 Mobile Mockup Edition)
+# 🎵 SongVibe Ultimate Pro (v8.0 Professional Studio Edition)
 
 Welcome to **SongVibe Ultimate Pro** – The most advanced web-based Lyric Video & Reel Maker. 
-This tool lets you sync, customize, and record breathtaking lyric videos natively in your browser with zero delay.
+This tool lets you sync, customize, and natively record breathtaking lyric videos in your browser.
 
 ---
 
 ## 🚀 Production Features
+- **Native Video Export Engine:** Click "Record Reel" to natively capture your lyrics and audio into a high-quality `.webm` file using the Tab Capture API, complete with a cinematic 3-second countdown and auto-rewind logic. No external screen recorders needed!
+- **Multi-Device Hardware Mockups:** Choose between the classic **Mobile (9:16)** iPhone frame or the brand new wide **Tablet (3:4)** iPad frame to perfectly frame your exports for Reels, Shorts, Instagram Posts, and YouTube.
+- **60FPS GPU-Accelerated Engine:** A mathematically precise `requestAnimationFrame` loop combined with CSS `will-change: transform` hardware acceleration guarantees zero-lag scrolling and buttery smooth karaoke highlights.
+- **Ultra-Premium Glassmorphism UI:** Features deep `backdrop-filter: blur(30px)` panels, glowing semi-transparent borders, and soft shadows, delivering a true $100/mo SaaS aesthetic.
 - **Hyper-Realistic Mobile Device Mockup:** Activate Reels (9:16) mode to transform the viewport into a physical smartphone hardware frame, complete with CSS side buttons, a dynamic island, and a distraction-free auto-hiding sidebar!
 - **Premium Audio Spectrum Visualizers:** Switch between 5 industry-standard visualizers: Apple (Smooth Curve), DJ (Segmented), Radial (Circular), Retro (Hollow Synthwave), and Immersive (Bars + Particles), all backed by a dynamic time-shifting HSL neon gradient.
 - **LRCLib Auto-Fetch & Smart Sync:** Fetch perfectly synced lyrics via the LRCLib API in a single click, complete with an intelligent parser that instantly structures the data.
 - **Drag-to-Scrub Timeline:** Smooth mouse and touch drag scrubbing on the progress bar, executing instant `seekTo()` calls.
 - **Automated Duet Highlighting:** Any lyrics wrapped in `(parenthesis)` are instantly detected and rendered in a vibrant Rose Pink color to emulate duet styles.
-- **Heart Wave Loader:** Integrated a beautiful F(x) mathematical Heart Wave animated SVG loader that displays while YouTube videos buffer or load.
 - **Flawless Sync Precision:** Advanced polling architecture (50ms interval) completely eliminates visual latency, resulting in micro-second perfect karaoke-style synchronization.
 - **Premium Animated Themes:** Animated moving gradients for Midnight Mesh, Deep Ocean, Vaporwave, Sunset, Rose Gold, Neon Dark, and the classic Spotify Green.
 - **Dual Language Font Engine:** Automatically detects Hindi (`Yatra One`) and English (`Poppins`) characters in the same song and renders them with beautiful contrasting typography.

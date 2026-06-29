@@ -1,3 +1,28 @@
+# 🌟 Features Added (v8.0 Professional Studio Upgrade)
+
+## 1. 🎥 Native Video Export Engine (Tab Capture API)
+- Engineered a fully automated, native browser video export system using `navigator.mediaDevices.getDisplayMedia`.
+- Records the lyrics and audio directly into a high-quality `.webm` file natively in the browser without requiring external screen recording software.
+- Implemented an intelligent auto-play and auto-rewind mechanism that aligns the music perfectly with the recording start.
+
+## 2. 📱 Multi-Device Mockups (Mobile & Tablet)
+- Split the preview rendering into two distinct industry-standard aspect ratios:
+  - **Mobile (9:16):** Features the classic iPhone titanium frame, dynamic island, and home indicator (Perfect for Reels/Shorts).
+  - **Tablet (3:4):** A brand new wide-format iPad-style mockup with symmetrical bezels (Perfect for Instagram Posts and YouTube standard).
+
+## 3. ⏳ Cinematic 3-Second Recording Countdown
+- Added a professional `3... 2... 1...` animated countdown overlay when hitting "Record Reel".
+- Prevents awkward mouse movements in the first frame of the exported video, ensuring a buttery-clean starting cut.
+
+## 4. ⚡ 60FPS Performance & GPU Acceleration
+- Rewrote the core timeline engine, upgrading it from a `setInterval` 20Hz loop to a mathematically precise `requestAnimationFrame` 60/120Hz display sync loop.
+- Added hardware-accelerated CSS `will-change: transform, opacity` properties to the lyric engine, moving blur/scaling calculations to the GPU for flawless zero-lag scrolling.
+
+## 5. 💎 Ultra-Premium Glassmorphism UI
+- Upgraded the workspace UI by applying deep `backdrop-filter: blur(30px)`, glowing semi-transparent borders, and soft shadows to the sidebars and editor panels, mimicking top-tier $100/mo SaaS applications.
+
+---
+
 # 🌟 Features Added (v7 Mobile Mockup & LRCLib)
 
 ## 1. 📱 Hyper-Realistic Mobile Device Mockup
