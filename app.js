@@ -733,13 +733,25 @@
             syncLyric(getCurTime() || 0);
         }
     });
-    setupPills('speedPills', 'speed', () => {});
+    setupPills('speedPills', 'speed', () => { 
+        if (S.idx >= 0) {
+            S.songs[S.idx].lyrics = parseLyrics(edLyrics.value);
+            S.lyrics = S.songs[S.idx].lyrics;
+            S.lyricIdx = -1;
+            renderLyrics();
+            saveToLocal();
+            syncLyric(getCurTime() || 0);
+        }
+        savePrefs();
+    });
     setupPills('alignPills', 'align', (v) => { 
         document.documentElement.style.setProperty('--lyrics-align', v); 
-        lyricsScroll.style.textAlign = v; 
+        applyVisuals();
+        savePrefs();
     });
     setupPills('posPills', 'pos', (v) => { 
-        $('.lyrics-box').style.justifyContent = v; 
+        applyVisuals();
+        savePrefs();
     });
     setupPills('waveTypePills', 'waveType', 'wavetype', () => savePrefs());
     setupPills('layoutPills', 'layout', (v) => {
@@ -878,20 +890,6 @@
         });
     }
 
-    animBtns.forEach(b => b.addEventListener('click', () => { S.anim = b.dataset.anim; setPillActive(animBtns, S.anim, 'anim'); renderLyrics(); savePrefs(); }));
-    
-    speedBtns.forEach(b => b.addEventListener('click', () => { 
-        S.speed = b.dataset.speed; 
-        setPillActive(speedBtns, S.speed, 'speed'); 
-        if (S.idx >= 0) {
-            S.songs[S.idx].lyrics = parseLyrics(edLyrics.value);
-            S.lyrics = S.songs[S.idx].lyrics;
-            renderLyrics();
-            saveToLocal();
-        }
-        savePrefs();
-    }));
-
     function applyVisuals() {
         lyricsScroll.style.alignItems = S.align === 'left' ? 'flex-start' : (S.align === 'right' ? 'flex-end' : 'center');
         lyricsScroll.style.textAlign = S.align;
@@ -901,20 +899,6 @@
         else if (S.pos === 'flex-end') lyricsScroll.style.padding = '50vh 0 10vh 0';
         else lyricsScroll.style.padding = '50vh 0';
     }
-
-    alignBtns.forEach(b => b.addEventListener('click', () => { 
-        S.align = b.dataset.align; 
-        setPillActive(alignBtns, S.align, 'align'); 
-        applyVisuals();
-        savePrefs();
-    }));
-
-    posBtns.forEach(b => b.addEventListener('click', () => { 
-        S.pos = b.dataset.pos; 
-        setPillActive(posBtns, S.pos, 'pos'); 
-        applyVisuals();
-        savePrefs();
-    }));
 
     if (fontSelectEn) {
         fontSelectEn.addEventListener('change', () => {
@@ -1207,6 +1191,7 @@
             <button class="cf-no">No</button>
         `;
         document.body.appendChild(el);
+        requestAnimationFrame(()=>el.classList.add('show'));
         
         const yesBtn = el.querySelector('.cf-yes');
         const noBtn = el.querySelector('.cf-no');
