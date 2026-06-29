@@ -147,6 +147,42 @@ Provide the output as a valid JSON object, strictly following this example:
 Assign a different vibrant HEX color to each line based on the mood of the song (e.g., #ff4444, #00ffcc, #ffaa00).
 Output strictly a valid JSON block so I can copy and paste it directly.
 ```
+
+**Convert Plain Web Lyrics to Synced Devanagari JSON**
+Use this prompt if you have plain text lyrics copied from the web (without timestamps or color tags) and want an AI to convert them into a line-by-line Devanagari format with estimated timestamps and vibrant colors.
+```text
+I will provide you with a plain text block of lyrics (without timestamps or color tags).
+I want you to analyze the structure of this song and convert these lyrics into a perfectly formatted, time-synced JSON block for my lyric video player.
+
+Follow these strict rules:
+1. **Translate to Hindi (Devanagari):** Convert all Hinglish/English lyrics into pure Devanagari script.
+2. **Break Line-by-Line:** Do NOT combine multiple different lines into one JSON array element. Each distinct line/sentence of the song must be its own item in the JSON array.
+3. **Analyze Timeline:** Estimate the timestamp ranges `(M:SS - M:SS)` accurately based on the song's standard tempo and structure.
+4. **Vibrant Color Codes:** Prefix each line with a vibrant HEX color code in brackets (e.g. `[#00ffff]`, `[#ff00ff]`, `[#ff9900]`, `[#00ff00]`, `[#ff0055]`, `[#00ffcc]`, `[#a855f7]`). Choose colors matching the mood of the line.
+5. **Output Format:** Provide only a valid JSON block containing:
+   - "id": "song_<name>"
+   - "title": "<song_title>"
+   - "artist": "<artist_name>"
+   - "youtubeUrl": "<youtubeUrl>"
+   - "lyrics": An array of formatted lines, e.g. `"(M:SS - M:SS): [#color] Lyric text"`
+
+Here is a reference template:
+{
+    "id": "song_tu_agar_meri",
+    "title": "Tu Agar Meri",
+    "artist": "Arijit Singh",
+    "youtubeUrl": "https://youtu.be/GVizJ_jpUnw",
+    "lyrics": [
+        "(0:21 - 0:25): [#00ffff] तू अगर मेरी ये हवाएं तेरी",
+        "(0:26 - 0:30): [#00ffcc] तू अगर मेरी सारी राहें तेरी",
+        "(0:31 - 0:35): [#ff00ff] तू अगर मेरी मैं हूं तेरा"
+    ]
+}
+
+Here are the plain lyrics to process:
+[PASTE YOUR PLAIN LYRICS HERE]
+```
+
 ![Request timestamps](img/step4.png)
 
 ### Step 5: Copy the Lyrics
