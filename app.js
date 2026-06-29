@@ -41,6 +41,10 @@
     const edDetails = $('#edDetails');
     const edLyrics  = $('#edLyrics');
     const applyBtn  = $('#applyBtn');
+    const btnReelsMode       = $('#btnReelsMode');
+    const offsetMinus        = $('#offsetMinus');
+    const offsetPlus         = $('#offsetPlus');
+    const autoFetchLyricsBtn = $('#autoFetchLyricsBtn');
 
     const fsBox     = $('#fsBox');
     const fsBoxBtn  = $('#fsBoxBtn');
@@ -282,11 +286,68 @@
         return song;
     }
 
-    ytAdd.addEventListener('click', () => {
+    async function fetchDetailsAndLyrics(youtubeId) {
+        toast('Fetching YouTube video info...');
+        let songTitle = 'YouTube Song';
+        let songArtist = 'Artist';
+        try {
+            const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${youtubeId}`);
+            const details = await res.json();
+            if (details && details.title) {
+                const cleanTitle = details.title
+                    .replace(/\s*[\(\[][^)]*(official|video|audio|lyrics|lrc|4k|hd|subtitles|cover|remix)[^)]*[\)\]]/gi, '')
+                    .trim();
+                const parts = cleanTitle.split(/\s*[-:|]\s*/);
+                if (parts.length >= 2) {
+                    songArtist = parts[0].trim();
+                    songTitle = parts[1].trim();
+                } else {
+                    songTitle = cleanTitle;
+                }
+            }
+        } catch (e) {
+            console.error(e);
+        }
+
+        toast(`Searching lyrics for: ${songTitle}...`);
+        let lyrics = [];
+        try {
+            const lrcRes = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(songArtist + ' ' + songTitle)}`);
+            const results = await lrcRes.json();
+            if (Array.isArray(results) && results.length > 0) {
+                const matched = results.find(r => r.syncedLyrics);
+                if (matched && matched.syncedLyrics) {
+                    lyrics = parseLyrics(matched.syncedLyrics);
+                    toast('✅ Synced lyrics loaded successfully!');
+                } else {
+                    toast('🔍 Synced lyrics not found on LRCLib (Plain lyrics loaded)');
+                    if (results[0].plainLyrics) {
+                        lyrics = results[0].plainLyrics.split('\n').map((line, i) => ({
+                            time: i * 3,
+                            text: line.trim()
+                        })).filter(l => l.text);
+                    }
+                }
+            } else {
+                toast('🔍 No matching lyrics found on LRCLib');
+            }
+        } catch (e) {
+            console.error(e);
+            toast('⚠️ LRCLib sync failed. Added with blank lyrics.');
+        }
+
+        const song = addSong(songTitle, songArtist, youtubeId, null, null, lyrics);
+        const sIndex = S.songs.findIndex(s => s.id === song.id);
+        if (sIndex >= 0) {
+            loadSong(sIndex, true);
+        }
+    }
+
+    ytAdd.addEventListener('click', async () => {
         const id = vidId(ytUrl.value.trim());
         if (!id) return toast('Invalid YouTube URL!');
-        addSong('YouTube Song', 'Artist', id, null, null, []);
-        ytUrl.value = ''; toast('YouTube song added!');
+        ytUrl.value = '';
+        await fetchDetailsAndLyrics(id);
     });
 
     localAudio.addEventListener('change', e => {
@@ -1212,7 +1273,15 @@
 
     const ctx = canvas.getContext('2d');
     let parts = [];
-    function resize() { canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+    function resize() { 
+        if (mainContent && mainContent.classList.contains('reels-mode')) {
+            canvas.width = mainContent.clientWidth || 410;
+            canvas.height = mainContent.clientHeight || 728;
+        } else {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+    }
     window.addEventListener('resize', resize); resize();
     for(let i=0;i<100;i++) parts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5+0.3, vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2, p:Math.random()*6});
     (function drawLoop() {
@@ -1452,6 +1521,108 @@
     document.addEventListener('keydown', resetIdle);
     document.addEventListener('fullscreenchange', resetIdle);
 
+    /* ═══ REELS aspect ratio preview ═══ */
+    if (btnReelsMode) {
+        btnReelsMode.addEventListener('click', () => {
+            mainContent.classList.toggle('reels-mode');
+            const isReels = mainContent.classList.contains('reels-mode');
+            btnReelsMode.classList.toggle('active', isReels);
+            resize();
+            toast(isReels ? '📱 Reels Aspect Ratio Mode (9:16) Enabled' : '📺 Cinematic Mode Enabled');
+        });
+    }
+
+    /* ═══ SHIFT LYRICS OFFSET ═══ */
+    function shiftLyricsOffset(delta) {
+        const txt = edLyrics.value;
+        if (!txt.trim()) return;
+        const lines = txt.split('\n');
+        const re = /^(\[|\()(\d+):([\d.]+)(.*?)(\]|\))\s*:?\s*(.*)/;
+        const updated = lines.map(line => {
+            const m = line.match(re);
+            if (m) {
+                const bracketStart = m[1];
+                const min = parseInt(m[2], 10);
+                const sec = parseFloat(m[3]);
+                const extra = m[4]; 
+                const bracketEnd = m[5];
+                const text = m[6];
+                
+                let originalTime = min * 60 + sec;
+                let newTime = Math.max(0, originalTime + delta);
+                
+                const newStamp = fmtStamp(newTime);
+                
+                let extraStamp = '';
+                if (extra.includes('-')) {
+                    const extraParts = extra.split('-');
+                    const extMatch = extraParts[1].match(/(\d+):([\d.]+)/);
+                    if (extMatch) {
+                        const extMin = parseInt(extMatch[1], 10);
+                        const extSec = parseFloat(extMatch[2]);
+                        let extTime = Math.max(0, (extMin * 60 + extSec) + delta);
+                        extraStamp = ` - ${fmtStamp(extTime)}`;
+                    }
+                }
+                
+                return `${bracketStart}${newStamp}${extraStamp}${bracketEnd} ${text}`;
+            }
+            return line;
+        });
+        edLyrics.value = updated.join('\n');
+        toast(`Shifted all timestamps by ${delta > 0 ? '+' : ''}${delta}s`);
+    }
+
+    if (offsetMinus) {
+        offsetMinus.addEventListener('click', (e) => {
+            e.preventDefault();
+            shiftLyricsOffset(-0.5);
+        });
+    }
+    if (offsetPlus) {
+        offsetPlus.addEventListener('click', (e) => {
+            e.preventDefault();
+            shiftLyricsOffset(0.5);
+        });
+    }
+
+    /* ═══ AUTO FETCH LYRICS FROM STUDIO ═══ */
+    async function autoFetchEditorLyrics() {
+        const title = edTitle.value.trim();
+        const artist = edArtist.value.trim();
+        if (!title) return toast('Please enter Song Title first!');
+        
+        toast(`Searching lyrics for: ${title}...`);
+        try {
+            const query = encodeURIComponent((artist ? artist + ' ' : '') + title);
+            const res = await fetch(`https://lrclib.net/api/search?q=${query}`);
+            const results = await res.json();
+            if (Array.isArray(results) && results.length > 0) {
+                const matched = results.find(r => r.syncedLyrics);
+                if (matched && matched.syncedLyrics) {
+                    edLyrics.value = matched.syncedLyrics;
+                    toast('✅ Synced lyrics fetched! Click Apply Changes to save.');
+                } else {
+                    toast('⚠️ Synced lyrics not found (Plain lyrics loaded)');
+                    if (results[0].plainLyrics) {
+                        edLyrics.value = results[0].plainLyrics.split('\n').map((line, i) => `[${fmtStamp(i*3)}] ${line.trim()}`).join('\n');
+                    }
+                }
+            } else {
+                toast('🔍 No lyrics found for this query.');
+            }
+        } catch (e) {
+            console.error(e);
+            toast('⚠️ Failed to connect to LRCLib.');
+        }
+    }
+
+    if (autoFetchLyricsBtn) {
+        autoFetchLyricsBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            await autoFetchEditorLyrics();
+        });
+    }
 
     setTimeout(() => {
         const initL = document.getElementById('initialLoader');

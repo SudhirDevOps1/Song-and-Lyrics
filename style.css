@@ -764,3 +764,34 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
     0% { opacity: 0.4; }
     100% { opacity: 1; text-shadow: 0 0 12px var(--accent-glow); }
 }
+
+/* ═══ REELS MODE (9:16 PREVIEW) ═══ */
+.main-content.reels-mode {
+    max-width: 410px !important;
+    height: 92% !important;
+    aspect-ratio: 9/16 !important;
+    margin: auto !important;
+    border: 3px solid var(--border-active) !important;
+    border-radius: 40px !important;
+    box-shadow: 0 0 50px var(--accent-glow), 0 30px 60px rgba(0,0,0,0.85) !important;
+    overflow: hidden !important;
+    position: relative !important;
+    flex: none !important;
+}
+
+/* Simulated Dynamic Island for Reels Mockup */
+.main-content.reels-mode::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 22px;
+    background: #000005;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.8);
+}
