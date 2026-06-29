@@ -1473,7 +1473,69 @@
             }
             waveCtx.closePath();
             waveCtx.fill();
+        } else if (S.waveType === 'apple') {
+            // Clean & Minimal Smooth Bezier Wave (Apple Music Style)
+            waveCtx.moveTo(0, waveCanvas.height / 2);
+            waveCtx.lineTo(0, waveCanvas.height / 2 - waveH[0]/2);
+            for (let i = 0; i < bars - 1; i++) {
+                const x = i * barWidth + (barWidth / 2);
+                const nx = (i+1) * barWidth + (barWidth / 2);
+                const cx = (x + nx) / 2;
+                const y = (waveCanvas.height / 2) - (waveH[i] / 2);
+                const ny = (waveCanvas.height / 2) - (waveH[i+1] / 2);
+                waveCtx.bezierCurveTo(cx, y, cx, ny, nx, ny);
+            }
+            waveCtx.lineTo(waveCanvas.width, waveCanvas.height / 2);
+            for (let i = bars - 1; i > 0; i--) {
+                const x = i * barWidth + (barWidth / 2);
+                const nx = (i-1) * barWidth + (barWidth / 2);
+                const cx = (x + nx) / 2;
+                const y = (waveCanvas.height / 2) + (waveH[i] / 2);
+                const ny = (waveCanvas.height / 2) + (waveH[i-1] / 2);
+                waveCtx.bezierCurveTo(cx, y, cx, ny, nx, ny);
+            }
+            waveCtx.lineTo(0, waveCanvas.height / 2 + waveH[0]/2);
+            waveCtx.closePath();
+            waveCtx.globalAlpha = 0.8;
+            waveCtx.fill();
+            waveCtx.globalAlpha = 1.0;
+        } else if (S.waveType === 'radial') {
+            // Modern & Sleek Radial Bars
+            const cx = waveCanvas.width / 2;
+            const cy = waveCanvas.height / 2;
+            const radius = Math.min(cx, cy) * 0.35;
+            for (let i = 0; i < bars; i++) {
+                const angle = (i / bars) * Math.PI * 2;
+                const h = waveH[i] * 0.7;
+                const x1 = cx + Math.cos(angle) * radius;
+                const y1 = cy + Math.sin(angle) * radius;
+                const x2 = cx + Math.cos(angle) * (radius + h);
+                const y2 = cy + Math.sin(angle) * (radius + h);
+                waveCtx.moveTo(x1, y1);
+                waveCtx.lineTo(x2, y2);
+            }
+            waveCtx.lineWidth = Math.max(2, barWidth * 0.5);
+            waveCtx.lineCap = 'round';
+            waveCtx.strokeStyle = grad;
+            waveCtx.stroke();
+            waveCtx.lineWidth = 1;
+        } else if (S.waveType === 'retro') {
+            // Synthwave Hollow Lines + Glow
+            waveCtx.shadowBlur = 15;
+            waveCtx.shadowColor = c1;
+            waveCtx.moveTo(0, waveCanvas.height / 2 - waveH[0]/2);
+            for (let i = 1; i < bars; i++) {
+                const x = i * barWidth + (barWidth / 2);
+                const y = (waveCanvas.height / 2) - (waveH[i] / 2);
+                waveCtx.lineTo(x, y);
+            }
+            waveCtx.lineWidth = 3;
+            waveCtx.strokeStyle = grad;
+            waveCtx.stroke();
+            waveCtx.shadowBlur = 0;
+            waveCtx.lineWidth = 1;
         } else {
+            // Bars, Dots, DJ, Immersive
             for (let i = 0; i < bars; i++) {
                 const h = waveH[i];
                 const w = barWidth * 0.6;
@@ -1483,16 +1545,44 @@
                 waveCtx.beginPath();
                 if (S.waveType === 'dots') {
                     waveCtx.arc(x + w/2, waveCanvas.height / 2, Math.max(0.1, h/4), 0, Math.PI * 2);
-                } else {
-                    // Default bars (Safe fallback for all browsers)
+                    waveCtx.fill();
+                } else if (S.waveType === 'dj') {
+                    // Segmented EQ Bars
+                    const segH = 4;
+                    const gap = 2;
+                    const segments = Math.floor(h / (segH + gap));
+                    for(let s = 0; s < segments; s++) {
+                        const sy = (waveCanvas.height / 2) + (h/2) - (s * (segH + gap)) - segH;
+                        waveCtx.rect(x, sy, w, segH);
+                    }
+                    waveCtx.fill();
+                } else if (S.waveType === 'immersive') {
+                    // Bars + Floating particles mirroring
                     if (waveCtx.roundRect) {
                         try { waveCtx.roundRect(x, y, w, Math.max(h, 5), Math.max(0, w/2)); } 
                         catch(e) { waveCtx.rect(x, y, w, Math.max(h, 5)); }
                     } else {
                         waveCtx.rect(x, y, w, Math.max(h, 5));
                     }
+                    waveCtx.fill();
+                    // Sparkles jumping off peaks
+                    if (h > 20 && Math.random() > 0.7) {
+                        waveCtx.beginPath();
+                        waveCtx.arc(x + w/2, y - Math.random() * 40 - 10, w/2, 0, Math.PI*2);
+                        waveCtx.fillStyle = c2;
+                        waveCtx.fill();
+                        waveCtx.fillStyle = grad; // restore
+                    }
+                } else {
+                    // Default bars
+                    if (waveCtx.roundRect) {
+                        try { waveCtx.roundRect(x, y, w, Math.max(h, 5), Math.max(0, w/2)); } 
+                        catch(e) { waveCtx.rect(x, y, w, Math.max(h, 5)); }
+                    } else {
+                        waveCtx.rect(x, y, w, Math.max(h, 5));
+                    }
+                    waveCtx.fill();
                 }
-                waveCtx.fill();
             }
         }
     })();
