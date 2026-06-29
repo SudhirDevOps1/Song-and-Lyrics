@@ -580,6 +580,8 @@
             saveToLocal();
             renderLyrics();
             renderList();
+            // Force immediate UI sync even if audio is paused
+            syncLyric(getCurTime() || 0);
         }
         toast('Changes applied seamlessly!');
     });
@@ -677,17 +679,18 @@
     }
 
     /* ═══ PILL BUTTONS UI HANDLERS ═══ */
-    function setupPills(id, key, cb) {
+    function setupPills(id, stateKey, dataKey, cb) {
+        if (!cb && typeof dataKey === 'function') { cb = dataKey; dataKey = stateKey; }
         const el = $('#'+id);
         if(!el) return;
         el.querySelectorAll('.pill-btn').forEach(b => {
-            if(b.dataset[key]===S[key]) b.classList.add('active');
+            if(b.dataset[dataKey]===S[stateKey]) b.classList.add('active');
             else b.classList.remove('active');
             b.addEventListener('click', () => {
                 el.querySelectorAll('.pill-btn').forEach(x=>x.classList.remove('active'));
                 b.classList.add('active');
-                S[key] = b.dataset[key];
-                if(cb) cb(S[key]);
+                S[stateKey] = b.dataset[dataKey];
+                if(cb) cb(S[stateKey]);
                 saveToLocal();
             });
         });
@@ -703,7 +706,7 @@
     setupPills('posPills', 'pos', (v) => { 
         $('.lyrics-box').style.justifyContent = v; 
     });
-    setupPills('waveTypePills', 'waveType', () => savePrefs());
+    setupPills('waveTypePills', 'waveType', 'wavetype', () => savePrefs());
     setupPills('layoutPills', 'layout', (v) => {
         $('.main-content').classList.remove('layout-split', 'layout-split-rev', 'layout-focus');
         if (v !== 'default') {
@@ -1291,10 +1294,15 @@
                 
                 waveCtx.beginPath();
                 if (S.waveType === 'dots') {
-                    waveCtx.arc(x + w/2, waveCanvas.height / 2, Math.max(2, h/4), 0, Math.PI * 2);
+                    waveCtx.arc(x + w/2, waveCanvas.height / 2, Math.max(0.1, h/4), 0, Math.PI * 2);
                 } else {
-                    // Default bars
-                    waveCtx.roundRect(x, y, w, Math.max(h, 5), w/2);
+                    // Default bars (Safe fallback for all browsers)
+                    if (waveCtx.roundRect) {
+                        try { waveCtx.roundRect(x, y, w, Math.max(h, 5), Math.max(0, w/2)); } 
+                        catch(e) { waveCtx.rect(x, y, w, Math.max(h, 5)); }
+                    } else {
+                        waveCtx.rect(x, y, w, Math.max(h, 5));
+                    }
                 }
                 waveCtx.fill();
             }
