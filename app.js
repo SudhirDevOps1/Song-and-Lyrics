@@ -654,10 +654,13 @@
         let ai = -1;
         // Exact timing without early offset
         for (let i=S.lyrics.length-1; i>=0; i--) { if (t >= S.lyrics[i].time) { ai = i; break; } }
-        if (ai !== S.lyricIdx) {
+        
+        // Force highlight if DOM is out of sync or lyric index changed
+        if (ai !== S.lyricIdx || (ai >= 0 && !lyricsScroll.querySelector(`.ll[data-i="${ai}"].active`))) {
             S.lyricIdx = ai;
             highlight(lyricsScroll, ai);
         }
+        
         if (S.anim === 'karaoke' && ai >= 0) {
             syncKaraokeWords(ai, t);
         }
@@ -723,7 +726,13 @@
     }
 
 
-    setupPills('animPills', 'anim', () => { if(S.lyrics.length) renderLyrics(); });
+    setupPills('animPills', 'anim', () => { 
+        if(S.lyrics.length) {
+            S.lyricIdx = -1;
+            renderLyrics();
+            syncLyric(getCurTime() || 0);
+        }
+    });
     setupPills('speedPills', 'speed', () => {});
     setupPills('alignPills', 'align', (v) => { 
         document.documentElement.style.setProperty('--lyrics-align', v); 
