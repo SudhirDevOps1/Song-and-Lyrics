@@ -135,7 +135,7 @@
         else if (e.data === YT.PlayerState.PAUSED) { setPlayState(false); }
         else if (e.data === YT.PlayerState.ENDED) {
             setPlayState(false);
-            if (S.repeat) { yt.seekTo(0); yt.playVideo(); } else doNext();
+            if (S.repeat) { yt.seekTo(0); yt.playVideo(); } else setTimeout(doNext, 250);
         }
     }
 
@@ -153,7 +153,7 @@
     audioEl.addEventListener('pause', () => { if(S.source==='local') setPlayState(false); });
     audioEl.addEventListener('ended', () => {
         setPlayState(false);
-        if (S.repeat) { audioEl.currentTime=0; audioEl.play(); } else doNext();
+        if (S.repeat) { audioEl.currentTime=0; audioEl.play(); } else setTimeout(doNext, 250);
     });
 
     /* ═══ UNIFIED PLAYBACK ═══ */
