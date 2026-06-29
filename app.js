@@ -44,7 +44,7 @@
 
     const fsBox     = $('#fsBox');
     const fsBoxBtn  = $('#fsBoxBtn');
-
+    const mainContent = $('.main-content');
     const sizeRange     = $('#sizeRange');
     const glowRange     = $('#glowRange');
     const fontSelectEn  = $('#fontSelectEn');
@@ -808,7 +808,6 @@
     loadFromLocal();
 
     /* ═══ FULLSCREEN LYRICS BOX (FOR RECORDING) ═══ */
-    const mainContent = $('.main-content');
     fsBoxBtn.addEventListener('click', () => {
         if (!document.fullscreenElement) {
             mainContent.requestFullscreen().catch(err => toast('Fullscreen failed: ' + err.message));
