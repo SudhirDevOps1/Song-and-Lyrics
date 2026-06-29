@@ -539,7 +539,7 @@
 
     function renderLyrics() {
         if (!S.lyrics.length) { lyricsScroll.innerHTML = ''; return; }
-        const ac = S.anim !== 'typewriter' ? `a-${S.anim}` : '';
+        const ac = `a-${S.anim}`;
         lyricsScroll.innerHTML = S.lyrics.map((l,i) => {
             const textContent = typeof l === 'string' ? l : (l.text || '');
             let colorStyle = '';
@@ -611,19 +611,15 @@
     function highlight(box, ai) {
         box.querySelectorAll('.ll').forEach((el,i) => {
             el.classList.remove('active','done');
-            const chars = el.querySelectorAll('.c');
             const kws = el.querySelectorAll('.kw');
             if (i===ai) {
                 el.classList.add('active');
-                if (S.anim==='typewriter') chars.forEach((c,ci) => setTimeout(()=>c.classList.add('v'), ci*40));
                 // Smart Auto Scroll (Aggressive Focus)
                 el.scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else if (i<ai) {
                 el.classList.add('done');
-                chars.forEach(c=>c.classList.add('v'));
                 kws.forEach(w=>w.classList.add('sung'));
             } else {
-                chars.forEach(c=>c.classList.remove('v'));
                 kws.forEach(w=>w.classList.remove('sung'));
             }
         });

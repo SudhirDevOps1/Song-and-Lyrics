@@ -365,8 +365,10 @@ body {
 
 /* Animation Styles */
 .ll:hover { opacity:0.7; color:var(--text-2); }
-.c { display:inline-block; opacity:0.3; transition:0.2s; transform:translateY(5px); }
+.c { display:inline-block; opacity:0.3; transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); transform:translateY(8px); }
 .ll.active .c { opacity:1; color:transparent; background:var(--grad-text); -webkit-background-clip:text; transform:translateY(0); }
+.ll.done .c { opacity:0.6; transform:translateY(0); transition-delay: 0s !important; }
+.ll.done { opacity:0.5; filter:blur(0); }
 
 /* ═══ PLAYER CONTROLS ═══ */
 .player { padding:14px 36px 24px; flex-shrink:0; }
