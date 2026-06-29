@@ -1388,8 +1388,6 @@
     initHeartWave('#groupLoader', '#pathLoader');
     initHeartWave('#groupInitialLoader', '#pathInitialLoader');
 
-    }, 2500);
-
     /* ═══ FULLSCREEN IDLE MODE ═══ */
     let idleTimer = null;
     function resetIdle() {
