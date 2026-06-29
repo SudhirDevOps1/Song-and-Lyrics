@@ -686,11 +686,15 @@
                 const col = colorMatch[1];
                 colorStyle = `style="color: ${col} !important; --grad-text: ${col}; --accent-glow-2: ${col}; --accent-glow: ${col};"`;
                 finalTxt = colorMatch[2];
+            } else if (finalTxt.trim().startsWith('(') && finalTxt.trim().endsWith(')')) {
+                // Auto-detect Duet/Backing vocals/Chorus in brackets and style with a distinct glowing rose-pink
+                const col = '#ff5e97';
+                colorStyle = `style="color: ${col} !important; --grad-text: ${col}; --accent-glow-2: rgba(255,94,151,0.4); --accent-glow: rgba(255,94,151,0.15);"`;
             }
 
-            // Custom Font Check: If line contains Hindi characters, use fontHi, else use fontEn
-            const isHindi = /[\u0900-\u097F]/.test(finalTxt);
-            const fontFamilyStr = isHindi ? `var(--font-hi, 'Yatra One', sans-serif)` : `var(--font-en, 'Poppins', sans-serif)`;
+            // Custom Font Check: Support Devanagari, Gurmukhi (Punjabi), and other Indic scripts in var(--font-hi)
+            const isIndic = /[\u0900-\u0D7F]/.test(finalTxt);
+            const fontFamilyStr = isIndic ? `var(--font-hi, 'Amita', sans-serif)` : `var(--font-en, 'Poppins', sans-serif)`;
 
             if (S.anim === 'typewriter' || S.anim === 'wave') {
                 const words = finalTxt.split(' ').map((w, wi) => `<span class="c" style="transition-delay: ${S.anim === 'typewriter' ? wi * 0.15 : 0}s">${esc(w)}</span>`).join(' ');
