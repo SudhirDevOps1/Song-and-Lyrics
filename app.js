@@ -1830,6 +1830,105 @@
         });
     }
 
+    /* ═══ NATIVE VIDEO EXPORT (SCREEN RECORDING) ═══ */
+    const btnRecordReel = document.getElementById('btnRecordReel');
+    let mediaRecorder = null;
+    let recordedChunks = [];
+
+    if (btnRecordReel) {
+        btnRecordReel.addEventListener('click', async () => {
+            // Stop recording if already active
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+                return;
+            }
+
+            try {
+                // Request Screen + System Audio
+                const stream = await navigator.mediaDevices.getDisplayMedia({
+                    video: { frameRate: { ideal: 60, max: 60 } },
+                    audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
+                });
+
+                // Check if audio was shared
+                const audioTracks = stream.getAudioTracks();
+                if (audioTracks.length === 0) {
+                    alert("⚠️ IMPORTANT: You didn't check 'Share tab audio' in the popup! The video will be silent.");
+                }
+
+                recordedChunks = [];
+                // Use WebM with VP9/VP8, most reliable in browsers
+                const options = MediaRecorder.isTypeSupported('video/webm; codecs=vp9') 
+                    ? { mimeType: 'video/webm; codecs=vp9', videoBitsPerSecond: 8000000 } 
+                    : { mimeType: 'video/webm', videoBitsPerSecond: 5000000 };
+                    
+                mediaRecorder = new MediaRecorder(stream, options);
+
+                mediaRecorder.ondataavailable = (e) => {
+                    if (e.data.size > 0) recordedChunks.push(e.data);
+                };
+
+                mediaRecorder.onstop = () => {
+                    // Reset UI
+                    document.body.classList.remove('recording-active');
+                    btnRecordReel.classList.remove('btn-recording');
+                    btnRecordReel.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg> Record Reel';
+                    
+                    // Create Video Blob & Download
+                    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    const safeTitle = (S.songs[S.idx]?.title || 'Reel').replace(/[^a-z0-9]/gi, '_');
+                    a.download = `SongVibe_${safeTitle}.webm`;
+                    document.body.appendChild(a);
+                    a.click();
+                    
+                    setTimeout(() => {
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(url);
+                    }, 1000);
+                    
+                    // Stop tracks completely
+                    stream.getTracks().forEach(track => track.stop());
+                };
+
+                // Prepare UI & Auto-play
+                document.querySelector('.app').classList.add('mobile-active');
+                document.body.classList.add('recording-active');
+                btnRecordReel.classList.add('btn-recording');
+                btnRecordReel.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Stop Recording';
+                
+                // Rewind to 0 and Play
+                if (S.source === 'yt' && yt && typeof yt.seekTo === 'function') {
+                    yt.seekTo(0);
+                    yt.playVideo();
+                } else if (S.source === 'local' && audioPlayer) {
+                    audioPlayer.currentTime = 0;
+                    audioPlayer.play();
+                }
+
+                // Wait a tiny bit for video to start before recording frames
+                setTimeout(() => {
+                    if (mediaRecorder.state !== 'inactive') return;
+                    mediaRecorder.start();
+                }, 500);
+
+                // Stop recording if user manually stops screen share from browser UI "Stop sharing" button
+                stream.getVideoTracks()[0].onended = () => {
+                    if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop();
+                };
+
+            } catch (err) {
+                console.error("Screen Capture Error:", err);
+                if (err.name === 'NotAllowedError') {
+                    toast("❌ Recording cancelled or permission denied.");
+                }
+            }
+        });
+    }
+
     setTimeout(() => {
         const initL = document.getElementById('initialLoader');
         if (initL) {
