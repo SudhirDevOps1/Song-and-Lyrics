@@ -47,6 +47,7 @@
     const mainContent = $('.main-content');
     const sizeRange     = $('#sizeRange');
     const glowRange     = $('#glowRange');
+    const vibeColor     = $('#vibeColor');
     const fontSelectEn  = $('#fontSelectEn');
     const fontSelectHi  = $('#fontSelectHi');
     const animBtns      = $$('#animPills .pill-btn');
@@ -95,7 +96,8 @@
         layout: 'default', // 'default' or 'split'
         source: 'none', // 'yt' or 'local'
         fontEn: 'Caveat',
-        fontHi: 'Amita'
+        fontHi: 'Amita',
+        customColor: null
     };
 
     const SPEED = { slow: 4, medium: 3, fast: 2 };
@@ -315,7 +317,7 @@
     /* ═══ LOCAL STORAGE & JSON ═══ */
     function savePrefs() {
         localStorage.setItem('songvibe_prefs', JSON.stringify({
-            anim: S.anim, speed: S.speed, theme: S.theme, align: S.align, pos: S.pos, bars: S.bars, waveType: S.waveType, layout: S.layout, lyricsSize: S.lyricsSize, fontEn: S.fontEn, fontHi: S.fontHi, glow: glowRange ? glowRange.value : 60
+            anim: S.anim, speed: S.speed, theme: S.theme, align: S.align, pos: S.pos, bars: S.bars, waveType: S.waveType, layout: S.layout, lyricsSize: S.lyricsSize, fontEn: S.fontEn, fontHi: S.fontHi, glow: glowRange ? glowRange.value : 60, customColor: S.customColor
         }));
     }
     
@@ -758,7 +760,7 @@
                 setPillActive(alignBtns, S.align, 'align');
                 setPillActive(posBtns, S.pos, 'pos');
                 const wavePills = document.querySelectorAll('#waveTypePills .pill-btn');
-                setPillActive(wavePills, S.waveType, 'wave');
+                setPillActive(wavePills, S.waveType, 'wavetype');
                 const layoutPills = document.querySelectorAll('#layoutPills .pill-btn');
                 setPillActive(layoutPills, S.layout, 'layout');
                 
@@ -784,9 +786,24 @@
                 if (p.glow && glowRange) {
                     glowRange.value = p.glow;
                     const v = p.glow / 100;
-                    document.documentElement.style.setProperty('--accent-glow', `rgba(0,212,255,${(v*0.35).toFixed(2)})`);
-                    document.documentElement.style.setProperty('--accent-glow-2', `rgba(0,212,255,${(v*0.6).toFixed(2)})`);
+                    document.documentElement.style.setProperty('--accent-glow', `rgba(0, 229, 255, ${v})`);
+                    document.documentElement.style.setProperty('--accent-glow-2', `rgba(0, 229, 255, ${v * 1.5})`);
                     if (glowVal) glowVal.textContent = p.glow + '%';
+                }
+                
+                // Restore custom color
+                if (p.customColor && vibeColor) {
+                    S.customColor = p.customColor;
+                    vibeColor.value = p.customColor;
+                    const hex = p.customColor;
+                    document.documentElement.style.setProperty('--accent', hex);
+                    document.documentElement.style.setProperty('--accent-2', hex);
+                    const r = parseInt(hex.slice(1,3), 16) || 0;
+                    const g = parseInt(hex.slice(3,5), 16) || 229;
+                    const b = parseInt(hex.slice(5,7), 16) || 255;
+                    const glowOpacity = (p.glow || 60) / 100;
+                    document.documentElement.style.setProperty('--accent-glow', `rgba(${r},${g},${b},${glowOpacity})`);
+                    document.documentElement.style.setProperty('--accent-glow-2', `rgba(${r},${g},${b},${glowOpacity * 1.5})`);
                 }
                 
                 applyVisuals();
@@ -892,6 +909,22 @@
         if (glowVal) glowVal.textContent = glowRange.value + '%';
     });
     glowRange.addEventListener('change', () => savePrefs());
+
+    if (vibeColor) {
+        vibeColor.addEventListener('input', (e) => {
+            const hex = e.target.value;
+            document.documentElement.style.setProperty('--accent', hex);
+            document.documentElement.style.setProperty('--accent-2', hex);
+            const r = parseInt(hex.slice(1,3), 16) || 0;
+            const g = parseInt(hex.slice(3,5), 16) || 229;
+            const b = parseInt(hex.slice(5,7), 16) || 255;
+            const glowOpacity = (glowRange ? glowRange.value : 60) / 100;
+            document.documentElement.style.setProperty('--accent-glow', `rgba(${r},${g},${b},${glowOpacity})`);
+            document.documentElement.style.setProperty('--accent-glow-2', `rgba(${r},${g},${b},${glowOpacity * 1.5})`);
+            S.customColor = hex;
+            savePrefs();
+        });
+    }
 
     if (waveRange) {
         waveRange.addEventListener('input', () => {
@@ -1355,7 +1388,45 @@
     initHeartWave('#groupLoader', '#pathLoader');
     initHeartWave('#groupInitialLoader', '#pathInitialLoader');
 
-    // Fade out initial loading screen after 2.5 seconds
+    }, 2500);
+
+    /* ═══ FULLSCREEN IDLE MODE ═══ */
+    let idleTimer = null;
+    function resetIdle() {
+        if (!document.fullscreenElement) {
+            const player = $('.player');
+            if(player) {
+                player.style.opacity = '1';
+                player.style.pointerEvents = 'auto';
+            }
+            document.body.style.cursor = 'default';
+            return;
+        }
+        const player = $('.player');
+        if(player) {
+            player.style.opacity = '1';
+            player.style.pointerEvents = 'auto';
+        }
+        document.body.style.cursor = 'default';
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+            if (document.fullscreenElement && S.playing) {
+                const player = $('.player');
+                if(player) {
+                    player.style.opacity = '0';
+                    player.style.pointerEvents = 'none';
+                }
+                document.body.style.cursor = 'none';
+            }
+        }, 3000);
+    }
+    
+    document.addEventListener('mousemove', resetIdle);
+    document.addEventListener('mousedown', resetIdle);
+    document.addEventListener('keydown', resetIdle);
+    document.addEventListener('fullscreenchange', resetIdle);
+
+
     setTimeout(() => {
         const initL = document.getElementById('initialLoader');
         if (initL) {

@@ -558,7 +558,7 @@ body {
 .ll.done { opacity:0.5; filter:blur(0); }
 
 /* ═══ PLAYER CONTROLS ═══ */
-.player { padding:14px 36px 24px; flex-shrink:0; }
+.player { padding:14px 36px 24px; flex-shrink:0; transition: opacity 0.8s ease; }
 .prog-row { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
 .prog-time { font-size:0.68rem; color:var(--text-3); font-weight:500; min-width:34px; font-variant-numeric:tabular-nums; }
 .prog-track { flex:1; height:6px; background:var(--bg-glass-3); border-radius:3px; cursor:pointer; position:relative; }

@@ -351,15 +351,18 @@
 
                 <div class="ed-field">
                     <label class="ed-label">Glow / Colors <span class="range-val" id="glowVal">60%</span></label>
-                    <input type="range" class="custom-range" id="glowRange" min="0" max="100" step="5" value="60">
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <input type="range" class="custom-range" id="glowRange" min="0" max="100" step="5" value="60" style="flex:1;">
+                        <input type="color" id="vibeColor" value="#00e5ff" style="width:34px; height:34px; padding:0; border:1px solid var(--border); border-radius:50%; cursor:pointer; outline:none; background:none;">
+                    </div>
                 </div>
 
                 <div class="ed-field" id="waveTypeField">
                     <label class="ed-label">Wave Style</label>
                     <div class="pill-row" id="waveTypePills">
-                        <button class="pill-btn active" data-wave="bars">Bars</button>
-                        <button class="pill-btn" data-wave="curve">Curve</button>
-                        <button class="pill-btn" data-wave="dots">Dots</button>
+                        <button class="pill-btn active" data-wavetype="bars">Bars</button>
+                        <button class="pill-btn" data-wavetype="curve">Curve</button>
+                        <button class="pill-btn" data-wavetype="dots">Dots</button>
                     </div>
                 </div>
 
