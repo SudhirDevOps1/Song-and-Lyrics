@@ -102,7 +102,8 @@
         source: 'none', // 'yt' or 'local'
         fontEn: 'Caveat',
         fontHi: 'Amita',
-        customColor: null
+        customColor: null,
+        lyricsOffset: 0 // Global real-time offset (seconds) to fine-tune sync
     };
 
     const SPEED = { slow: 4, medium: 3, fast: 2 };
@@ -814,9 +815,16 @@
 
     function syncLyric(t) {
         if (!S.lyrics.length) return;
+        
+        // Apply global offset: positive = lyrics appear earlier (compensate for delay)
+        // YouTube API has ~200-300ms inherent latency in getCurrentTime()
+        const YT_LATENCY_COMP = (S.source === 'yt') ? 0.25 : 0;
+        const adjustedTime = t + S.lyricsOffset + YT_LATENCY_COMP;
+        
         let ai = -1;
-        // Exact timing without early offset
-        for (let i=S.lyrics.length-1; i>=0; i--) { if (t >= S.lyrics[i].time) { ai = i; break; } }
+        for (let i = S.lyrics.length - 1; i >= 0; i--) {
+            if (adjustedTime >= S.lyrics[i].time) { ai = i; break; }
+        }
         
         // Force highlight if DOM is out of sync or lyric index changed
         if (ai !== S.lyricIdx || (ai >= 0 && !lyricsScroll.querySelector(`.ll[data-i="${ai}"].active`))) {
@@ -825,7 +833,7 @@
         }
         
         if (S.anim === 'karaoke' && ai >= 0) {
-            syncKaraokeWords(ai, t);
+            syncKaraokeWords(ai, adjustedTime);
         }
     }
 
@@ -1807,6 +1815,19 @@
             return line;
         });
         edLyrics.value = updated.join('\n');
+        
+        // Auto-apply the shifted lyrics immediately (no need to press Apply button)
+        const newTxt = edLyrics.value.trim();
+        if (newTxt) {
+            S.lyrics = parseLyrics(newTxt);
+            if (S.idx >= 0) {
+                S.songs[S.idx].lyrics = S.lyrics;
+                S.lyricIdx = -1;
+                saveToLocal();
+                renderLyrics();
+                syncLyric(getCurTime() || 0);
+            }
+        }
         toast(`Shifted all timestamps by ${delta > 0 ? '+' : ''}${delta}s`);
     }
 
