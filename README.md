@@ -1,4 +1,4 @@
-# 🎵 SongVibe Ultimate Pro
+# 🎵 SongVibe Ultimate Pro (v6.0 Heart Wave)
 
 Welcome to **SongVibe Ultimate Pro** – The most advanced web-based Lyric Video & Reel Maker. 
 This tool lets you sync, customize, and record breathtaking lyric videos natively in your browser with zero delay.
@@ -6,6 +6,8 @@ This tool lets you sync, customize, and record breathtaking lyric videos nativel
 ---
 
 ## 🚀 Production Features
+- **Heart Wave Loader:** Integrated a beautiful F(x) mathematical Heart Wave animated SVG loader that displays while YouTube videos buffer or load.
+- **Flawless Sync Precision:** Advanced polling architecture (50ms interval) completely eliminates visual latency, resulting in micro-second perfect karaoke-style synchronization.
 - **Smart Audio Wave Sync:** Procedural audio visualizer that perfectly bounces and syncs with the lyrics in real-time.
 - **Smart Auto-Scroll Focus:** The active lyric line is always dynamically centered on the screen. Manual scrolling is supported with a 3-second auto-resume timer.
 - **Cinematic Text Animations (22+ Options):** Choose from Typewriter, Fade Up, Slide In, Pop In, Blur Drop, Glitch, Neon Flash, Wave, Ken Burns, Glow Pulse, and many more.

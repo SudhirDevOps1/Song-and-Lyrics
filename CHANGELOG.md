@@ -6,6 +6,16 @@ Welcome to the Master Changelog for **SongVibe Ultimate Pro**. This document pro
 
 ---
 
+## [v6.0.0] - Heart Wave & Sync Engine
+**Major Fixes & Visual Upgrades**
+- **Heart Wave Loader:** Integrated a beautiful F(x) mathematical Heart Wave animated SVG loader that displays while YouTube videos buffer or load.
+- **Micro-second Sync Precision:** Lowered the global lyric polling interval from 150ms to 50ms for absolutely flawless real-time karaoke highlight synchronization.
+- **Autoplay Engine Rewrite:** Completely eliminated YouTube Iframe API state-locking bugs on song transitions by injecting a 250ms asynchronous `setTimeout` queue.
+- **Start-up Autoplay Fix:** Replaced `loadVideoById` with `cueVideoById` during app initialization to prevent strict browsers from blocking autoplay and permanently bricking the player state.
+- **New Hindi Hits Added:** Synced, formatted, and added three new classic songs ("Jeene Laga Hoon", "Tu Agar Meri", and "Khairiyat") into the native database!
+
+---
+
 ## [v5.0.0] - Ultimate Pro Upgrade
 **Major Overhaul & Enhancements**
 - **Dual Language Engine:** Integrated regex-based language detection (`/[\u0900-\u097F]/`) to dynamically apply distinct premium fonts (`Yatra One` for Hindi, `Poppins` for English) on a line-by-line basis.

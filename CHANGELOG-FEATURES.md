@@ -1,3 +1,18 @@
+# 🌟 Features Added (v6 Heart Wave)
+
+## 1. 🫀 Heart Wave Mathematical Loader
+- Integrated a purely mathematical SVG animation loader based on the formula `f(x) = |x|^(2/3) + 0.9√(3.3 - x²) sin(6.4πx)`.
+- Features 102 individual dynamic SVG particles spinning seamlessly via `requestAnimationFrame`.
+- Displays as a gorgeous, blurred overlay above the lyrics visualizer specifically when the YouTube API is buffering or transitioning between tracks.
+
+## 2. 🎵 Native Track Expansion
+- Formatted, translated, and color-coded three massive new classic tracks native to the `songs.json` repository:
+    - **Tu Agar Meri**
+    - **Khairiyat**
+    - **Jeene Laga Hoon**
+
+---
+
 # 🌟 Features Added (v5 Ultimate Pro)
 
 This document highlights all the new professional features added to the SongVibe application during the Ultimate Pro overhaul.

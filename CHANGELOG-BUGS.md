@@ -1,3 +1,19 @@
+# 🐛 Bugs Fixed (v6 Heart Wave)
+
+## 1. 🐛 Autoplay Engine Race Condition & Hangs
+**Issue:** "yesa banao ek ke bad ek song play hone lage". When a YouTube video ended, calling `loadVideoById` or `playVideo` exactly at the moment of the `ENDED` state event would lock the YouTube Iframe API internal state stack, causing the next song to freeze indefinitely on many browsers.
+**Fix:** Introduced an asynchronous 250ms `setTimeout` queue to the `doNext` call when either YouTube or Local audio triggers the `ended` event. This allows the player to correctly exit its state machine before initializing the next track.
+
+## 2. 🐛 Start-up Autoplay Blocking & Player Brick
+**Issue:** "first bar web app start krne pr song ya ..etc work nahi kr raha hain". When the app loaded, it tried to immediately fire `loadVideoById`. Modern browsers aggressively block autoplay without user interaction, throwing a silent error and permanently corrupting the YouTube player state until the page was reloaded.
+**Fix:** Refactored the `onYouTubeIframeAPIReady` startup logic to intelligently use `cueVideoById` instead. The video is silently pre-loaded without violating browser policies, and will instantly play when the user clicks the Play button.
+
+## 3. 🐛 Lyrics Highlight Latency & Micro-Desync
+**Issue:** "kabhi kabhi song lyrics same time pr nahi ho rahein hin". The JavaScript polling loop checking the audio/video progress was running at an interval of 150ms. This caused up to 150ms of visual latency, making the karaoke highlights feel slightly out of rhythm.
+**Fix:** Slashed the global `startTick()` interval from `150ms` down to `50ms`. The application now updates the lyrics scroll and highlight UI 20 times a second, completely eliminating desynchronization.
+
+---
+
 # 🐛 Bugs Fixed (v5 Ultimate Pro)
 
 This document tracks all the critical bugs that were identified and successfully resolved during the Ultimate Pro updates.
