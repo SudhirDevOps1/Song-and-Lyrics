@@ -563,9 +563,17 @@
             if (edArtist.value.trim()) s.artist = edArtist.value.trim();
             s.film = edFilm.value.trim();
             s.details = edDetails.value.trim();
-            saveToLocal(); loadSong(S.idx);
+            
+            // Update UI without stopping playback
+            npTitle.textContent = s.title;
+            npArtist.textContent = s.artist;
+            npFilm.textContent = (s.film ? s.film + ' ' : '') + (s.details ? `(${s.details})` : '');
+            
+            saveToLocal();
+            renderLyrics();
+            renderList();
         }
-        toast('Changes applied!');
+        toast('Changes applied seamlessly!');
     });
 
     function renderLyrics() {
