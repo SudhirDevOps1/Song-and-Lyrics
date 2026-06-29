@@ -1,0 +1,67 @@
+You are an Expert Senior Full-Stack Engineer and UI/UX Designer. 
+Your task is to build a highly advanced, responsive Music and Lyrics Sync Application (a perfect clone of a modern Spotify/Apple Music lyrics feature, combined with YouTube video playback). 
+
+IMPORTANT: Write the complete code (HTML, CSS, JavaScript or React/Vite depending on the stack you choose). Do not leave placeholders. Build the entire working application.
+
+==================================================
+1. DESIGN & UI/UX (Glassmorphism & Dark Theme)
+==================================================
+- Theme: Deep space dark mode (e.g., body background `radial-gradient(circle at center, #1b1a2e, #030308)`).
+- Typography: Use a modern sans-serif font like 'Inter' or 'Poppins', heavily bolded for lyrics (800 weight).
+- Glassmorphism Panels: Use `backdrop-filter: blur(25px)`, background `rgba(15, 15, 25, 0.7)`, border `1px solid rgba(255,255,255,0.05)`, and rounded corners `20px` for all UI panels.
+- Glowing Effects: Active items should cast a soft neon glow (e.g., `box-shadow: 0 0 30px rgba(0, 255, 255, 0.2)`).
+- Layout: 
+  - A left sidebar (25% width) for the "Playlist" and "Song Studio/Editor".
+  - A right main area (75% width) for the "Main Player", "Lyrics Scroll", and "Bottom Control Bar".
+
+==================================================
+2. CORE FEATURES & FUNCTIONALITIES
+==================================================
+
+A. Unified Audio & YouTube Player:
+- Implement a unified control bar at the bottom: Play/Pause, Previous, Next, Repeat, and a clickable Seek-bar (progress timeline).
+- The player must support TWO sources:
+  1. YouTube Links: Integrate the YouTube IFrame API to play songs directly from YouTube.
+  2. Local Audio: `<input type="file" accept="audio/*">` to let users upload and play local MP3s via HTML5 `<audio>` and `URL.createObjectURL()`.
+- Both sources must hook into the same timeline and progress bar.
+
+B. Live Lyrics Synchronization Engine:
+- Lyrics should be parsed from a format like: `[00:12.5] This is the lyric text`.
+- Calculate the exact current playback time every 50ms (via `setInterval` or `requestAnimationFrame`).
+- Compare `currentTime` with the timestamp of each lyric line.
+- Find the active line and apply a `.active` CSS class to it.
+- **Auto-scroll:** The active line must automatically snap/scroll to the center of the lyrics container using `element.scrollIntoView({ behavior: 'smooth', block: 'center' })`.
+- Custom Colors: Support inline colors in the lyrics string (e.g., `[0:15.0] [#00ffff] Glowing cyan text`). Apply this color dynamically.
+
+C. Karaoke Mode & Animations:
+- Provide toggle buttons (Pills) for users to choose animation styles (Fade, Karaoke, Blur).
+- In "Karaoke" mode: Split the active lyric line into individual words. Calculate the duration until the *next* lyric line. Highlight the words sequentially one-by-one as the time progresses.
+
+D. Built-In Lyrics Studio (Editor):
+- A sidebar panel containing a `<textarea>` where users can paste their own lyrics.
+- A "Sync Time" button that instantly inserts the current player timestamp (e.g., `[01:05.2]`) into the textarea.
+- An "Apply" button that immediately updates the live lyrics on the screen and saves to LocalStorage without reloading the page.
+
+E. Playlist & Storage Management:
+- Display a list of added songs with thumbnails.
+- Users can click any song to play it immediately.
+- Users can delete songs (with a custom "Are you sure?" popup).
+- Persist the entire song list (including lyrics and timestamps) in `localStorage` so data isn't lost on refresh.
+- On first load, check if local storage is empty. If empty, fetch a default `songs.json` file to populate the playlist.
+
+F. Dynamic Visualizer:
+- Create a `<canvas>` element.
+- When local audio is playing, use `AudioContext` and `AnalyserNode` to read frequency data.
+- Draw animated EQ bars or floating dots that bounce to the music beat.
+
+==================================================
+3. TECHNICAL EDGE CASES & BUG PREVENTION
+==================================================
+- DOM Race Conditions: When users click "Apply" or change songs, ensure the old lyrics' active state is completely reset (e.g., reset `activeLyricIndex = -1`).
+- Fast Interval Sync: The lyrics sync loop must forcefully apply the active class if it detects the DOM element lost it due to an unnecessary re-render.
+- React/Vite Users (If building in React): Strictly use `useRef` to track `currentTime` inside intervals to prevent infinite rendering loops. Only update React state when the `activeLyricIndex` changes, NOT on every millisecond tick.
+
+==================================================
+OUTPUT INSTRUCTIONS:
+==================================================
+Write the COMPLETE CODE for this application. If using Vanilla JS, provide `index.html`, `style.css`, and `app.js`. If using React, provide the complete component structure. Do not omit any CSS or JavaScript logic. Ensure it is fully styled, fully functional, and visually stunning.
