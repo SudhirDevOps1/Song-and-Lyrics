@@ -247,24 +247,56 @@ body {
 }
 .url-btn:hover { transform:scale(1.05); box-shadow: 0 6px 20px var(--accent-glow-2); }
 
-/* Playlist */
-.song-list { display:flex; flex-direction:column; gap:6px; height: clamp(200px, 35vh, 500px); overflow-y:auto; padding-right: 4px; border: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.15); border-radius: 12px; padding: 8px; flex-shrink: 0; }
-.song-card {
-    display:flex; align-items:center; gap:12px; padding:10px 14px;
-    border-radius:12px; cursor:pointer; transition:var(--tr);
-    border:1px solid rgba(255,255,255,0.02); background: rgba(0,0,0,0.2);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: relative; overflow: hidden;
+/* ═══ PREMIUM PLAYLIST ═══ */
+.song-list { 
+    display:flex; flex-direction:column; gap:8px; height: clamp(200px, 35vh, 500px); 
+    overflow-y:auto; padding-right: 6px; 
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    background: rgba(10, 10, 20, 0.4); 
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border-radius: 16px; padding: 12px; flex-shrink: 0; 
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02), 0 8px 32px rgba(0, 0, 0, 0.3);
 }
-.song-card:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); transform: translateX(2px); }
-.song-card.active { background: linear-gradient(90deg, var(--accent-glow) 0%, transparent 100%); border-color: var(--border-accent); border-left: 3px solid var(--accent); border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
-.sc-thumb { width:44px; height:44px; border-radius:8px; object-fit:cover; flex-shrink:0; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-.sc-thumb-ph { width:44px; height:44px; border-radius:8px; background:var(--bg-glass-3); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.song-list::-webkit-scrollbar { width: 6px; }
+.song-list::-webkit-scrollbar-track { background: transparent; }
+.song-list::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+.song-list::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+
+.song-card {
+    display:flex; align-items:center; gap:14px; padding:12px 16px;
+    border-radius:14px; cursor:pointer; transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border:1px solid rgba(255, 255, 255, 0.03); 
+    background: rgba(255, 255, 255, 0.02);
+    position: relative; overflow: hidden;
+}
+.song-card:hover { 
+    background: rgba(255, 255, 255, 0.05); 
+    border-color: rgba(255, 255, 255, 0.15); 
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.song-card.active { 
+    background: linear-gradient(135deg, var(--accent-glow) 0%, rgba(0,0,0,0) 100%); 
+    border-color: var(--accent); 
+    border-left: 4px solid var(--accent); 
+    border-radius: 14px;
+    box-shadow: 0 8px 25px var(--accent-glow-2), inset 0 0 15px var(--accent-glow);
+}
+.song-card.active .sc-name {
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.sc-thumb { width:48px; height:48px; border-radius:10px; object-fit:cover; flex-shrink:0; box-shadow: 0 4px 12px rgba(0,0,0,0.4); transition: 0.3s; }
+.song-card:hover .sc-thumb { transform: scale(1.05) rotate(2deg); }
+.sc-thumb-ph { width:48px; height:48px; border-radius:10px; background:linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); display:flex; align-items:center; justify-content:center; flex-shrink:0; border: 1px solid rgba(255,255,255,0.05); }
 .sc-info { flex:1; min-width:0; }
-.sc-name { font-size:0.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color: var(--text-1); }
-.sc-artist { font-size:0.7rem; color:var(--text-3); margin-top:3px; }
-.sc-del { width:28px; height:28px; border:none; background:none; color:var(--text-3); cursor:pointer; border-radius:8px; opacity:0; transition:0.2s ease; display: flex; align-items: center; justify-content: center; }
-.song-card:hover .sc-del { opacity:0.6; }
-.sc-del:hover { background:rgba(244,63,94,0.15); color:#f43f5e; opacity:1!important; transform: scale(1.1); }
+.sc-name { font-size:0.95rem; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color: var(--text-1); transition: 0.3s; letter-spacing: 0.2px; }
+.sc-artist { font-size:0.75rem; font-weight:600; color:var(--text-3); margin-top:4px; letter-spacing: 0.5px; text-transform: uppercase; }
+.sc-del { width:32px; height:32px; border:none; background:none; color:var(--text-3); cursor:pointer; border-radius:10px; opacity:0; transition:0.3s ease; display: flex; align-items: center; justify-content: center; }
+.song-card:hover .sc-del { opacity:0.7; }
+.sc-del:hover { background:rgba(244,63,94,0.15); color:#f43f5e; opacity:1!important; transform: scale(1.15) rotate(5deg); box-shadow: 0 0 15px rgba(244,63,94,0.3); }
 
 /* ═══ REPLACING DROPDOWNS WITH PILL BUTTONS ═══ */
 .pill-row {
