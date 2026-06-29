@@ -775,11 +775,13 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
 
 /* ═══ REELS MODE (9:16 PREVIEW & REAL DEVICE MOCKUP) ═══ */
 .main-content.reels-mode {
-    width: 380px !important;
-    max-width: 100% !important;
+    width: auto !important;
     height: 820px !important;
-    max-height: 95vh !important;
+    max-height: 90vh !important;
+    aspect-ratio: 380 / 820 !important;
     margin: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
     border: 14px solid #141417 !important; /* Hardware bezel */
     border-radius: 48px !important;
     /* Device frame shadow + Screen Glow */
@@ -790,7 +792,6 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
         0 0 80px var(--accent-glow-2) !important;
     overflow: hidden !important;
     position: relative !important;
-    flex: none !important;
     background-color: #000 !important;
 }
 
