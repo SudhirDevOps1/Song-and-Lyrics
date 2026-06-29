@@ -1373,13 +1373,8 @@
     const ctx = canvas.getContext('2d');
     let parts = [];
     function resize() { 
-        if (mainContent && mainContent.classList.contains('reels-mode')) {
-            canvas.width = mainContent.clientWidth || 410;
-            canvas.height = mainContent.clientHeight || 728;
-        } else {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
     window.addEventListener('resize', resize); resize();
     for(let i=0;i<100;i++) parts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5+0.3, vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2, p:Math.random()*6});
