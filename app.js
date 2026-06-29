@@ -53,6 +53,7 @@
     const speedBtns     = $$('#speedPills .pill-btn');
     const alignBtns     = $$('#alignPills .pill-btn');
     const posBtns       = $$('#posPills .pill-btn');
+    const waveRange     = $('#waveRange');
 
     // Guide Modal
     const btnGuide      = $('#btnGuide');
@@ -283,7 +284,7 @@
     /* ═══ LOCAL STORAGE & JSON ═══ */
     function savePrefs() {
         localStorage.setItem('songvibe_prefs', JSON.stringify({
-            anim: S.anim, speed: S.speed, theme: S.theme, align: S.align, pos: S.pos, bars: S.bars, lyricsSize: S.lyricsSize
+            anim: S.anim, speed: S.speed, theme: S.theme, align: S.align, pos: S.pos, bars: S.bars, lyricsSize: S.lyricsSize, fontEn: S.fontEn, fontHi: S.fontHi
         }));
     }
     
@@ -643,7 +644,6 @@
                 if (p.pos) S.pos = p.pos;
                 if (p.bars) S.bars = p.bars;
                 if (p.lyricsSize) S.lyricsSize = p.lyricsSize;
-                if (p.lyricsSize) S.lyricsSize = p.lyricsSize;
                 if (p.fontEn) S.fontEn = p.fontEn;
                 if (p.fontHi) S.fontHi = p.fontHi;
                 
@@ -664,8 +664,6 @@
         } catch(e) {}
         
         // Always apply fonts (whether from prefs or default)
-        const fontSelectEn = document.getElementById('fontSelectEn');
-        const fontSelectHi = document.getElementById('fontSelectHi');
         if(fontSelectEn) {
             fontSelectEn.value = S.fontEn || 'Caveat';
             document.documentElement.style.setProperty('--font-en', `"${S.fontEn}", 'Poppins', sans-serif`);
@@ -758,8 +756,8 @@
         document.documentElement.style.setProperty('--accent-glow', `rgba(0,212,255,${(v*0.35).toFixed(2)})`);
         document.documentElement.style.setProperty('--accent-glow-2', `rgba(0,212,255,${(v*0.6).toFixed(2)})`);
     });
+    glowRange.addEventListener('change', () => savePrefs());
 
-    const waveRange = $('#waveRange');
     if (waveRange) {
         waveRange.addEventListener('input', () => {
             S.bars = parseInt(waveRange.value);

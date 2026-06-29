@@ -1,7 +1,7 @@
 /* ============================================
    SONGVIBE v5 — Ultimate Pro
    ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bebas+Neue&family=Caveat&family=Cinzel&family=Comfortaa&family=Cormorant+Garamond&family=Dancing+Script&family=Dosis&family=EB+Garamond&family=Exo+2&family=Fira+Sans&family=Great+Vibes&family=Heebo&family=Hind&family=Inconsolata&family=Indie+Flower&family=Inter&family=Josefin+Sans&family=Jost&family=Kanit&family=Karla&family=Lato&family=Lobster&family=Lora&family=Manrope&family=Merriweather&family=Montserrat&family=Mukta&family=Nunito&family=Oswald&family=Outfit&family=Pacifico&family=Playfair+Display&family=Poppins&family=PT+Sans&family=PT+Serif&family=Quicksand&family=Raleway&family=Righteous&family=Roboto&family=Roboto+Condensed&family=Roboto+Mono&family=Roboto+Slab&family=Rubik&family=Space+Grotesk&family=Teko&family=Titillium+Web&family=Ubuntu&family=Varela+Round&family=Work+Sans&display=swap');
+/* Fonts loaded via index.html <link> tag — no @import needed here */
 
 :root {
     --bg-0: #030308;
@@ -486,7 +486,14 @@ body.theme-neon { --bg-1: #000000; background: radial-gradient(circle at 50% 0%,
 .guided-skip:hover { background: rgba(255,64,129,0.2); border-color: #ff4081; color: #ff4081; }
 
 /* FIX: Break out of stacking contexts when tutorial is active */
-body.guided-active .app,
+body.guided-active .app {
+    z-index: auto !important;
+    backdrop-filter: none !important;
+    transform: none !important;
+    filter: none !important;
+    isolation: auto !important;
+}
+
 body.guided-active .main,
 body.guided-active .editor,
 body.guided-active .sidebar,
