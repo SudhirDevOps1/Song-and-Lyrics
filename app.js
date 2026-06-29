@@ -41,7 +41,8 @@
     const edDetails = $('#edDetails');
     const edLyrics  = $('#edLyrics');
     const applyBtn  = $('#applyBtn');
-    const btnReelsMode       = $('#btnReelsMode');
+    const btnMobileMode      = $('#btnMobileMode');
+    const btnTabletMode      = $('#btnTabletMode');
     const offsetMinus        = $('#offsetMinus');
     const offsetPlus         = $('#offsetPlus');
     const autoFetchLyricsBtn = $('#autoFetchLyricsBtn');
@@ -1717,24 +1718,53 @@
     document.addEventListener('fullscreenchange', resetIdle);
 
     /* ═══ REELS aspect ratio preview & Mobile Mockup ═══ */
-    if (btnReelsMode) {
-        btnReelsMode.addEventListener('click', () => {
-            mainContent.classList.toggle('reels-mode');
-            const isReels = mainContent.classList.contains('reels-mode');
-            
-            // Toggle mobile-active on the root app container to hide side panels (prevent overlaps)
-            const appContainer = document.querySelector('.app');
-            if (appContainer) appContainer.classList.toggle('mobile-active', isReels);
-            
-            btnReelsMode.classList.toggle('active', isReels);
-            
-            // Force reflow/resize for canvas elements after hiding sidebars
-            setTimeout(() => {
-                resize();
-                window.dispatchEvent(new Event('resize'));
-            }, 50);
-            
-            toast(isReels ? '📱 Mobile Device Mode Enabled' : '📺 Cinematic Desktop Mode Enabled');
+    function setDeviceMode(mode) {
+        const appContainer = document.querySelector('.app');
+        if (mode === 'none') {
+            mainContent.classList.remove('reels-mode', 'tablet-mode');
+            if (appContainer) appContainer.classList.remove('mobile-active');
+            btnMobileMode?.classList.remove('active');
+            btnTabletMode?.classList.remove('active');
+            toast('📺 Cinematic Desktop Mode Enabled');
+        } else {
+            mainContent.classList.add('reels-mode');
+            if (appContainer) appContainer.classList.add('mobile-active');
+            if (mode === 'tablet') {
+                mainContent.classList.add('tablet-mode');
+                btnTabletMode?.classList.add('active');
+                btnMobileMode?.classList.remove('active');
+                toast('📟 Tablet Device Mode Enabled');
+            } else {
+                mainContent.classList.remove('tablet-mode');
+                btnMobileMode?.classList.add('active');
+                btnTabletMode?.classList.remove('active');
+                toast('📱 Mobile Device Mode Enabled');
+            }
+        }
+        
+        setTimeout(() => {
+            resize();
+            window.dispatchEvent(new Event('resize'));
+        }, 50);
+    }
+
+    if (btnMobileMode) {
+        btnMobileMode.addEventListener('click', () => {
+            if (mainContent.classList.contains('reels-mode') && !mainContent.classList.contains('tablet-mode')) {
+                setDeviceMode('none');
+            } else {
+                setDeviceMode('mobile');
+            }
+        });
+    }
+
+    if (btnTabletMode) {
+        btnTabletMode.addEventListener('click', () => {
+            if (mainContent.classList.contains('tablet-mode')) {
+                setDeviceMode('none');
+            } else {
+                setDeviceMode('tablet');
+            }
         });
     }
 
@@ -1895,8 +1925,26 @@
                 };
 
                 // Prepare UI & Auto-play
-                document.querySelector('.app').classList.add('mobile-active');
+                const appContainer = document.querySelector('.app');
+                if (!mainContent.classList.contains('reels-mode') && !mainContent.classList.contains('tablet-mode')) {
+                    mainContent.classList.add('reels-mode');
+                }
+                appContainer.classList.add('mobile-active');
                 document.body.classList.add('recording-active');
+
+                // 3-Second Cinematic Countdown
+                const countdownOverlay = document.getElementById('countdownOverlay');
+                if (countdownOverlay) {
+                    countdownOverlay.style.display = 'flex';
+                    countdownOverlay.classList.add('active');
+                    for (let i = 3; i > 0; i--) {
+                        countdownOverlay.innerHTML = `<span>${i}</span>`;
+                        await new Promise(r => setTimeout(r, 1000));
+                    }
+                    countdownOverlay.classList.remove('active');
+                    setTimeout(() => countdownOverlay.style.display = 'none', 300);
+                }
+
                 btnRecordReel.classList.add('btn-recording');
                 btnRecordReel.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Stop Recording';
                 

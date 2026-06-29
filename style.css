@@ -365,12 +365,16 @@ body {
 /* ═══ SIDEBARS (Left & Right) ═══ */
 .sidebar, .editor {
     display:flex; flex-direction:column; gap:20px;
-    padding:20px 16px; background: rgba(3,3,8,0.5);
-    backdrop-filter: blur(12px);
+    padding:24px 20px; background: rgba(10, 10, 20, 0.4);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     min-height: 0;
 }
-.sidebar { border-right:1px solid var(--border); overflow-y: auto; overflow-x: hidden; }
-.editor { border-left:1px solid var(--border); overflow-y: auto; overflow-x: hidden; }
+.sidebar { overflow-y: auto; overflow-x: hidden; }
+.editor { overflow-y: auto; overflow-x: hidden; }
 
 .sec-label {
     display:flex; align-items:center; gap:8px; font-size:0.75rem;
@@ -795,8 +799,8 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
     background-color: #000 !important;
 }
 
-/* Simulated Dynamic Island */
-.main-content.reels-mode::after {
+/* Simulated Dynamic Island (Only for Mobile) */
+.main-content.reels-mode:not(.tablet-mode)::after {
     content: '';
     position: absolute;
     top: 14px;
@@ -812,7 +816,7 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
 }
 
 /* Simulated Home Indicator */
-.main-content.reels-mode::before {
+.main-content.reels-mode::before, .main-content.tablet-mode::before {
     content: '';
     position: absolute;
     bottom: 8px;
@@ -824,6 +828,61 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
     border-radius: 4px;
     z-index: 1000;
     pointer-events: none;
+}
+
+/* ═══ TABLET MODE (3:4 PREVIEW) ═══ */
+.main-content.tablet-mode {
+    width: 640px !important;
+    max-width: 100vw !important;
+    height: 820px !important;
+    max-height: 92vh !important;
+    margin: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border: 24px solid #1a1a1c !important; /* Thicker, even bezel like iPad */
+    border-radius: 36px !important;
+    /* Tablet frame shadow */
+    box-shadow: 
+        0 0 0 2px #333, 
+        inset 0 0 0 4px #000, 
+        0 40px 120px rgba(0,0,0,1), 
+        0 0 100px var(--accent-glow-2) !important;
+    overflow: hidden !important;
+    position: relative !important;
+    background-color: #000 !important;
+}
+
+/* ═══ COUNTDOWN OVERLAY ═══ */
+.countdown-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(15px);
+    font-family: var(--font-display);
+    font-size: 15rem;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 0 40px var(--accent), 0 0 80px var(--accent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+.countdown-overlay.active {
+    opacity: 1;
+}
+.countdown-overlay span {
+    display: inline-block;
+    animation: popScale 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+}
+@keyframes popScale {
+    0% { transform: scale(0.5); opacity: 0; }
+    30% { transform: scale(1.1); opacity: 1; }
+    80% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
 }
 
 /* Hide side panels in mobile active mode */
