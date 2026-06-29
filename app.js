@@ -54,6 +54,10 @@
     const alignBtns     = $$('#alignPills .pill-btn');
     const posBtns       = $$('#posPills .pill-btn');
     const waveRange     = $('#waveRange');
+    const sizeVal       = $('#sizeVal');
+    const glowVal       = $('#glowVal');
+    const waveVal       = $('#waveVal');
+    const songCountBadge = $('#songCount');
 
     // Guide Modal
     const btnGuide      = $('#btnGuide');
@@ -359,6 +363,9 @@
 
     /* ═══ RENDER SONG LIST ═══ */
     function renderList() {
+        if (songCountBadge) {
+            songCountBadge.textContent = S.songs.length;
+        }
         if (!S.songs.length) {
             songList.innerHTML = `<div style="text-align:center;padding:40px 16px;opacity:0.4;">
                 ${ICO.music}<p>No songs yet</p>
@@ -385,11 +392,16 @@
         });
         songList.querySelectorAll('.sc-del').forEach(b => {
             b.addEventListener('click', e => {
-                e.stopPropagation(); const i = +b.dataset.rm;
-                S.songs.splice(i,1); saveToLocal();
-                if (S.idx===i) { pause(); S.idx=-1; npTitle.textContent='SongVibe'; npArt.src=''; }
-                else if (S.idx>i) S.idx--;
-                renderList();
+                e.stopPropagation();
+                const i = +b.dataset.rm;
+                const title = S.songs[i].title;
+                confirmDialog(`Delete "${title}"?`, () => {
+                    S.songs.splice(i,1); saveToLocal();
+                    if (S.idx===i) { pause(); S.idx=-1; npTitle.textContent='SongVibe'; npArt.src=''; }
+                    else if (S.idx>i) S.idx--;
+                    renderList();
+                    toast('Song deleted');
+                });
             });
         });
     }
@@ -457,6 +469,14 @@
             } else {
                 document.exitFullscreen();
             }
+        }
+        if (e.key==='n' || e.key==='N') {
+            e.preventDefault();
+            doNext();
+        }
+        if (e.key==='p' || e.key==='P') {
+            e.preventDefault();
+            doPrev();
         }
     });
 
@@ -541,6 +561,10 @@
                 const words = finalTxt.split(' ').map((w, wi) => `<span class="c" style="transition-delay: ${S.anim === 'typewriter' ? wi * 0.15 : 0}s">${esc(w)}</span>`).join(' ');
                 return `<div class="ll ${ac}" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${words}</div>`;
             }
+            if (S.anim === 'karaoke') {
+                const words = finalTxt.split(' ').map((w, wi) => `<span class="kw" data-w="${wi}">${esc(w)}</span>`).join(' ');
+                return `<div class="ll ${ac}" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${words}</div>`;
+            }
             return `<div class="ll ${ac}" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${esc(finalTxt)}</div>`;
         }).join('');
 
@@ -559,12 +583,36 @@
             S.lyricIdx = ai;
             highlight(lyricsScroll, ai);
         }
+        if (S.anim === 'karaoke' && ai >= 0) {
+            syncKaraokeWords(ai, t);
+        }
+    }
+
+    function syncKaraokeWords(ai, t) {
+        const el = lyricsScroll.querySelector(`.ll[data-i="${ai}"]`);
+        if (!el) return;
+        const words = el.querySelectorAll('.kw');
+        if (!words.length) return;
+        const start = S.lyrics[ai].time;
+        const end = (ai + 1 < S.lyrics.length) ? S.lyrics[ai+1].time : start + 4;
+        const duration = Math.max(0.5, end - start);
+        const progress = Math.max(0, Math.min(1, (t - start) / duration));
+        
+        const count = words.length;
+        words.forEach((w, wIdx) => {
+            if (progress >= (wIdx / count)) {
+                w.classList.add('sung');
+            } else {
+                w.classList.remove('sung');
+            }
+        });
     }
 
     function highlight(box, ai) {
         box.querySelectorAll('.ll').forEach((el,i) => {
             el.classList.remove('active','done');
             const chars = el.querySelectorAll('.c');
+            const kws = el.querySelectorAll('.kw');
             if (i===ai) {
                 el.classList.add('active');
                 if (S.anim==='typewriter') chars.forEach((c,ci) => setTimeout(()=>c.classList.add('v'), ci*40));
@@ -573,8 +621,10 @@
             } else if (i<ai) {
                 el.classList.add('done');
                 chars.forEach(c=>c.classList.add('v'));
+                kws.forEach(w=>w.classList.add('sung'));
             } else {
                 chars.forEach(c=>c.classList.remove('v'));
+                kws.forEach(w=>w.classList.remove('sung'));
             }
         });
     }
@@ -657,8 +707,14 @@
                 setPillActive(alignBtns, S.align, 'align');
                 setPillActive(posBtns, S.pos, 'pos');
                 
-                if(waveRange) waveRange.value = S.bars || 40;
-                if(sizeRange) sizeRange.value = S.lyricsSize || 1.8;
+                if(waveRange) {
+                    waveRange.value = S.bars || 40;
+                    if (waveVal) waveVal.textContent = S.bars || 40;
+                }
+                if(sizeRange) {
+                    sizeRange.value = S.lyricsSize || 1.8;
+                    if (sizeVal) sizeVal.textContent = S.lyricsSize || 1.8;
+                }
                 
                 document.body.classList.forEach(cls => { if(cls.startsWith('theme-')) document.body.classList.remove(cls); });
                 document.body.classList.add(`theme-${S.theme}`);
@@ -670,6 +726,7 @@
                     const v = p.glow / 100;
                     document.documentElement.style.setProperty('--accent-glow', `rgba(0,212,255,${(v*0.35).toFixed(2)})`);
                     document.documentElement.style.setProperty('--accent-glow-2', `rgba(0,212,255,${(v*0.6).toFixed(2)})`);
+                    if (glowVal) glowVal.textContent = p.glow + '%';
                 }
                 
                 applyVisuals();
@@ -765,6 +822,7 @@
     sizeRange.addEventListener('input', () => {
         S.lyricsSize = sizeRange.value;
         document.documentElement.style.setProperty('--lyrics-size', S.lyricsSize + 'rem');
+        if (sizeVal) sizeVal.textContent = S.lyricsSize;
     });
     sizeRange.addEventListener('change', () => savePrefs());
     
@@ -772,14 +830,44 @@
         const v = glowRange.value / 100;
         document.documentElement.style.setProperty('--accent-glow', `rgba(0,212,255,${(v*0.35).toFixed(2)})`);
         document.documentElement.style.setProperty('--accent-glow-2', `rgba(0,212,255,${(v*0.6).toFixed(2)})`);
+        if (glowVal) glowVal.textContent = glowRange.value + '%';
     });
     glowRange.addEventListener('change', () => savePrefs());
 
     if (waveRange) {
         waveRange.addEventListener('input', () => {
             S.bars = parseInt(waveRange.value);
+            if (waveVal) waveVal.textContent = S.bars;
         });
         waveRange.addEventListener('change', () => savePrefs());
+    }
+
+    const copyLyricsBtn = $('#copyLyricsBtn');
+    if (copyLyricsBtn) {
+        copyLyricsBtn.addEventListener('click', () => {
+            if (edLyrics && edLyrics.value.trim()) {
+                navigator.clipboard.writeText(edLyrics.value.trim())
+                    .then(() => toast('Lyrics copied!'))
+                    .catch(() => toast('Copy failed!'));
+            } else {
+                toast('No lyrics to copy!');
+            }
+        });
+    }
+
+    const btnShortcuts = $('#btnShortcuts');
+    const shortcutsModal = $('#shortcutsModal');
+    const shortcutsClose = $('#shortcutsClose');
+    if (btnShortcuts && shortcutsModal && shortcutsClose) {
+        btnShortcuts.addEventListener('click', () => {
+            shortcutsModal.style.display = 'flex';
+        });
+        shortcutsClose.addEventListener('click', () => {
+            shortcutsModal.style.display = 'none';
+        });
+        shortcutsModal.addEventListener('click', e => {
+            if (e.target === shortcutsModal) shortcutsModal.style.display = 'none';
+        });
     }
 
     /* ═══ USER GUIDE MODAL ═══ */
@@ -977,6 +1065,34 @@
         document.body.appendChild(el);
         requestAnimationFrame(()=>el.classList.add('show'));
         setTimeout(()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(),400); }, 2500);
+    }
+
+    function confirmDialog(msg, onConfirm) {
+        let el = $('.confirm-toast'); if(el) el.remove();
+        el = document.createElement('div');
+        el.className = 'confirm-toast';
+        el.innerHTML = `
+            <span>${esc(msg)}</span>
+            <button class="cf-yes">Yes</button>
+            <button class="cf-no">No</button>
+        `;
+        document.body.appendChild(el);
+        
+        const yesBtn = el.querySelector('.cf-yes');
+        const noBtn = el.querySelector('.cf-no');
+        
+        yesBtn.addEventListener('click', () => {
+            onConfirm();
+            el.classList.remove('show');
+            setTimeout(() => el.remove(), 400);
+        });
+        
+        noBtn.addEventListener('click', () => {
+            el.classList.remove('show');
+            setTimeout(() => el.remove(), 400);
+        });
+        
+        requestAnimationFrame(() => el.classList.add('show'));
     }
 
     const ctx = canvas.getContext('2d');

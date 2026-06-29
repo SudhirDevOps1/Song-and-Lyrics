@@ -537,6 +537,33 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
 .toast { position:fixed; bottom:28px; left:50%; transform:translate(-50%, 16px); padding:11px 22px; background:rgba(3,3,8,0.85); backdrop-filter:blur(20px); border:1px solid var(--border-accent); border-radius:var(--r); color:var(--text-1); font-size:0.82rem; font-weight:600; z-index:9999; opacity:0; transition:all 0.35s ease; pointer-events:none; }
 .toast.show { opacity:1; transform:translate(-50%, 0); }
 
+/* ═══ KARAOKE MODE ═══ */
+.kw { display: inline; transition: all 0.2s ease; }
+.ll.a-karaoke { opacity: 0.3; filter: blur(1px); }
+.ll.a-karaoke.active { opacity: 1; filter: blur(0); transform: scale(1.05); }
+.ll.a-karaoke.active .kw { opacity: 0.35; transition: all 0.15s ease; }
+.ll.a-karaoke.active .kw.sung { opacity: 1; color: transparent !important; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 8px var(--accent-glow-2)); }
+
+/* ═══ SONG COUNT BADGE ═══ */
+.song-count { background: var(--accent-glow); color: var(--accent); font-size: 0.6rem; padding: 2px 8px; border-radius: 10px; margin-left: 6px; font-weight: 700; letter-spacing: 0; text-transform: none; }
+
+/* ═══ SLIDER VALUE LABELS ═══ */
+.range-val { float: right; font-size: 0.65rem; color: var(--accent); font-weight: 600; background: var(--bg-glass-2); padding: 1px 8px; border-radius: 4px; letter-spacing: 0; text-transform: none; }
+
+/* ═══ CONFIRM TOAST ═══ */
+.confirm-toast { position: fixed; bottom: 28px; left: 50%; transform: translate(-50%, 80px); padding: 14px 20px; background: rgba(3,3,8,0.95); backdrop-filter: blur(20px); border: 1px solid var(--border-accent); border-radius: var(--r); color: var(--text-1); font-size: 0.85rem; font-weight: 600; z-index: 9999; display: flex; align-items: center; gap: 12px; opacity: 0; transition: all 0.35s ease; }
+.confirm-toast.show { opacity: 1; transform: translate(-50%, 0); }
+.cf-yes { padding: 6px 16px; background: var(--grad); border: none; border-radius: 6px; color: #030308; font-weight: 700; cursor: pointer; font-size: 0.8rem; font-family: var(--font); }
+.cf-yes:hover { box-shadow: var(--shadow-glow); }
+.cf-no { padding: 6px 16px; background: rgba(255,255,255,0.08); border: 1px solid var(--border); border-radius: 6px; color: var(--text-1); font-weight: 700; cursor: pointer; font-size: 0.8rem; font-family: var(--font); }
+.cf-no:hover { background: rgba(244,63,94,0.15); border-color: #f43f5e; color: #f43f5e; }
+
+/* ═══ KEYBOARD SHORTCUTS ═══ */
+.shortcut-grid { display: flex; flex-direction: column; gap: 10px; }
+.sc-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--bg-glass-2); border: 1px solid var(--border); border-radius: var(--r-sm); }
+.sc-item kbd { background: var(--bg-glass-3); border: 1px solid var(--border-2); padding: 4px 12px; border-radius: 6px; font-family: var(--font); font-size: 0.85rem; font-weight: 700; color: var(--accent); min-width: 50px; text-align: center; box-shadow: 0 2px 0 var(--border); }
+.sc-item span { color: var(--text-2); font-size: 0.85rem; font-weight: 600; }
+
 /* RESPONSIVE */
 @media (max-width:1100px) {
     .main { grid-template-columns:1fr; overflow-y: auto; }
