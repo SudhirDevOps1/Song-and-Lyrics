@@ -654,14 +654,54 @@
 
     /* ═══ LYRICS PARSING & SYNC ═══ */
     function parseLyrics(text) {
-        const lines = text.split('\n');
+        text = text.trim();
+        
+        // 1. Smart JSON Importer: If the pasted text is a complete JSON object, parse it
+        if (text.startsWith('{') && text.endsWith('}')) {
+            try {
+                const parsed = JSON.parse(text);
+                if (parsed.lyrics) {
+                    // Auto-fill active editor fields dynamically
+                    if (parsed.title && edTitle) edTitle.value = parsed.title;
+                    if (parsed.artist && edArtist) edArtist.value = parsed.artist;
+                    if (parsed.film && edFilm) edFilm.value = parsed.film;
+                    if (parsed.details && edDetails) edDetails.value = parsed.details;
+                    
+                    // Parse song structure
+                    if (Array.isArray(parsed.lyrics)) {
+                        if (typeof parsed.lyrics[0] === 'string') {
+                            text = parsed.lyrics.join('\n');
+                        } else {
+                            // Array of pre-parsed lyric objects [{time, text}]
+                            return parsed.lyrics.map(x => ({ time: parseFloat(x.time), text: (x.text || '').trim() }));
+                        }
+                    } else if (typeof parsed.lyrics === 'string') {
+                        text = parsed.lyrics;
+                    }
+                }
+            } catch (e) {
+                console.error('Failed to parse JSON lyrics paste:', e);
+            }
+        }
+        
+        // 2. Clean up quote-wrapped/comma-ended lines (e.g. copied directly from a JSON file array)
+        const cleanLines = text.split('\n').map(line => {
+            let cleaned = line.trim();
+            // Remove leading quotes
+            if (cleaned.startsWith('"') || cleaned.startsWith("'")) {
+                cleaned = cleaned.slice(1);
+            }
+            // Remove trailing quotes, commas, spaces
+            cleaned = cleaned.replace(/['",\s]+$/, '');
+            return cleaned.trim();
+        });
+
         const res = [];
-        // Matches [0:15.0] Text OR (0:15 - 0:20): Text OR (0:15) Text
         const re = /^(?:\[|\()(\d+):([\d.]+).*?(?:\]|\))\s*:?\s*(.*)/;
-        const hasTm = lines.some(l => re.test(l));
+        const hasTm = cleanLines.some(l => re.test(l));
         
         if (hasTm) {
-            lines.forEach((l, i) => {
+            cleanLines.forEach((l, i) => {
                 const m = l.match(re);
                 if (m) {
                     res.push({ explicit: true, time: +m[1]*60 + parseFloat(m[2]), text: m[3].trim() });
@@ -689,7 +729,7 @@
             return res.map(x => ({ time: x.time, text: x.text }));
         } else {
             const gap = SPEED[S.speed]||3;
-            lines.filter(l=>l.trim()).forEach((l,i) => res.push({ time: i*gap, text: l.trim() }));
+            cleanLines.filter(l=>l.trim()).forEach((l,i) => res.push({ time: i*gap, text: l.trim() }));
             return res;
         }
     }
@@ -699,6 +739,12 @@
         S.lyrics = txt ? parseLyrics(txt) : [];
         if (S.idx>=0) {
             const s = S.songs[S.idx];
+            
+            // If S.lyrics was parsed from JSON/array format, write back clean formatted LRC timestamps
+            if (S.lyrics.length) {
+                edLyrics.value = S.lyrics.map(l => `[${fmtStamp(l.time)}] ${l.text}`).join('\n');
+            }
+            
             s.lyrics = S.lyrics;
             if (edTitle.value.trim()) s.title = edTitle.value.trim();
             if (edArtist.value.trim()) s.artist = edArtist.value.trim();
