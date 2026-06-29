@@ -703,10 +703,9 @@
     });
     setupPills('waveTypePills', 'waveType', () => savePrefs());
     setupPills('layoutPills', 'layout', (v) => {
-        if (v === 'split') {
-            $('.main-content').classList.add('layout-split');
-        } else {
-            $('.main-content').classList.remove('layout-split');
+        $('.main-content').classList.remove('layout-split', 'layout-split-rev', 'layout-focus');
+        if (v !== 'default') {
+            $('.main-content').classList.add('layout-' + v);
         }
         savePrefs();
     });
@@ -763,10 +762,9 @@
                 const layoutPills = document.querySelectorAll('#layoutPills .pill-btn');
                 setPillActive(layoutPills, S.layout, 'layout');
                 
-                if (S.layout === 'split') {
-                    $('.main-content').classList.add('layout-split');
-                } else {
-                    $('.main-content').classList.remove('layout-split');
+                $('.main-content').classList.remove('layout-split', 'layout-split-rev', 'layout-focus');
+                if (S.layout !== 'default') {
+                    $('.main-content').classList.add('layout-' + S.layout);
                 }
                 
                 if(waveRange) {
@@ -1259,15 +1257,15 @@
                 const x = i * barWidth + (barWidth * 0.2);
                 const y = (waveCanvas.height / 2) - (h / 2);
                 
+                waveCtx.beginPath();
                 if (S.waveType === 'dots') {
-                    waveCtx.moveTo(x + w/2 + h/4, waveCanvas.height / 2);
                     waveCtx.arc(x + w/2, waveCanvas.height / 2, Math.max(2, h/4), 0, Math.PI * 2);
                 } else {
                     // Default bars
                     waveCtx.roundRect(x, y, w, Math.max(h, 5), w/2);
                 }
+                waveCtx.fill();
             }
-            waveCtx.fill();
         }
     })();
 

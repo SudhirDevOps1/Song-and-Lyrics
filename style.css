@@ -311,6 +311,49 @@ body {
     background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 70%, transparent 100%);
 }
 
+/* Split Reverse Layout */
+.main-content.layout-split-rev {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+}
+.main-content.layout-split-rev .now-playing {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-bottom: none;
+    border-left: 1px solid var(--border);
+    padding: 40px;
+}
+.main-content.layout-split-rev .np-info { display: flex; flex-direction: column; align-items: center; margin-top: 10px; }
+.main-content.layout-split-rev .np-title { white-space: normal; text-align: center; }
+.main-content.layout-split-rev .lyrics-box {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    padding: 40px;
+}
+.main-content.layout-split-rev .player { grid-column: 1 / 3; grid-row: 2 / 3; background: var(--bg-0); z-index: 10; }
+.main-content:fullscreen.layout-split-rev .now-playing { border-left: none; }
+.main-content:fullscreen.layout-split-rev .np-art { width: 250px; height: 250px; margin-bottom: 20px; }
+.main-content:fullscreen.layout-split-rev .np-img { box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 50px var(--accent-glow); border-radius: 30px; }
+.main-content:fullscreen.layout-split-rev .player { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 70%, transparent 100%); }
+
+/* Focus Mode Layout */
+.main-content.layout-focus {
+    display: grid;
+    grid-template-rows: 1fr auto;
+}
+.main-content.layout-focus .now-playing { display: none; }
+.main-content.layout-focus .lyrics-box {
+    grid-row: 1 / 2;
+    padding: 40px;
+}
+.main-content.layout-focus .player { grid-row: 2 / 3; background: var(--bg-0); z-index: 10; }
+.main-content:fullscreen.layout-focus .player { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 70%, transparent 100%); }
+
 /* ═══ SIDEBARS (Left & Right) ═══ */
 .sidebar, .editor {
     display:flex; flex-direction:column; gap:20px;
