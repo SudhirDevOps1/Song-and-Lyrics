@@ -92,6 +92,7 @@
         pos: 'center',
         bars: 40,
         waveType: 'bars', // Default wave type
+        layout: 'default', // 'default' or 'split'
         source: 'none', // 'yt' or 'local'
         fontEn: 'Caveat',
         fontHi: 'Amita'
@@ -314,7 +315,7 @@
     /* ═══ LOCAL STORAGE & JSON ═══ */
     function savePrefs() {
         localStorage.setItem('songvibe_prefs', JSON.stringify({
-            anim: S.anim, speed: S.speed, theme: S.theme, align: S.align, pos: S.pos, bars: S.bars, waveType: S.waveType, lyricsSize: S.lyricsSize, fontEn: S.fontEn, fontHi: S.fontHi, glow: glowRange ? glowRange.value : 60
+            anim: S.anim, speed: S.speed, theme: S.theme, align: S.align, pos: S.pos, bars: S.bars, waveType: S.waveType, layout: S.layout, lyricsSize: S.lyricsSize, fontEn: S.fontEn, fontHi: S.fontHi, glow: glowRange ? glowRange.value : 60
         }));
     }
     
@@ -701,6 +702,14 @@
         $('.lyrics-box').style.justifyContent = v; 
     });
     setupPills('waveTypePills', 'waveType', () => savePrefs());
+    setupPills('layoutPills', 'layout', (v) => {
+        if (v === 'split') {
+            $('.main-content').classList.add('layout-split');
+        } else {
+            $('.main-content').classList.remove('layout-split');
+        }
+        savePrefs();
+    });
 
 
     const themeBtns = document.querySelectorAll('.pill-btn[data-theme]');
@@ -742,6 +751,7 @@
                 if (p.fontHi) S.fontHi = p.fontHi;
                 
                 if (p.waveType) S.waveType = p.waveType;
+                if (p.layout) S.layout = p.layout;
                 
                 setPillActive(animBtns, S.anim, 'anim');
                 setPillActive(speedBtns, S.speed, 'speed');
@@ -750,6 +760,14 @@
                 setPillActive(posBtns, S.pos, 'pos');
                 const wavePills = document.querySelectorAll('#waveTypePills .pill-btn');
                 setPillActive(wavePills, S.waveType, 'wave');
+                const layoutPills = document.querySelectorAll('#layoutPills .pill-btn');
+                setPillActive(layoutPills, S.layout, 'layout');
+                
+                if (S.layout === 'split') {
+                    $('.main-content').classList.add('layout-split');
+                } else {
+                    $('.main-content').classList.remove('layout-split');
+                }
                 
                 if(waveRange) {
                     waveRange.value = S.bars || 40;
