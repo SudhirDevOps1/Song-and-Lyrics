@@ -1914,15 +1914,19 @@
                     const scaleX = cropVideo.videoWidth / window.innerWidth;
                     const scaleY = cropVideo.videoHeight / window.innerHeight;
                     
-                    const cropX = rect.left * scaleX;
-                    const cropY = rect.top * scaleY;
-                    const cropW = rect.width * scaleX;
-                    const cropH = rect.height * scaleY;
+                    const cropX = Math.round(rect.left * scaleX);
+                    const cropY = Math.round(rect.top * scaleY);
+                    const cropW = Math.round(rect.width * scaleX);
+                    const cropH = Math.round(rect.height * scaleY);
 
                     cropCanvas.width = cropW;
                     cropCanvas.height = cropH;
 
                     function drawCrop() {
+                        // Clear to ensure no ghosting on high DPI scaling
+                        cropCtx.fillStyle = '#000';
+                        cropCtx.fillRect(0, 0, cropW, cropH);
+                        // Draw cropped region perfectly
                         cropCtx.drawImage(cropVideo, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
                         animationFrameId = requestAnimationFrame(drawCrop);
                     }
