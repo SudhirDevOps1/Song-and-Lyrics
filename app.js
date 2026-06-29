@@ -121,7 +121,9 @@
                 onReady: () => { 
                     if(yt) yt.setVolume(S.vol); 
                     if (S.songs.length === 0) loadFromLocal();
-                    else if (S.idx >= 0 && S.source === 'yt') yt.loadVideoById(S.songs[S.idx].videoId);
+                    else if (S.idx >= 0 && S.source === 'yt') {
+                        if (yt.cueVideoById) yt.cueVideoById(S.songs[S.idx].videoId);
+                    }
                 },
                 onStateChange: onYtState,
                 onError: onYtError
@@ -225,7 +227,7 @@
             tCur.textContent = fmt(c);
             tTot.textContent = fmt(d);
             syncLyric(c);
-        }, 150);
+        }, 50);
     }
     function stopTick() { if (ticker) { clearInterval(ticker); ticker = null; } }
 
