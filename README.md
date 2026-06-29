@@ -1,4 +1,4 @@
-# 🎵 SongVibe Ultimate Pro (v6.0 Heart Wave)
+# 🎵 SongVibe Ultimate Pro (v7.0 Mobile Mockup Edition)
 
 Welcome to **SongVibe Ultimate Pro** – The most advanced web-based Lyric Video & Reel Maker. 
 This tool lets you sync, customize, and record breathtaking lyric videos natively in your browser with zero delay.
@@ -6,11 +6,13 @@ This tool lets you sync, customize, and record breathtaking lyric videos nativel
 ---
 
 ## 🚀 Production Features
+- **Hyper-Realistic Mobile Device Mockup:** Activate Reels (9:16) mode to transform the viewport into a physical smartphone hardware frame, complete with CSS side buttons, a dynamic island, and a distraction-free auto-hiding sidebar!
+- **Premium Audio Spectrum Visualizers:** Switch between 5 industry-standard visualizers: Apple (Smooth Curve), DJ (Segmented), Radial (Circular), Retro (Hollow Synthwave), and Immersive (Bars + Particles), all backed by a dynamic time-shifting HSL neon gradient.
+- **LRCLib Auto-Fetch & Smart Sync:** Fetch perfectly synced lyrics via the LRCLib API in a single click, complete with an intelligent parser that instantly structures the data.
+- **Drag-to-Scrub Timeline:** Smooth mouse and touch drag scrubbing on the progress bar, executing instant `seekTo()` calls.
+- **Automated Duet Highlighting:** Any lyrics wrapped in `(parenthesis)` are instantly detected and rendered in a vibrant Rose Pink color to emulate duet styles.
 - **Heart Wave Loader:** Integrated a beautiful F(x) mathematical Heart Wave animated SVG loader that displays while YouTube videos buffer or load.
 - **Flawless Sync Precision:** Advanced polling architecture (50ms interval) completely eliminates visual latency, resulting in micro-second perfect karaoke-style synchronization.
-- **Smart Audio Wave Sync:** Procedural audio visualizer that perfectly bounces and syncs with the lyrics in real-time.
-- **Smart Auto-Scroll Focus:** The active lyric line is always dynamically centered on the screen. Manual scrolling is supported with a 3-second auto-resume timer.
-- **Cinematic Text Animations (22+ Options):** Choose from Typewriter, Fade Up, Slide In, Pop In, Blur Drop, Glitch, Neon Flash, Wave, Ken Burns, Glow Pulse, and many more.
 - **Premium Animated Themes:** Animated moving gradients for Midnight Mesh, Deep Ocean, Vaporwave, Sunset, Rose Gold, Neon Dark, and the classic Spotify Green.
 - **Dual Language Font Engine:** Automatically detects Hindi (`Yatra One`) and English (`Poppins`) characters in the same song and renders them with beautiful contrasting typography.
 - **Spotify-Style Real-time Typing:** Word-by-word karaoke-style text fill that syncs smoothly with the music cadence.

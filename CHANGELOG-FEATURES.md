@@ -1,3 +1,30 @@
+# 🌟 Features Added (v7 Mobile Mockup & LRCLib)
+
+## 1. 📱 Hyper-Realistic Mobile Device Mockup
+- Transformed the `Reels (9:16)` mode from a simple box into a **physical smartphone hardware frame**.
+- Automatically hides the left and right sidebars dynamically to provide a true distraction-free recording space.
+- Designed CSS-based hardware volume and power buttons, a dynamic island/notch, and a home swipe indicator.
+
+## 2. 🎨 Premium Audio Spectrum Engine
+- Completely overhauled the audio visualizer engine to support 5 distinct, industry-standard modes: `Apple (Smooth Curve)`, `DJ (Segmented Spectrum)`, `Radial (Circular Bar)`, `Retro (Hollow Synthwave)`, and `Immersive (Bars + Glowing Particles)`.
+- Introduced a dynamic time-shifting rainbow HSL gradient to all visualizers for stunning color transitions.
+- Added a pulsing global neon shadow glow.
+
+## 3. 🎤 LRCLib Auto-Fetch & Smart Sync
+- Implemented a one-click **Auto Fetch Lyrics** button that hits the LRCLib API directly using the Song Title and Artist.
+- Added a robust **Smart Parser** that automatically decodes raw JSON payloads, cleans quotation marks, and injects clean LRC timestamp structures into the editor.
+- Included `+0.5s` and `-0.5s` bulk timeline offset adjustment buttons.
+
+## 4. 🎛️ Drag-to-Scrub Timeline Engine
+- Upgraded the player progress bar to support **smooth mouse/touch drag scrubbing**.
+- Automatically pauses the UI tick loop while dragging and executes an instant `seekTo()` upon release to perfectly jump to the desired lyric.
+
+## 5. 💖 Smart Duet & Layout Polish
+- Engineered automated duet/chorus highlighting: any lyrics wrapped in parenthesis `(like this)` are automatically rendered in a distinct Rose Pink color.
+- Converted `.main` grid container to a responsive Flexbox constraint to permanently eliminate UI overlapping bugs on small browser windows.
+
+---
+
 # 🌟 Features Added (v6 Heart Wave)
 
 ## 1. 🫀 Heart Wave Mathematical Loader
