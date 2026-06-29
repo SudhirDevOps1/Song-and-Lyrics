@@ -1719,14 +1719,25 @@
     document.addEventListener('keydown', resetIdle);
     document.addEventListener('fullscreenchange', resetIdle);
 
-    /* ═══ REELS aspect ratio preview ═══ */
+    /* ═══ REELS aspect ratio preview & Mobile Mockup ═══ */
     if (btnReelsMode) {
         btnReelsMode.addEventListener('click', () => {
             mainContent.classList.toggle('reels-mode');
             const isReels = mainContent.classList.contains('reels-mode');
+            
+            // Toggle mobile-active on the root app container to hide side panels (prevent overlaps)
+            const appContainer = document.querySelector('.app');
+            if (appContainer) appContainer.classList.toggle('mobile-active', isReels);
+            
             btnReelsMode.classList.toggle('active', isReels);
-            resize();
-            toast(isReels ? '📱 Reels Aspect Ratio Mode (9:16) Enabled' : '📺 Cinematic Mode Enabled');
+            
+            // Force reflow/resize for canvas elements after hiding sidebars
+            setTimeout(() => {
+                resize();
+                window.dispatchEvent(new Event('resize'));
+            }, 50);
+            
+            toast(isReels ? '📱 Mobile Device Mode Enabled' : '📺 Cinematic Desktop Mode Enabled');
         });
     }
 
