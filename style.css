@@ -189,12 +189,73 @@ body {
     display:grid; grid-template-columns: 300px 1fr 340px;
     flex:1; min-height:0; /* Fixes overlap/expansion issues */
 }
+/* ═══ FULLSCREEN CINEMATIC MODE ═══ */
 .main-content:fullscreen {
-    background: var(--bg-0);
-    /* Inherit the theme gradients if possible, or just solid black if they want it clean */
-    background: radial-gradient(circle at center, var(--bg-1) 0%, var(--bg-0) 100%);
+    background: #000000;
+    background: radial-gradient(circle at 50% -20%, var(--accent-glow-2) 0%, rgba(5,5,15,1) 60%, #000000 100%);
+    box-shadow: inset 0 0 150px rgba(0,0,0,0.8);
 }
 .main-content:fullscreen #fsBoxBtn { display: none !important; }
+
+/* Cinematic Header */
+.main-content:fullscreen .now-playing {
+    border-bottom: none;
+    background: transparent;
+    padding: 50px 80px 20px;
+}
+.main-content:fullscreen .np-art {
+    width: 100px;
+    height: 100px;
+}
+.main-content:fullscreen .np-img {
+    border: none;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 40px var(--accent-glow);
+    border-radius: 20px;
+}
+.main-content:fullscreen .np-title {
+    font-size: 2.8rem;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    letter-spacing: -0.5px;
+}
+.main-content:fullscreen .np-artist {
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+/* Cinematic Lyrics */
+.main-content:fullscreen .lyrics-box {
+    padding: 0 80px;
+    /* Hide scrollbar for a cleaner recording look */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.main-content:fullscreen .lyrics-box::-webkit-scrollbar {
+    display: none;
+}
+.main-content:fullscreen .ll {
+    transform: scale(0.9);
+    opacity: 0.15;
+    filter: blur(2px);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.main-content:fullscreen .ll.active {
+    transform: scale(1.15);
+    opacity: 1;
+    filter: blur(0);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+.main-content:fullscreen .ll.done {
+    transform: scale(0.95);
+    opacity: 0.25;
+    filter: blur(1px);
+}
+
+/* Cinematic Player Bar */
+.main-content:fullscreen .player {
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 70%, transparent 100%);
+    padding: 40px 80px 50px;
+    border-top: none;
+}
 
 /* ═══ SIDEBARS (Left & Right) ═══ */
 .sidebar, .editor {
