@@ -91,6 +91,7 @@
         align: 'center',
         pos: 'center',
         bars: 40,
+        waveType: 'bars', // Default wave type
         source: 'none', // 'yt' or 'local'
         fontEn: 'Caveat',
         fontHi: 'Amita'
@@ -313,7 +314,7 @@
     /* ═══ LOCAL STORAGE & JSON ═══ */
     function savePrefs() {
         localStorage.setItem('songvibe_prefs', JSON.stringify({
-            anim: S.anim, speed: S.speed, theme: S.theme, align: S.align, pos: S.pos, bars: S.bars, lyricsSize: S.lyricsSize, fontEn: S.fontEn, fontHi: S.fontHi, glow: glowRange ? glowRange.value : 60
+            anim: S.anim, speed: S.speed, theme: S.theme, align: S.align, pos: S.pos, bars: S.bars, waveType: S.waveType, lyricsSize: S.lyricsSize, fontEn: S.fontEn, fontHi: S.fontHi, glow: glowRange ? glowRange.value : 60
         }));
     }
     
@@ -450,6 +451,8 @@
         edTitle.value = s.title; edArtist.value = s.artist;
         edFilm.value = s.film || ''; edDetails.value = s.details || '';
         S.lyrics = s.lyrics || [];
+        S.lyricIdx = -1; // CRITICAL FIX: Reset lyric tracking state when changing songs
+        
         if (S.lyrics.length) edLyrics.value = S.lyrics.map(l => `[${fmtStamp(l.time)}] ${l.text}`).join('\n');
         else edLyrics.value = '';
         renderLyrics(); renderList();
@@ -563,6 +566,8 @@
             if (edArtist.value.trim()) s.artist = edArtist.value.trim();
             s.film = edFilm.value.trim();
             s.details = edDetails.value.trim();
+            
+            S.lyricIdx = -1; // CRITICAL FIX: Reset tracking so UI forces a re-sync
             
             // Update UI without stopping playback
             npTitle.textContent = s.title;
@@ -695,7 +700,7 @@
     setupPills('posPills', 'pos', (v) => { 
         $('.lyrics-box').style.justifyContent = v; 
     });
-    
+    setupPills('waveTypePills', 'waveType', () => savePrefs());
 
 
     const themeBtns = document.querySelectorAll('.pill-btn[data-theme]');
@@ -736,11 +741,15 @@
                 if (p.fontEn) S.fontEn = p.fontEn;
                 if (p.fontHi) S.fontHi = p.fontHi;
                 
+                if (p.waveType) S.waveType = p.waveType;
+                
                 setPillActive(animBtns, S.anim, 'anim');
                 setPillActive(speedBtns, S.speed, 'speed');
                 setPillActive(themeBtns, S.theme, 'theme');
                 setPillActive(alignBtns, S.align, 'align');
                 setPillActive(posBtns, S.pos, 'pos');
+                const wavePills = document.querySelectorAll('#waveTypePills .pill-btn');
+                setPillActive(wavePills, S.waveType, 'wave');
                 
                 if(waveRange) {
                     waveRange.value = S.bars || 40;
@@ -1184,46 +1193,63 @@
         grad.addColorStop(1, c1);
         waveCtx.fillStyle = grad;
         
+        let waveH = [];
+        
         if (S.source === 'local' && typeof analyser !== 'undefined' && isPlaying) {
             analyser.getByteFrequencyData(dataArray);
             const step = Math.max(1, Math.floor(dataArray.length / bars));
             for (let i = 0; i < bars; i++) {
                 const val = dataArray[i * step] || 0;
-                let h = 5 + (val / 255) * (waveCanvas.height * 0.75); // Real frequency height
-                const w = barWidth * 0.6;
-                const x = i * barWidth + (barWidth * 0.2);
-                const y = (waveCanvas.height / 2) - (h / 2); // Centered vertically
-                
-                waveCtx.beginPath();
-                waveCtx.roundRect(x, y, w, h, w/2);
-                waveCtx.fill();
+                waveH.push(5 + (val / 255) * (waveCanvas.height * 0.75));
             }
         } else {
             for (let i = 0; i < bars; i++) {
-                let h = 5; // minimum height
-                
+                let h = 5;
                 if (isPlaying) {
                     const noise1 = Math.sin(i * 0.5 + waveTime * 2);
                     const noise2 = Math.cos(i * 0.8 - waveTime * 3);
                     const noise3 = Math.sin(i * 0.2 + waveTime * 1.5);
-                    
                     let magnitude = Math.abs(noise1 + noise2 + noise3) / 3;
                     const localSpike = waveSpike * (0.5 + Math.random() * 0.8);
                     magnitude += localSpike;
                     const centerDist = 1 - Math.abs((i / bars) - 0.5) * 2;
                     magnitude = magnitude * Math.pow(centerDist, 0.5);
-                    
-                    h = 5 + (magnitude * (waveCanvas.height * 0.7)); // Scale dynamically
+                    h = 5 + (magnitude * (waveCanvas.height * 0.7));
                 }
-                
+                waveH.push(h);
+            }
+        }
+        
+        waveCtx.beginPath();
+        if (S.waveType === 'curve') {
+            waveCtx.moveTo(0, waveCanvas.height / 2);
+            for (let i = 0; i < bars; i++) {
+                const x = i * barWidth + (barWidth / 2);
+                waveCtx.lineTo(x, (waveCanvas.height / 2) - (waveH[i] / 2));
+            }
+            waveCtx.lineTo(waveCanvas.width, waveCanvas.height / 2);
+            for (let i = bars - 1; i >= 0; i--) {
+                const x = i * barWidth + (barWidth / 2);
+                waveCtx.lineTo(x, (waveCanvas.height / 2) + (waveH[i] / 2));
+            }
+            waveCtx.closePath();
+            waveCtx.fill();
+        } else {
+            for (let i = 0; i < bars; i++) {
+                const h = waveH[i];
                 const w = barWidth * 0.6;
                 const x = i * barWidth + (barWidth * 0.2);
-                const y = (waveCanvas.height / 2) - (h / 2); // Centered vertically
+                const y = (waveCanvas.height / 2) - (h / 2);
                 
-                waveCtx.beginPath();
-                waveCtx.roundRect(x, y, w, Math.max(h, 5), w/2);
-                waveCtx.fill();
+                if (S.waveType === 'dots') {
+                    waveCtx.moveTo(x + w/2 + h/4, waveCanvas.height / 2);
+                    waveCtx.arc(x + w/2, waveCanvas.height / 2, Math.max(2, h/4), 0, Math.PI * 2);
+                } else {
+                    // Default bars
+                    waveCtx.roundRect(x, y, w, Math.max(h, 5), w/2);
+                }
             }
+            waveCtx.fill();
         }
     })();
 
