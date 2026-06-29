@@ -273,11 +273,18 @@
     }
     function stopTick() { if (ticker) { clearInterval(ticker); ticker = null; } }
 
-    /* ═══ VIDEO ID EXTRACT ═══ */
     function vidId(url) {
         if (!url) return null;
-        let m = url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/|^)([a-zA-Z0-9_-]{11})/);
-        return m ? m[1] : null;
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|^shorts\/)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+        if (match && match[2].length === 11) {
+            return match[2];
+        }
+        const trimmed = url.trim();
+        if (trimmed.length === 11 && /^[a-zA-Z0-9_-]{11}$/.test(trimmed)) {
+            return trimmed;
+        }
+        return null;
     }
     function thumb(id) { return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
 
@@ -394,7 +401,11 @@
     }
     
     function saveToLocal() { localStorage.setItem('songvibe_songs', JSON.stringify(S.songs)); }
+    
+    let hasInitialized = false;
     function loadFromLocal() {
+        if (hasInitialized) return;
+        hasInitialized = true;
         let hasLocal = false;
         try {
             const saved = localStorage.getItem('songvibe_songs');
