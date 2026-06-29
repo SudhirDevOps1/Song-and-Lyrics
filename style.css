@@ -572,3 +572,8 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
     .sidebar, .editor { display:none; }
     .lyrics-box { margin: 16px; min-height: 300px; }
 }
+
+@keyframes fadeInOut {
+    0% { opacity: 0.4; }
+    100% { opacity: 1; text-shadow: 0 0 12px var(--accent-glow); }
+}
