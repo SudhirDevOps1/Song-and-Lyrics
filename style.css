@@ -934,3 +934,75 @@ body.recording-active .header {
     align-items: center;
     background: radial-gradient(circle at center, var(--bg-1), #020205);
 }
+
+/* ═══ MOBILE BLOCKER & RESPONSIVENESS ═══ */
+.mobile-blocker {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999999;
+    background: #050510;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.mobile-blocker-content {
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 40px rgba(0, 229, 255, 0.1);
+}
+
+.mobile-blocker svg {
+    color: #ff4081;
+    margin-bottom: 20px;
+}
+
+.mobile-blocker h2 {
+    font-family: var(--font-display, 'Outfit', sans-serif);
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #00e5ff, #7c4dff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.mobile-blocker p {
+    font-family: var(--font, 'Poppins', sans-serif);
+    font-size: 0.95rem;
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* Small Laptop Responsiveness (Make Sidebars Shrink) */
+@media (max-width: 1400px) {
+    .sidebar { width: 280px; padding-right: 15px; }
+    .editor { width: 320px; padding-left: 15px; }
+    .main { gap: 15px; padding: 15px; }
+}
+
+@media (max-width: 1100px) {
+    .sidebar { width: 240px; padding-right: 10px; }
+    .editor { width: 280px; padding-left: 10px; }
+    .main { gap: 10px; padding: 10px; }
+    .header { padding: 0 15px; }
+}
+
+/* Mobile Blocker (Triggers on Mobile & Standard Tablets in Portrait) */
+@media (max-width: 900px) {
+    .mobile-blocker {
+        display: flex;
+    }
+    .app {
+        display: none !important;
+    }
+    #initialLoader {
+        display: none !important;
+    }
+}
