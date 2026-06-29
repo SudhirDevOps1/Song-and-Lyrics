@@ -780,18 +780,14 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
     height: 820px !important;
     max-height: 95vh !important;
     margin: auto !important;
-    border: 14px solid #080808 !important; /* Hardware bezel */
+    border: 14px solid #141417 !important; /* Hardware bezel */
     border-radius: 48px !important;
-    /* Device frame shadow + Screen Glow + Hardware Side Buttons via box-shadow */
+    /* Device frame shadow + Screen Glow */
     box-shadow: 
-        0 0 0 2px #222, 
-        inset 0 0 0 2px #000, 
-        0 20px 80px rgba(0,0,0,0.9), 
-        0 0 60px var(--accent-glow),
-        -16px 120px 0 -12px #222, /* Vol Up */
-        -16px 180px 0 -12px #222, /* Vol Down */
-        -16px 80px 0 -12px #111,  /* Silent */
-        392px 140px 0 -11px #222 !important; /* Power */
+        0 0 0 2px #2a2a30, 
+        inset 0 0 0 4px #000, 
+        0 30px 100px rgba(0,0,0,1), 
+        0 0 80px var(--accent-glow-2) !important;
     overflow: hidden !important;
     position: relative !important;
     flex: none !important;
