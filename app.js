@@ -207,9 +207,11 @@
 
     function play() {
         if (S.idx < 0) return;
+        setPlayState(true); // Instant UI feedback!
         try {
-            if (S.source === 'yt' && yt) yt.playVideo();
-            else if (S.source === 'local') {
+            if (S.source === 'yt' && yt) {
+                yt.playVideo();
+            } else if (S.source === 'local') {
                 if(!audioCtx) initAudio();
                 if(audioCtx.state === 'suspended') audioCtx.resume();
                 let p = audioEl.play();
@@ -221,10 +223,13 @@
                     });
                 }
             }
-        } catch(e){}
+        } catch(e){
+            setPlayState(false);
+        }
     }
     
     function pause() {
+        setPlayState(false); // Instant UI feedback!
         try {
             if (S.source === 'yt' && yt) yt.pauseVideo();
             else if (S.source === 'local') audioEl.pause();
@@ -246,6 +251,12 @@
     function seekTo(sec) {
         if (S.source === 'yt' && yt && yt.seekTo) yt.seekTo(sec, true);
         if (S.source === 'local') audioEl.currentTime = sec;
+        
+        // Live sync UI timeline and lyrics instantly, even if paused!
+        const d = getDuration() || 0;
+        progFill.style.width = (d > 0 ? (sec/d)*100 : 0) + '%';
+        tCur.textContent = fmt(sec);
+        syncLyric(sec);
     }
 
     /* ═══ TICKER & SYNC ═══ */
@@ -547,6 +558,7 @@
         renderLyrics(); renderList();
 
         progFill.style.width = '0%'; tCur.textContent = '0:00'; tTot.textContent = '0:00';
+        syncLyric(0);
         if (playNow) setLoading(true);
 
         if (s.localUrl) {
@@ -575,9 +587,35 @@
     bShuffle.addEventListener('click', () => { S.shuffle=!S.shuffle; bShuffle.classList.toggle('on',S.shuffle); });
     bRepeat.addEventListener('click', () => { S.repeat=!S.repeat; bRepeat.classList.toggle('on',S.repeat); });
 
-    progTrack.addEventListener('click', e => {
+    let isScrubbing = false;
+    function handleScrub(e) {
         const r = progTrack.getBoundingClientRect();
-        seekTo(Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)) * getDuration());
+        const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+        const pct = Math.max(0, Math.min(1, (clientX - r.left) / r.width));
+        const time = pct * getDuration();
+        progFill.style.width = (pct * 100) + '%';
+        tCur.textContent = fmt(time);
+        seekTo(time);
+    }
+    progTrack.addEventListener('mousedown', e => {
+        isScrubbing = true;
+        handleScrub(e);
+    });
+    document.addEventListener('mousemove', e => {
+        if (isScrubbing) handleScrub(e);
+    });
+    document.addEventListener('mouseup', () => {
+        isScrubbing = false;
+    });
+    progTrack.addEventListener('touchstart', e => {
+        isScrubbing = true;
+        handleScrub(e.touches[0]);
+    }, { passive: true });
+    document.addEventListener('touchmove', e => {
+        if (isScrubbing) handleScrub(e.touches[0]);
+    }, { passive: true });
+    document.addEventListener('touchend', () => {
+        isScrubbing = false;
     });
 
     document.addEventListener('keydown', e => {
