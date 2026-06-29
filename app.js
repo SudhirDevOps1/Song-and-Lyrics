@@ -1376,8 +1376,9 @@
     const ctx = canvas.getContext('2d');
     let parts = [];
     function resize() { 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Use client width/height so aspect ratio remains 1:1 regardless of wrapper size (fixes oval particles)
+        canvas.width = canvas.clientWidth || window.innerWidth;
+        canvas.height = canvas.clientHeight || window.innerHeight;
     }
     window.addEventListener('resize', resize); resize();
     for(let i=0;i<100;i++) parts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5+0.3, vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2, p:Math.random()*6});

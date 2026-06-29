@@ -1,14 +1,14 @@
 # 🌟 Features Added (v8.0 Professional Studio Upgrade)
 
-## 1. 🎥 Native Video Export Engine (Tab Capture API)
+## 1. 🎥 Native Video Export & Smart Cropping Engine
 - Engineered a fully automated, native browser video export system using `navigator.mediaDevices.getDisplayMedia`.
-- Records the lyrics and audio directly into a high-quality `.webm` file natively in the browser without requiring external screen recording software.
-- Implemented an intelligent auto-play and auto-rewind mechanism that aligns the music perfectly with the recording start.
+- **Smart Cropping:** The engine dynamically parses the selected mockup (Mobile/Tablet) and uses a hidden `<canvas>` to perfectly crop the video stream to the exact device dimensions (9:16 or 4:3) during export, ensuring no black bars or UI clutter is recorded.
+- Records the lyrics and audio directly into a high-quality `.webm` file natively in the browser.
 
-## 2. 📱 Multi-Device Mockups (Mobile & Tablet)
+## 2. 📱 Multi-Device Hardware Mockups (Mobile & Tablet)
 - Split the preview rendering into two distinct industry-standard aspect ratios:
-  - **Mobile (9:16):** Features the classic iPhone titanium frame, dynamic island, and home indicator (Perfect for Reels/Shorts).
-  - **Tablet (3:4):** A brand new wide-format iPad-style mockup with symmetrical bezels (Perfect for Instagram Posts and YouTube standard).
+  - **Mobile (9:16):** Features the classic iPhone titanium frame, dynamic island, and home indicator. Includes realistic CSS-based **Physical Volume and Power Buttons** on the sides.
+  - **Tablet (4:3):** A brand new wide-format iPad-style mockup with symmetrical bezels and realistically positioned top/side physical buttons.
 
 ## 3. ⏳ Cinematic 3-Second Recording Countdown
 - Added a professional `3... 2... 1...` animated countdown overlay when hitting "Record Reel".

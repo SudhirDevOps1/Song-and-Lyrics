@@ -6,8 +6,8 @@ This tool lets you sync, customize, and natively record breathtaking lyric video
 ---
 
 ## 🚀 Production Features
-- **Native Video Export Engine:** Click "Record Reel" to natively capture your lyrics and audio into a high-quality `.webm` file using the Tab Capture API, complete with a cinematic 3-second countdown and auto-rewind logic. No external screen recorders needed!
-- **Multi-Device Hardware Mockups:** Choose between the classic **Mobile (9:16)** iPhone frame or the brand new wide **Tablet (3:4)** iPad frame to perfectly frame your exports for Reels, Shorts, Instagram Posts, and YouTube.
+- **Native Video Export & Smart Cropping:** Click "Record Reel" to natively capture your lyrics and audio into a high-quality `.webm` file using the Tab Capture API. A hidden **Smart Cropping Engine** automatically detects the active device mockup and crops the output video to the exact aspect ratio (9:16 or 4:3) with zero UI clutter!
+- **Multi-Device Hardware Mockups:** Choose between the classic **Mobile (9:16)** iPhone frame or the brand new wide **Tablet (4:3)** iPad frame. Both mockups feature realistic, CSS-rendered physical volume and power buttons.
 - **60FPS GPU-Accelerated Engine:** A mathematically precise `requestAnimationFrame` loop combined with CSS `will-change: transform` hardware acceleration guarantees zero-lag scrolling and buttery smooth karaoke highlights.
 - **Ultra-Premium Glassmorphism UI:** Features deep `backdrop-filter: blur(30px)` panels, glowing semi-transparent borders, and soft shadows, delivering a true $100/mo SaaS aesthetic.
 - **Hyper-Realistic Mobile Device Mockup:** Activate Reels (9:16) mode to transform the viewport into a physical smartphone hardware frame, complete with CSS side buttons, a dynamic island, and a distraction-free auto-hiding sidebar!
