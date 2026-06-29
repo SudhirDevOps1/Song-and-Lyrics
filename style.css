@@ -777,6 +777,17 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
     100% { opacity: 1; text-shadow: 0 0 12px var(--accent-glow); }
 }
 
+/* ═══ MOCKUP CONTAINER WRAPPER ═══ */
+.main-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    padding: 20px;
+}
+
 /* ═══ REELS MODE (9:16 PREVIEW & REAL DEVICE MOCKUP) ═══ */
 .main-content.reels-mode {
     width: 380px !important; /* Classic Mobile */
@@ -798,6 +809,39 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
     position: relative !important;
     background-color: #000 !important;
     transform-origin: center;
+}
+
+/* 📱 MOBILE HARDWARE BUTTONS (Via main-wrapper) */
+.main-wrapper:has(.main-content.reels-mode:not(.tablet-mode))::before {
+    content: '';
+    position: absolute;
+    left: calc(50% - 190px - 17px); /* Align to left edge of mobile frame */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 120px;
+    /* Two volume buttons separated by transparent gap */
+    background: linear-gradient(to bottom, 
+        #2a2a30 0%, #2a2a30 45%, 
+        transparent 45%, transparent 55%, 
+        #2a2a30 55%, #2a2a30 100%);
+    border-radius: 4px 0 0 4px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.main-wrapper:has(.main-content.reels-mode:not(.tablet-mode))::after {
+    content: '';
+    position: absolute;
+    right: calc(50% - 190px - 17px); /* Align to right edge of mobile frame */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 70px; /* Power button */
+    background: #2a2a30;
+    border-radius: 0 4px 4px 0;
+    pointer-events: none;
+    z-index: 10;
 }
 
 /* Simulated Dynamic Island (Only for Mobile) */
@@ -851,6 +895,37 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
     overflow: hidden !important;
     position: relative !important;
     background-color: #000 !important;
+}
+
+/* 📟 TABLET HARDWARE BUTTONS (Via main-wrapper) */
+.main-wrapper:has(.main-content.tablet-mode)::before {
+    content: '';
+    position: absolute;
+    top: calc(50% - 300px - 27px); /* Align to top edge of tablet frame */
+    left: calc(50% - 350px); /* Positioned slightly left from center */
+    width: 120px;
+    height: 3px;
+    /* Top Volume buttons */
+    background: linear-gradient(to right, 
+        #333 0%, #333 45%, 
+        transparent 45%, transparent 55%, 
+        #333 55%, #333 100%);
+    border-radius: 4px 4px 0 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.main-wrapper:has(.main-content.tablet-mode)::after {
+    content: '';
+    position: absolute;
+    left: calc(50% - 400px - 27px); /* Top left corner for power button */
+    top: calc(50% - 250px); 
+    width: 3px;
+    height: 50px;
+    background: #333;
+    border-radius: 4px 0 0 4px;
+    pointer-events: none;
+    z-index: 10;
 }
 
 /* ═══ COUNTDOWN OVERLAY ═══ */
