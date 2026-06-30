@@ -726,10 +726,10 @@
                 const parsed = JSON.parse(text);
                 if (parsed.lyrics) {
                     // Auto-fill active editor fields dynamically
-                    if (parsed.title && edTitle) edTitle.value = parsed.title;
-                    if (parsed.artist && edArtist) edArtist.value = parsed.artist;
-                    if (parsed.film && edFilm) edFilm.value = parsed.film;
-                    if (parsed.details && edDetails) edDetails.value = parsed.details;
+                    if (edTitle) edTitle.value = parsed.title || '';
+                    if (edArtist) edArtist.value = parsed.artist || '';
+                    if (edFilm) edFilm.value = parsed.film || '';
+                    if (edDetails) edDetails.value = parsed.details || '';
                     
                     // Parse song structure
                     if (Array.isArray(parsed.lyrics)) {
