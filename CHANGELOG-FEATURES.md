@@ -1,3 +1,24 @@
+# 🌟 Features Added (v9.0 Immersive Sync & Smart Sorting Upgrade)
+
+## 1. 🎛️ Player-level Real-Time Sync Offset Controls
+- Integrated physical `-0.5s` and `+0.5s` timing buttons alongside an active Offset value badge directly on the main Player Controls bar.
+- Allows users to adjust and fine-tune lyrics synchronization in real time even while in fullscreen cinematic or mockup recording modes where the editor panel is hidden.
+
+## 2. 🎵 Dynamic Audio-Reactive Particle Background
+- Upgraded the static particle canvas background to a GPU-accelerated audio-reactive environment.
+- **Local Audio:** Uses Web Audio API `AnalyserNode` to read frequency bins and dynamically expand, speed up, and brighten the floating stars on strong bass beats.
+- **YouTube Audio:** Leverages active lyric transition spikes combined with rhythmic mathematical wave frequencies to simulate beat-synchronized pulses.
+
+## 3. 🧠 Smart Playlist Auto-Sorting & Validation
+- Added an automated, non-destructive background validator that checks the status/health of all song YouTube links on startup.
+- Automatically sorts the active playlist so that **working, embeddable tracks** instantly rise to the top of the sidebar.
+- Added visual green (working) and red (blocked/invalid) indicator dots to the corner of each track thumbnail.
+
+## 4. 🔊 Premium Integrated Volume Slider
+- Connected a real-time responsive volume input range slider next to the player controls, controlling both native HTML5 audio volume and the YouTube Iframe API player volume.
+
+---
+
 # 🌟 Features Added (v8.0 Professional Studio Upgrade)
 
 ## 1. 🎥 Native Video Export & Smart Cropping Engine

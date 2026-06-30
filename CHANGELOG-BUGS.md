@@ -1,3 +1,22 @@
+# 🐛 Bugs Fixed (v9.0 Immersive Sync & Smart Sorting Upgrade)
+
+## 1. 🐛 Browser Scroll Freezing & Stutters
+**Issue:** "kisi linr pr click karne ke bad hylight ...etc work k r raha hain uske bad scrool freez hain". Programmatic scroll position updates via requestAnimationFrame were conflicting with the browser's native CSS `scroll-behavior: smooth` on `.lyrics-box`, locking the layout thread and freezing manual/auto scrolling.
+**Fix:** Removed the conflicting CSS `scroll-behavior: smooth;` rule, allowing the JS-based custom `fastScrollCenter` script to update the scrollbar smoothly and instantly without stuttering.
+
+## 2. 🐛 Bottom Lyrics Position Overlap & Cut-offs
+**Issue:** When selecting `Vertical Position: Bottom`, the active lyric scrolled so far down that it collided with the absolute-positioned Player Controls timeline bar, getting cut off or hidden. Furthermore, long lyric lines scaled to 1.15x would overlap with adjacent lines.
+**Fix:** 
+- Programmed `fastScrollCenter` to scroll active lines to **58%** from the top of the viewport (safely above the timeline) when set to Bottom position.
+- Increased text `line-height` to `1.5` and `.lyrics-scroll` row `gap` to `28px` to ensure there is plenty of vertical margin even when lines wrap or scale.
+- Kept lyrics container padding at `50vh 0` constant to prevent scrolling boundary blocks.
+
+## 3. 🐛 Missing Volume Controls in HTML
+**Issue:** The CSS defined styles for `.vol-row` and `.vol-slider`, but the volume slider was completely missing from `index.html`.
+**Fix:** Integrated a customized volume range input slider directly next to the player controls in `index.html` and bound it to both HTML5 Audio and YouTube Player API volume states in `app.js`.
+
+---
+
 # 🐛 Bugs Fixed (v6 Heart Wave)
 
 ## 1. 🐛 Autoplay Engine Race Condition & Hangs

@@ -6,6 +6,37 @@ Welcome to the Master Changelog for **SongVibe Ultimate Pro**. This document pro
 
 ---
 
+## [v9.0.0] - Immersive Sync & Smart Sorting Upgrade
+**Major Audio & Layout Overhaul**
+- **Scroll Freeze Fixed:** Removed conflicting CSS `scroll-behavior: smooth` and synchronized custom JS smooth scrolling to prevent stuttering/freezing on lyric click/play.
+- **Smart Playlist Auto-Sort:** Integrates background YouTube video health check. Active/working links dynamically rise to the top of the sidebar.
+- **Sidebar Status Badges:** Added green (working) and red (blocked) indicators next to each song card.
+- **Immersive Timing Spacing:** Increased spacing (gap to `28px`) and line-height (`1.5`) to eliminate lyric line overlaps.
+- **Dynamic Vertical Position Scroll:** Active lyrics scroll safely above player controls at `Bottom` position (58% down) to prevent timeline overlay cut-offs.
+- **Real-Time Offset Control & Volume:** Added physical buttons (`-0.5s`, `+0.5s`) and a volume slider directly onto the Player Controls bar.
+- **Audio-Reactive Particle System:** GPU-accelerated canvas background particles now expand, speed up, and glow to the music beat.
+
+---
+
+## [v8.0.0] - Professional Studio Upgrade
+**Native Export & Device Hardware Mockups**
+- **Native Video Export:** Integrated native recording using HTML5 MediaRecorder.
+- **Smart Cropping Engine:** Automatically crops screen capture output to the selected mockup container (9:16 or 4:3) with zero black bars or UI overlays.
+- **Physical Device Frame Mockups:** Added real-size smartphone frames (Mobile 9:16) and wide bezels (Tablet 4:3) with CSS volume/power buttons.
+- **3-Sec Recording Countdown:** professional animated countdown overlay when starting tab recording.
+- **60FPS GPU Acceleration:** Upgraded timeline engine to 60Hz requestAnimationFrame display sync loop.
+
+---
+
+## [v7.0.0] - Mobile Mockup & LRCLib
+**Auto-fetch & Custom Spectrum**
+- **Auto-Fetch (LRCLib):** Dynamic sync lyrics search and import by Title & Artist.
+- **Spectrum Visualizer Modes:** Added Apple (Curve), DJ (Segmented), Retro, Radial, and Immersive spectrum modes.
+- **Duet Highlighting:** Lyrics wrapped in parentheses `(like this)` automatically highlight in pink.
+- **Drag-to-Scrub Timeline:** Smooth progress bar scrubbing with instant playback seek.
+
+---
+
 ## [v6.0.0] - Heart Wave & Sync Engine
 **Major Fixes & Visual Upgrades**
 - **Heart Wave Loader:** Integrated a beautiful F(x) mathematical Heart Wave animated SVG loader that displays while YouTube videos buffer or load.

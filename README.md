@@ -1,9 +1,9 @@
 <div align="center">
 
 # 🎵 SongVibe Ultimate Pro 
-**v8.0 Professional Studio Edition**
+**v9.0 Immersive Sync Edition**
 
-![Version](https://img.shields.io/badge/Version-v8.0_Pro-blue.svg?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-v9.0_Pro-blue.svg?style=for-the-badge)
 ![UI Design](https://img.shields.io/badge/UI_Design-Glassmorphism-ff69b4.svg?style=for-the-badge)
 ![Tech Stack](https://img.shields.io/badge/Tech-HTML5_|_CSS3_|_Vanilla_JS-yellow.svg?style=for-the-badge)
 
@@ -23,6 +23,10 @@ Welcome to **SongVibe Ultimate Pro** – The most advanced web-based Lyric Video
 ---
 
 ## 🚀 Production Features
+- **Dynamic Audio-Reactive Particles:** Upgraded canvas particle background that reacts in real-time to the beat of local audio (using AnalyserNode) or simulated rhythmic frequencies for YouTube videos.
+- **Smart Playlist Sorting & Status:** Automatically verifies YouTube video status on startup, sorting working, embeddable links to the top of the playlist, complete with green/red status badges.
+- **Player Bar Sync & Volume Controls:** Physical `-0.5s` and `+0.5s` timing buttons and a volume slider integrated directly into the player controls bar, enabling real-time tweaks during fullscreen mockup recording.
+- **Immersive Lyric Layout & Gap Spacing:** Slashed line-wrap overlaps with increased line-height (`1.5`) and list gap spacing (`28px`), with smart vertical offsets ensuring lyrics never get covered by the timeline in Bottom position.
 - **Native Video Export & Smart Cropping:** Click "Record Reel" to natively capture your lyrics and audio into a high-quality `.webm` file using the Tab Capture API. A hidden **Smart Cropping Engine** automatically detects the active device mockup and crops the output video to the exact aspect ratio (9:16 or 4:3) with zero UI clutter!
 - **Multi-Device Hardware Mockups:** Choose between the classic **Mobile (9:16)** iPhone frame or the brand new wide **Tablet (4:3)** iPad frame. Both mockups feature realistic, CSS-rendered physical volume and power buttons.
 - **60FPS GPU-Accelerated Engine:** A mathematically precise `requestAnimationFrame` loop combined with CSS `will-change: transform` hardware acceleration guarantees zero-lag scrolling and buttery smooth karaoke highlights.
