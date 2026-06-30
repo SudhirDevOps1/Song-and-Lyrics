@@ -221,7 +221,6 @@ body {
 .main-content:fullscreen .np-img {
     border: none;
     box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 40px var(--accent-glow);
-    border-radius: 20px;
 }
 .main-content:fullscreen .np-title {
     font-size: 2.8rem;
@@ -289,11 +288,38 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 24px 30px;
+    border-radius: var(--r);
+    backdrop-filter: blur(15px);
+    width: 100%;
+    max-width: 320px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
 }
 .main-content.layout-split .np-title {
     white-space: normal;
     text-align: center;
+}
+.main-content.layout-split .np-art {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 12px;
+}
+.main-content.layout-split .audio-wave {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    height: 120px !important;
+    margin-top: 30px !important;
+    opacity: 0.85 !important;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.01);
+    padding: 10px 0;
+    pointer-events: none;
 }
 .main-content.layout-split .lyrics-box {
     grid-column: 2 / 3;
@@ -316,7 +342,6 @@ body {
 }
 .main-content:fullscreen.layout-split .np-img {
     box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 50px var(--accent-glow);
-    border-radius: 30px;
 }
 .main-content:fullscreen.layout-split .player {
     background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 70%, transparent 100%);
@@ -339,8 +364,43 @@ body {
     border-left: 1px solid var(--border);
     padding: 40px;
 }
-.main-content.layout-split-rev .np-info { display: flex; flex-direction: column; align-items: center; margin-top: 10px; }
-.main-content.layout-split-rev .np-title { white-space: normal; text-align: center; }
+.main-content.layout-split-rev .np-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 24px 30px;
+    border-radius: var(--r);
+    backdrop-filter: blur(15px);
+    width: 100%;
+    max-width: 320px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.main-content.layout-split-rev .np-title {
+    white-space: normal;
+    text-align: center;
+}
+.main-content.layout-split-rev .np-art {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 12px;
+}
+.main-content.layout-split-rev .audio-wave {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    height: 120px !important;
+    margin-top: 30px !important;
+    opacity: 0.85 !important;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.01);
+    padding: 10px 0;
+    pointer-events: none;
+}
 .main-content.layout-split-rev .lyrics-box {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
@@ -349,7 +409,7 @@ body {
 .main-content.layout-split-rev .player { grid-column: 1 / 3; grid-row: 2 / 3; background: var(--bg-0); z-index: 10; }
 .main-content:fullscreen.layout-split-rev .now-playing { border-left: none; }
 .main-content:fullscreen.layout-split-rev .np-art { width: 250px; height: 250px; margin-bottom: 20px; }
-.main-content:fullscreen.layout-split-rev .np-img { box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 50px var(--accent-glow); border-radius: 30px; }
+.main-content:fullscreen.layout-split-rev .np-img { box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 50px var(--accent-glow); }
 .main-content:fullscreen.layout-split-rev .player { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 70%, transparent 100%); }
 
 /* Focus Mode Layout — Immersive Lyrics-Only Experience */
@@ -530,9 +590,49 @@ body {
 
 .now-playing { display:flex; align-items:center; gap:20px; padding:24px 36px; flex-shrink:0; border-bottom:1px solid var(--border); overflow:hidden; position:relative; }
 .audio-wave { position:absolute; bottom:0; left:0; width:100%; height:100%; z-index:0; opacity:0.35; pointer-events:none; filter: drop-shadow(0 0 12px var(--accent-glow-2)); transition: 0.5s; }
-.np-art { position:relative; width:76px; height:76px; flex-shrink:0; z-index:1; }
-.np-img { width:100%; height:100%; border-radius:var(--r); object-fit:cover; border:1px solid var(--border-2); }
-.np-glow { position:absolute; inset:-12px; border-radius:24px; background:var(--grad); opacity:0; filter:blur(24px); z-index:-1; transition:0.6s ease; }
+.np-art {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    flex-shrink: 0;
+    z-index: 1;
+    border-radius: 50% !important;
+}
+.np-art::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #09090b;
+    border: 3px solid #f4f4f5;
+    box-shadow: 0 0 8px rgba(0,0,0,0.8), inset 0 0 4px rgba(0,0,0,0.8);
+    z-index: 10;
+    pointer-events: none;
+}
+.np-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50% !important;
+    object-fit: cover;
+    border: 1px solid var(--border-2);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    animation: spin 12s linear infinite;
+    animation-play-state: paused;
+    transition: box-shadow 0.3s ease;
+}
+.playing .np-img {
+    animation-play-state: running;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 20px var(--accent-glow-2);
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.np-glow { position:absolute; inset:-12px; border-radius:50%; background:var(--grad); opacity:0; filter:blur(24px); z-index:-1; transition:0.6s ease; }
 .playing .np-glow { opacity:0.2; animation:breathe 3s ease-in-out infinite; }
 .np-info { flex:1; min-width: 0; }
 .np-title { font-family:var(--font-display); font-size:1.5rem; font-weight:800; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }

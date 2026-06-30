@@ -987,6 +987,23 @@
         box.querySelectorAll('.ll').forEach((el,i) => {
             el.classList.remove('active','done');
             const kws = el.querySelectorAll('.kw');
+            
+            // Calculate distance to active lyric line
+            const dist = Math.abs(i - ai);
+            if (dist > 2) {
+                // Fade out and scale down lines that are far away to prevent screen clutter
+                el.style.opacity = '0';
+                el.style.pointerEvents = 'none';
+                el.style.filter = 'blur(6px)';
+                el.style.transform = 'scale(0.85)';
+            } else {
+                // Restore styles for adjacent lines
+                el.style.removeProperty('opacity');
+                el.style.removeProperty('pointer-events');
+                el.style.removeProperty('filter');
+                el.style.removeProperty('transform');
+            }
+
             if (i===ai) {
                 el.classList.add('active');
                 // Fast 200ms scroll (tighter sync than browser's default ~400ms)
