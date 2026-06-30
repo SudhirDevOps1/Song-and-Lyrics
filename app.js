@@ -923,7 +923,15 @@
     function fastScrollCenter(container, el) {
         const box = container.closest('.lyrics-box') || container.parentElement;
         if (!box) { el.scrollIntoView({ block: 'center' }); return; }
-        const target = el.offsetTop - box.clientHeight / 2 + el.clientHeight / 2;
+        
+        let ratio = 0.5; // Default middle position
+        if (S.pos === 'flex-start') {
+            ratio = 0.25; // Top position (25% down)
+        } else if (S.pos === 'flex-end') {
+            ratio = 0.58; // Bottom position (58% down - safely above the player bar gradient/controls)
+        }
+        
+        const target = el.offsetTop - (box.clientHeight * ratio) + el.clientHeight / 2;
         const start = box.scrollTop;
         const dist = target - start;
         if (Math.abs(dist) < 3) return; // Already centered
@@ -1147,9 +1155,9 @@
         lyricsScroll.style.textAlign = S.align;
         lyricsScroll.style.setProperty('--align-origin', S.align === 'left' ? 'left center' : (S.align === 'right' ? 'right center' : 'center center'));
         
-        if (S.pos === 'flex-start') lyricsScroll.style.padding = '10vh 0 50vh 0';
-        else if (S.pos === 'flex-end') lyricsScroll.style.padding = '50vh 0 10vh 0';
-        else lyricsScroll.style.padding = '50vh 0';
+        // Keep padding constant at 50vh to allow full scroll range for all lines,
+        // and let fastScrollCenter position the active lyric line at Top, Middle, or Bottom.
+        lyricsScroll.style.padding = '50vh 0';
     }
 
     if (fontSelectEn) {
