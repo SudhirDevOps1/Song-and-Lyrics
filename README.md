@@ -76,6 +76,8 @@ Mujhe output ek valid JSON format mein chahiye, bilkul is example ki tarah:
     "id": "song_tu_agar_meri",
     "title": "Tu Agar Meri",
     "artist": "Arijit Singh",
+    "film": "Gehra Hua",
+    "details": "2026 Remastered",
     "youtubeUrl": "[CURRENT_YOUTUBE_VIDEO_LINK]",
     "lyrics": [
         "(0:21 - 0:35): [#00ffff] Tu agar meri ye hawayein teri, tu agar meri saari raahein teri, tu agar meri main hoon tera",
@@ -90,6 +92,7 @@ Mujhe output ek valid JSON format mein chahiye, bilkul is example ki tarah:
     ]
 }
 
+"film" field mein movie ya album ka naam likho, aur "details" field mein release ka saal ya additional info likho.
 Gaane ke mood ke hisaab se har line ke liye alag alag vibrant HEX colors use karna (jaise #ff4444, #00ffcc, #ffaa00).
 Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.
 ```
@@ -104,6 +107,8 @@ Mujhe output ek valid JSON format mein chahiye, bilkul is example ki tarah:
     "id": "song_shararat",
     "title": "Shararat",
     "artist": "Madhubanti Bagchi, Jasmine Sandlas",
+    "film": "Gutar Gu S2",
+    "details": "2024 Series",
     "youtubeUrl": "[CURRENT_YOUTUBE_VIDEO_LINK]",
     "lyrics": [
         "[0:07.0] [#ff0066] Tune parda uthaaya, haaye kya baat ho gayi",
@@ -116,6 +121,7 @@ Mujhe output ek valid JSON format mein chahiye, bilkul is example ki tarah:
     ]
 }
 
+"film" field mein movie ya album ka naam likho, aur "details" field mein release ka saal ya additional info likho.
 Gaane ke mood ke hisaab se har line ke liye alag alag vibrant HEX colors use karna (jaise #ff4444, #00ffcc, #ffaa00).
 Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.
 ```
@@ -130,6 +136,8 @@ Mujhe output ek valid JSON format mein chahiye, bilkul is example ki tarah:
     "id": "song_tu_agar_meri",
     "title": "Tu Agar Meri",
     "artist": "Arijit Singh",
+    "film": "Gehra Hua",
+    "details": "2026 Album",
     "youtubeUrl": "[CURRENT_YOUTUBE_VIDEO_LINK]",
     "lyrics": [
         "(0:21 - 0:35): [#00ffff] तू अगर मेरी ये हवाएं तेरी, तू अगर मेरी सारी राहें तेरी, तू अगर मेरी मैं हूं तेरा",
@@ -144,6 +152,7 @@ Mujhe output ek valid JSON format mein chahiye, bilkul is example ki tarah:
     ]
 }
 
+"film" field mein movie ya album ka naam likho, aur "details" field mein release ka saal ya additional info likho.
 Gaane ke mood ke hisaab se har line ke liye alag alag vibrant HEX colors use karna (jaise #ff4444, #00ffcc, #ffaa00).
 Sirf aur sirf valid JSON block do taaki main seedha copy paste kar saku.
 ```
@@ -158,6 +167,8 @@ Provide the output as a valid JSON object, strictly following this example:
     "id": "song_tu_agar_meri",
     "title": "Tu Agar Meri",
     "artist": "Arijit Singh",
+    "film": "Gehra Hua",
+    "details": "2026 Album",
     "youtubeUrl": "[CURRENT_YOUTUBE_VIDEO_LINK]",
     "lyrics": [
         "(0:21 - 0:35): [#00ffff] If you are mine, these winds are yours, if you are mine, all paths are yours, if you are mine, I am yours",
@@ -172,6 +183,7 @@ Provide the output as a valid JSON object, strictly following this example:
     ]
 }
 
+In the "film" field, provide the movie/album name, and in the "details" field, provide the release year or additional context.
 Assign a different vibrant HEX color to each line based on the mood of the song (e.g., #ff4444, #00ffcc, #ffaa00).
 Output strictly a valid JSON block so I can copy and paste it directly.
 ```

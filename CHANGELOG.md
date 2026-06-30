@@ -6,6 +6,15 @@ Welcome to the Master Changelog for **SongVibe Ultimate Pro**. This document pro
 
 ---
 
+## [v9.1.0] - Ambient Glow & Metadata Upgrade
+**Premium Aesthetics & Database Integrity**
+- **Ambient Device Glow:** Active lyric colors translate dynamically to the mockup phone/tablet bezels with cross-browser compatible RGBA alpha conversion.
+- **Deep Metadata Fetching:** Restored and fully preserved song `film` (movie/album name) and `details` (release year) fields during live JSON loading and rendering.
+- **Advanced Gemini Prompts:** Updated both global documentation and in-app User Guide prompts with specific instructions and format templates for Gemini to output `film` and `details` fields inside the JSON blocks.
+- **4 Premium Radial Gradient Themes:** Added "Sunset Glow", "Blood Moon", "Emerald Mist", and "Cosmic Dream" to the playlist settings.
+
+---
+
 ## [v9.0.0] - Immersive Sync & Smart Sorting Upgrade
 **Major Audio & Layout Overhaul**
 - **Scroll Freeze Fixed:** Removed conflicting CSS `scroll-behavior: smooth` and synchronized custom JS smooth scrolling to prevent stuttering/freezing on lyric click/play.

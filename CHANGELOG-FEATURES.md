@@ -1,3 +1,24 @@
+# 🌟 Features Added
+
+## v9.1 Premium Aesthetics & Database Integrity
+
+### 1. 🌈 Universal Ambient Device Glow
+- Mockup frame edges (Mobile 9:16 and Tablet 4:3) now cast a breathing background shadow matching the color tag of the active lyric line.
+- Uses a fast `hexToRgba()` converter to output standard `rgba()` shadow parameters, ensuring 100% rendering compatibility across all major mobile/desktop web browsers.
+
+### 2. 🎬 Movie / Album & Extra Details Rendering
+- Restored support for movie details (`film`) and release metadata (`details`) inside the main playlist database and loader engine.
+- Renders the movie name and release year/description beautifully beneath the artist info on both the main dashboard and the mockup preview screen.
+
+### 3. 🎨 4 New Premium Gradient Themes
+- Added 4 gorgeous mesh themes to the selection controls: **Sunset Glow** (Deep Magenta to Orange), **Blood Moon** (Crimson to Black), **Emerald Mist** (Forest Green to Cyan), and **Cosmic Dream** (Purple to Lavender).
+
+### 4. 🧠 Advanced Gemini Prompt Templates
+- Rewrote the step-by-step Visual Guide instructions and prompt copy containers.
+- Prompts now instruct Gemini to automatically parse and include the `film` and `details` fields into the output JSON blocks.
+
+---
+
 # 🌟 Features Added (v9.0 Immersive Sync & Smart Sorting Upgrade)
 
 ## 1. 🎛️ Player-level Real-Time Sync Offset Controls

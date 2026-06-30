@@ -1,3 +1,17 @@
+# 🐛 Bugs Fixed
+
+## v9.1 Bugs Fixed
+
+### 1. 🐛 Discarded Song Metadata on Fetch/Merge
+- **Issue:** When the application loaded song databases from `songs.json`, it would build the internal song object by omitting `film` and `details` fields, which prevented movie details from displaying.
+- **Fix:** Corrected `loadJSON` and `addSong` mapping functions to capture, preserve, and render `film` and `details` metadata on the main layout.
+
+### 2. 🐛 Device Mockup Glow Compatibility
+- **Issue:** Setting `--current-lyric-glow` as a HEX8 string (e.g. `#ff444473`) caused some mobile/desktop WebViews to fail rendering the shadow.
+- **Fix:** Implemented a javascript `hexToRgba()` converter to output universally supported standard `rgba()` CSS declarations.
+
+---
+
 # 🐛 Bugs Fixed (v9.0 Immersive Sync & Smart Sorting Upgrade)
 
 ## 1. 🐛 Browser Scroll Freezing & Stutters
