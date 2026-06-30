@@ -426,7 +426,17 @@
                 const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${song.videoId}`);
                 const data = await res.json();
                 if (data && data.error) {
-                    song.working = false;
+                    // Fallback: check if the video thumbnail exists on YouTube's servers and is not the 120x90 placeholder
+                    const thumbOk = await new Promise((resolve) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            if (img.naturalWidth === 120 && img.naturalHeight === 90) resolve(false);
+                            else resolve(true);
+                        };
+                        img.onerror = () => resolve(false);
+                        img.src = `https://img.youtube.com/vi/${song.videoId}/mqdefault.jpg`;
+                    });
+                    song.working = thumbOk;
                 } else {
                     song.working = true;
                 }
@@ -487,15 +497,22 @@
             d.songs.forEach(s => {
                 const songId = s.id || ('s_' + vidId(s.youtubeUrl||'') || Date.now());
                 
-                // If merging, skip if we already have this song ID
-                if (merge && S.songs.some(existing => existing.id === songId)) return;
-                
                 let parsedLyrics = [];
                 if (Array.isArray(s.lyrics)) {
                     if (s.lyrics.length > 0 && typeof s.lyrics[0] === 'string') {
                         parsedLyrics = parseLyrics(s.lyrics.join('\n'));
                     } else {
                         parsedLyrics = s.lyrics;
+                    }
+                }
+                
+                if (merge) {
+                    const existing = S.songs.find(existing => existing.id === songId);
+                    if (existing) {
+                        if (!existing.film && s.film) { existing.film = s.film; changed = true; }
+                        if (!existing.details && s.details) { existing.details = s.details; changed = true; }
+                        if (!existing.lyrics || !existing.lyrics.length) { existing.lyrics = parsedLyrics; changed = true; }
+                        return;
                     }
                 }
                 
