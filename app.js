@@ -1261,9 +1261,9 @@
 
     if (btnGuide) {
         btnGuide.addEventListener('click', () => {
-            // Remove the done flag so it can run again
-            localStorage.removeItem('songvibe_tut_done_v3');
-            startTutorial();
+            guideStep = 1;
+            updateGuide();
+            guideModal.style.display = 'flex';
         });
         
         guideClose.addEventListener('click', () => {
