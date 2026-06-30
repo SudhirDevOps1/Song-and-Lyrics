@@ -573,6 +573,9 @@
         renderLyrics(); renderList();
 
         progFill.style.width = '0%'; tCur.textContent = '0:00'; tTot.textContent = '0:00';
+        if (typeof playerOffsetVal !== 'undefined' && playerOffsetVal) {
+            playerOffsetVal.textContent = (S.lyricsOffset > 0 ? '+' : '') + S.lyricsOffset.toFixed(1) + 's';
+        }
         syncLyric(0);
         if (playNow) setLoading(true);
 
@@ -1417,14 +1420,47 @@
         canvas.height = canvas.clientHeight || window.innerHeight;
     }
     window.addEventListener('resize', resize); resize();
+    
+    function hexToRgba(hex, alpha) {
+        if (!hex || !hex.startsWith('#')) return `rgba(0,212,255,${alpha})`;
+        const r = parseInt(hex.slice(1,3), 16) || 0;
+        const g = parseInt(hex.slice(3,5), 16) || 212;
+        const b = parseInt(hex.slice(5,7), 16) || 255;
+        return `rgba(${r},${g},${b},${alpha})`;
+    }
+
     for(let i=0;i<100;i++) parts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5+0.3, vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2, p:Math.random()*6});
     (function drawLoop() {
         ctx.clearRect(0,0,canvas.width,canvas.height);
+        
+        let beatFactor = 1.0;
+        if (S.playing) {
+            if (S.source === 'local' && typeof analyser !== 'undefined' && typeof dataArray !== 'undefined') {
+                analyser.getByteFrequencyData(dataArray);
+                let sum = 0;
+                for (let i = 0; i < 8; i++) sum += dataArray[i] || 0;
+                const avg = sum / 8;
+                beatFactor = 1.0 + (avg / 255) * 1.6;
+            } else {
+                const pulse = Math.sin(performance.now() * 0.005) * 0.15;
+                const spike = (typeof waveSpike !== 'undefined') ? waveSpike * 0.8 : 0;
+                beatFactor = 1.0 + Math.max(0, pulse) + spike;
+            }
+        }
+
+        const accentHex = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#00d4ff';
+
         parts.forEach(p=>{
-            p.x+=p.vx; p.y+=p.vy; p.p+=0.01;
+            p.x += p.vx * beatFactor; 
+            p.y += p.vy * beatFactor; 
+            p.p += 0.01 * beatFactor;
             if(p.x<0||p.x>canvas.width||p.y<0||p.y>canvas.height){ p.x=Math.random()*canvas.width; p.y=Math.random()*canvas.height; }
-            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.28);
-            ctx.fillStyle=`rgba(0,212,255,${Math.max(0.05, 0.2+Math.sin(p.p)*0.1)})`; ctx.fill();
+            ctx.beginPath(); 
+            const dynamicRadius = p.r * (0.8 + (beatFactor - 1.0) * 1.5);
+            ctx.arc(p.x, p.y, Math.max(0.1, dynamicRadius), 0, 6.28);
+            const glow = Math.max(0.05, 0.2 + Math.sin(p.p) * 0.1) * beatFactor;
+            ctx.fillStyle = hexToRgba(accentHex, Math.min(0.85, glow)); 
+            ctx.fill();
         });
         requestAnimationFrame(drawLoop);
     })();
@@ -1869,6 +1905,47 @@
         offsetPlus.addEventListener('click', (e) => {
             e.preventDefault();
             shiftLyricsOffset(0.5);
+        });
+    }
+
+    /* ═══ PLAYER REAL-TIME OFFSET & VOLUME ═══ */
+    const playerOffsetMinus = $('#playerOffsetMinus');
+    const playerOffsetPlus = $('#playerOffsetPlus');
+    const playerOffsetVal = $('#playerOffsetVal');
+    const volSlider = $('#volSlider');
+
+    function adjustPlayerOffset(delta) {
+        S.lyricsOffset = parseFloat((S.lyricsOffset + delta).toFixed(2));
+        if (playerOffsetVal) {
+            playerOffsetVal.textContent = (S.lyricsOffset > 0 ? '+' : '') + S.lyricsOffset.toFixed(1) + 's';
+        }
+        // Force sync immediately
+        syncLyric(getCurTime() || 0);
+        toast(`Sync Offset: ${S.lyricsOffset > 0 ? '+' : ''}${S.lyricsOffset.toFixed(1)}s`);
+    }
+
+    if (playerOffsetMinus) {
+        playerOffsetMinus.addEventListener('click', (e) => {
+            e.preventDefault();
+            adjustPlayerOffset(-0.5);
+        });
+    }
+    if (playerOffsetPlus) {
+        playerOffsetPlus.addEventListener('click', (e) => {
+            e.preventDefault();
+            adjustPlayerOffset(0.5);
+        });
+    }
+
+    if (volSlider) {
+        // Initialize volume slider state
+        volSlider.value = S.vol || 80;
+        audioEl.volume = (S.vol || 80) / 100;
+        volSlider.addEventListener('input', (e) => {
+            const v = parseInt(e.target.value);
+            S.vol = v;
+            audioEl.volume = v / 100;
+            if (yt && typeof yt.setVolume === 'function') yt.setVolume(v);
         });
     }
 
