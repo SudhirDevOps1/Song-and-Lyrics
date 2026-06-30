@@ -539,7 +539,7 @@ body {
 .np-artist { font-size:0.85rem; color:var(--text-2); margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
 /* ═══ LYRICS BOX ═══ */
-.lyrics-box { flex:1; padding:30px; overflow-y:auto; position:relative; scroll-behavior: smooth; display: flex; flex-direction: column; }
+.lyrics-box { flex:1; padding:30px; overflow-y:auto; position:relative; display: flex; flex-direction: column; }
 .lyrics-scroll { display:flex; flex-direction:column; gap:20px; max-width:900px; margin:0 auto; padding: 50vh 0; width: 100%; transition: all 0.3s ease; }
 .ll { font-family:var(--lyrics-font, var(--font)); font-size:var(--lyrics-size); font-weight:700; color:var(--text-3); transition:0.3s cubic-bezier(0.2, 0.8, 0.2, 1); cursor:pointer; opacity:0.3; filter:blur(1px); line-height:1.4; transform-origin: left center; will-change: transform, opacity, filter; }
 
