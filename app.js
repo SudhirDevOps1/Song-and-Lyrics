@@ -305,6 +305,7 @@
         saveToLocal();
         renderList();
         if (S.songs.length === 1 && S.idx < 0) loadSong(0);
+        validateAndSortPlaylist();
         return song;
     }
 
@@ -407,6 +408,51 @@
     function saveToLocal() { localStorage.setItem('songvibe_songs', JSON.stringify(S.songs)); }
     
     let hasInitialized = false;
+    async function validateAndSortPlaylist() {
+        if (!S.songs || !S.songs.length) return;
+        
+        // Remember currently active song ID before sorting
+        const currentActiveSongId = S.idx >= 0 && S.songs[S.idx] ? S.songs[S.idx].id : null;
+
+        // Perform parallel checks via noembed to see if YouTube videos are working
+        await Promise.all(S.songs.map(async (song) => {
+            if (!song.videoId) {
+                // Local audio is always working
+                song.working = !!song.localUrl;
+                return;
+            }
+            try {
+                const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${song.videoId}`);
+                const data = await res.json();
+                if (data && data.error) {
+                    song.working = false;
+                } else {
+                    song.working = true;
+                }
+            } catch (e) {
+                // If offline or network fails, assume working to prevent sorting away valid songs
+                if (song.working === undefined) song.working = true;
+            }
+        }));
+
+        // Sort: working first (1), blocked/invalid last (0)
+        S.songs.sort((a, b) => {
+            const wA = a.working !== false ? 1 : 0;
+            const wB = b.working !== false ? 1 : 0;
+            return wB - wA; // Descending: 1 then 0
+        });
+
+        // Save new sorted list
+        saveToLocal();
+        renderList();
+
+        // Restore correct active index for currently playing/selected song after sorting
+        if (currentActiveSongId) {
+            const newIdx = S.songs.findIndex(s => s.id === currentActiveSongId);
+            if (newIdx >= 0) S.idx = newIdx;
+        }
+    }
+
     function loadFromLocal() {
         if (hasInitialized) return;
         hasInitialized = true;
@@ -420,6 +466,8 @@
                     renderList();
                     if (S.idx < 0) loadSong(0);
                     hasLocal = true;
+                    // Trigger sorting for local songs immediately
+                    validateAndSortPlaylist();
                 }
             }
         } catch (e) {}
@@ -492,6 +540,9 @@
                 renderLyrics();
                 loadSong(S.idx); // Reload completely to ensure UI updates
             }
+            
+            // Trigger automatic validation and sorting of working songs
+            validateAndSortPlaylist();
         }).catch(e => {
             console.log('No JSON found or invalid JSON syntax', e);
             toast('Error: Invalid JSON syntax in songs.json');
@@ -514,12 +565,15 @@
         }
         songList.innerHTML = S.songs.map((s,i) => `
             <div class="song-card ${i===S.idx?'active':''}" data-i="${i}">
-                ${s.thumb ? `<img class="sc-thumb" src="${s.thumb}" onerror="this.outerHTML='<div class=\\'sc-thumb-ph\\'>🎵</div>'">` : `<div class="sc-thumb-ph">${ICO.music}</div>`}
+                <div style="position:relative; width:40px; height:40px; flex-shrink:0;">
+                    ${s.thumb ? `<img class="sc-thumb" src="${s.thumb}" onerror="this.outerHTML='<div class=\\'sc-thumb-ph\\'>🎵</div>'" style="margin:0;">` : `<div class="sc-thumb-ph" style="margin:0;">${ICO.music}</div>`}
+                    ${s.working !== undefined ? `<div style="position:absolute; bottom:-1px; right:-1px; width:7px; height:7px; border-radius:50%; border:1.5px solid #000; background:${s.working ? '#1ed760' : '#ff4d4d'}; z-index:5;" title="${s.working ? 'Working Link' : 'Embedding Blocked or Deleted Video'}"></div>` : ''}
+                </div>
                 <div class="sc-info">
                     <div class="sc-name">${esc(s.title)}</div>
                     <div class="sc-artist">${esc(s.artist)}</div>
                 </div>
-                <div style="opacity:${i===S.idx&&S.playing?1:0.3}; transition:0.3s;">
+                <div style="opacity:${i===S.idx&&S.playing?1:0.3}; transition:0.3s; display:flex; align-items:center;">
                     ${i===S.idx && S.playing ? ICO.pause : ICO.play}
                 </div>
                 <button class="sc-del" data-rm="${i}">${ICO.x}</button>
