@@ -821,7 +821,9 @@
         // Apply global offset: positive = lyrics appear earlier (compensate for delay)
         // YouTube API has ~200-300ms inherent latency in getCurrentTime()
         const YT_LATENCY_COMP = (S.source === 'yt') ? 0.25 : 0;
-        const adjustedTime = t + S.lyricsOffset + YT_LATENCY_COMP;
+        // SCROLL_LEAD compensates for smooth-scroll visual delay so lyrics are already centered when active
+        const SCROLL_LEAD = 0.1;
+        const adjustedTime = t + S.lyricsOffset + YT_LATENCY_COMP + SCROLL_LEAD;
         
         let ai = -1;
         for (let i = S.lyrics.length - 1; i >= 0; i--) {
@@ -859,14 +861,36 @@
         });
     }
 
+    // Fast custom scroll — 200ms ease-out (browser default smooth is ~400ms which causes perceived lyric delay)
+    let _scrollRAF = null;
+    function fastScrollCenter(container, el) {
+        const box = container.closest('.lyrics-box') || container.parentElement;
+        if (!box) { el.scrollIntoView({ block: 'center' }); return; }
+        const target = el.offsetTop - box.clientHeight / 2 + el.clientHeight / 2;
+        const start = box.scrollTop;
+        const dist = target - start;
+        if (Math.abs(dist) < 3) return; // Already centered
+        if (_scrollRAF) cancelAnimationFrame(_scrollRAF);
+        const startTime = performance.now();
+        const duration = 200; // 200ms — 2x faster than browser default
+        function step(now) {
+            const t = Math.min((now - startTime) / duration, 1);
+            const ease = t * (2 - t); // ease-out quadratic
+            box.scrollTop = start + dist * ease;
+            if (t < 1) _scrollRAF = requestAnimationFrame(step);
+            else _scrollRAF = null;
+        }
+        _scrollRAF = requestAnimationFrame(step);
+    }
+
     function highlight(box, ai) {
         box.querySelectorAll('.ll').forEach((el,i) => {
             el.classList.remove('active','done');
             const kws = el.querySelectorAll('.kw');
             if (i===ai) {
                 el.classList.add('active');
-                // Smart Auto Scroll (Aggressive Focus)
-                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Fast 200ms scroll (tighter sync than browser's default ~400ms)
+                fastScrollCenter(box, el);
             } else if (i<ai) {
                 el.classList.add('done');
                 kws.forEach(w=>w.classList.add('sung'));
@@ -1342,7 +1366,13 @@
 
     /* ═══ UTILS & PARTICLES ═══ */
     function fmt(s) { if(!s||isNaN(s)) return '0:00'; return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'); }
-    function fmtStamp(s) { return Math.floor(s/60)+':'+String((s%60).toFixed(1)).padStart(4,'0'); }
+    function fmtStamp(s) {
+        // Round to 1 decimal first to prevent floating-point edge case (59.95 → "0:60.0")
+        const total = Math.round(s * 10) / 10;
+        const min = Math.floor(total / 60);
+        const sec = total % 60;
+        return min + ':' + String(sec.toFixed(1)).padStart(4, '0');
+    }
     function esc(s) { const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
     function toast(msg) {
         let el = $('.toast'); if(el) el.remove();
