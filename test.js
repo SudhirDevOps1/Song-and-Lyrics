@@ -43,7 +43,12 @@ function parseLyrics(text) {
 }
 
 const data = JSON.parse(fs.readFileSync('data/songs.json', 'utf8'));
-const song = data.songs[1]; // Khairiyat
-console.log('Original Array:', song.lyrics);
-const parsed = parseLyrics(song.lyrics.join('\n'));
-console.log('Parsed:', parsed);
+data.songs.forEach((song, idx) => {
+    console.log(`\nSong ${idx + 1}: "${song.title}" - ${song.artist}`);
+    const parsed = parseLyrics(song.lyrics.join('\n'));
+    console.log(`Parsed ${parsed.length} lines. First line time: ${parsed[0]?.time}s, text: "${parsed[0]?.text}"`);
+    // Print a few lines for verification
+    if (parsed.length > 2) {
+        console.log(`Second line time: ${parsed[1]?.time}s, text: "${parsed[1]?.text}"`);
+    }
+});

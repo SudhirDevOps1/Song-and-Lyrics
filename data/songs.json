@@ -1,465 +1,243 @@
 {
-  "songs": [
-    {
-      "id": "song_deewani_mastani",
-      "title": "Deewani Mastani",
-      "artist": "Shreya Ghoshal",
-      "youtubeUrl": "https://youtu.be/h6lHUn20J5g?si=LpS6sZRDrsEJd4jH",
-      "lyrics": [
-        "(0:08 - 0:12): [#00ffff] नभतून आली अप्सरा",
-        "(0:12 - 0:16): [#00ffcc] नभतून आली अप्सरा",
-        "(0:16 - 0:22): [#ff00ff] अशी सुंदरा साज सजवून आली आली आली",
-        "(0:22 - 0:28): [#ff9900] आली ग आली आली हो आली",
-        "(0:28 - 0:34): [#00ff00] केसां मधी मांडला गजरा",
-        "(0:34 - 0:40): [#ff0055] लोकांच्या नजरा खिळल्या तिच्यावर",
-        "(0:40 - 0:46): [#a855f7] आली ग आली आली ग आली",
-        "(0:46 - 0:52): [#00ffff] दुनियेची प्यारी तू अग्रणी हरणी ग",
-        "(0:52 - 0:58): [#00ffcc] अग्रणी सुंदरा हा हा",
-        "(0:58 - 1:04): [#ff00ff] आली ग आली आली ग आली",
-        "(1:04 - 1:12): [#ff9900] आली ग आली ओ महाराणी आली",
-        "(1:13 - 1:18): [#00ff00] नजर जो तेरी लागी मैं दीवानी हो गई",
-        "(1:18 - 1:26): [#ff0055] दीवानी हां दीवानी, दीवानी हो गई",
-        "(1:26 - 1:36): [#a855f7] मशहूर मेरे इश्क़ की कहानी हो गई",
-        "(1:36 - 1:44): [#00ffff] जो जग ने ना मानी तो मैंने भी ठानी",
-        "(1:44 - 1:52): [#00ffcc] कहां थी मैं देखो कहां चली आई",
-        "(1:52 - 2:00): [#ff00ff] कहते हैं ये दीवानी मस्तानी हो गई",
-        "(2:00 - 2:08): [#ff9900] मशहूर मेरे इश्क़ की ये कहानी हो गई",
-        "(2:08 - 2:16): [#00ff00] जो जग ने ना मानी तो मैंने भी ठानी",
-        "(2:16 - 2:24): [#ff0055] कहां थी मैं देखो कहां चली आई",
-        "(2:24 - 2:32): [#a855f7] कहते हैं ये दीवानी मस्तानी हो गई",
-        "(2:32 - 2:40): [#00ffff] दीवानी हां दीवानी, दीवानी हो गई",
-        "(3:05 - 3:12): [#00ffcc] ज़ख्म ऐसा तूने लगाया",
-        "(3:12 - 3:20): [#ff00ff] दीवानी, दीवानी, दीवानी, दीवानी हो गई",
-        "(3:20 - 3:28): [#ff9900] मरहम ऐसा तूने लगाया",
-        "(3:28 - 3:36): [#00ff00] रूहानी, रूहानी, रूहानी, रूहानी हो गई",
-        "(3:36 - 3:44): [#ff0055] पहचान मेरे इश्क़ की अब तो",
-        "(3:44 - 3:52): [#a855f7] रवानगी, रवानगी, रवानगी, रवानगी हो गई",
-        "(3:52 - 4:00): [#00ffff] मशहूर मेरे इश्क़ की कहानी हो गई",
-        "(4:00 - 4:08): [#00ffcc] कहते हैं ये दीवानी मस्तानी हो गई",
-        "(4:08 - 4:16): [#ff00ff] दीवानी हां दीवानी, दीवानी हो गई",
-        "(4:16 - 4:24): [#ff9900] मशहूर मेरे इश्क़ की कहानी हो गई",
-        "(4:24 - 4:32): [#00ff00] जो जग ने ना मानी तो मैंने भी ठानी",
-        "(4:32 - 4:40): [#ff0055] कहां थी मैं देखो कहां चली आई",
-        "(4:40 - 4:48): [#a855f7] कहते हैं ये दीवानी मस्तानी हो गई",
-        "(4:48 - 4:56): [#00ffff] दीवानी हां दीवानी, दीवानी हो गई",
-        "(4:56 - 5:04): [#00ffcc] सब नूर नूर सा बिखरा है",
-        "(5:04 - 5:12): [#ff00ff] एक तू ही ख्यालों में उतरा है",
-        "(5:12 - 5:20): [#ff9900] बस झूम झूम झूम झूम जाता है दिल",
-        "(5:20 - 5:24): [#00ff00] तू मस्तानी है",
-        "(5:24 - 5:28): [#ff0055] तू दीवानी है",
-        "(5:28 - 5:34): [#a855f7] पाकीज़ा हस्ती हैं तेरी, तू नूरानी है",
-        "(5:34 - 5:41): [#00ffff] सब नूर नूर सा बिखरा है, एक तू ही ख्यालों में उतरा है"
-      ]
-    },
-    {
-      "id": "song_tu_agar_meri",
-      "title": "Tu Agar Meri",
-      "artist": "Arijit Singh",
-      "youtubeUrl": "https://youtu.be/GVizJ_jpUnw",
-      "lyrics": [
-        "(0:21 - 0:25): [#00ffff] तू अगर मेरी ये हवाएं तेरी",
-        "(0:26 - 0:30): [#00ffcc] तू अगर मेरी सारी राहें तेरी",
-        "(0:31 - 0:35): [#ff00ff] तू अगर मेरी मैं हूं तेरा",
-        "(0:36 - 0:40): [#ff0055] तू अगर मेरी ये उजाले तेरे",
-        "(0:41 - 0:45): [#ffaa00] तू अगर मेरी दिल हवाले तेरे",
-        "(0:46 - 0:50): [#00ff00] तू अगर मेरी मैं हूं तेरा",
-        "(0:51 - 0:58): [#ffff00] बेताब सा मोहब्बत का तू इंकलाब है",
-        "(0:59 - 1:05): [#a855f7] मेरा जहां तेरी बाहों में ख्वाब ख्वाब है",
-        "(1:06 - 1:11): [#3b82f6] गहरा हुआ गहरा हुआ",
-        "(1:12 - 1:17): [#ff0055] रंग आशिकी गहरा हुआ",
-        "(1:18 - 1:23): [#00ffcc] गहरा हुआ गहरा हुआ",
-        "(1:24 - 1:29): [#ff9900] दरिया दुआ गहरा हुआ",
-        "(1:30 - 1:35): [#00ff00] तेरा हुआ",
-        "(1:36 - 1:42): [#ff00ff] तू अगर मेरी ये हवाएं तेरी",
-        "(1:43 - 1:49): [#00ffff] तू अगर मेरी सारी राहें तेरी",
-        "(1:50 - 1:55): [#ffff00] तू अगर मेरी मैं हूं तेरा",
-        "(2:08 - 2:12): [#00ffcc] पलकें झपकता है आसमान",
-        "(2:13 - 2:17): [#ff0055] लाखों फरिश्तों की है तू जान",
-        "(2:18 - 2:22): [#ffaa00] वो पूछते हैं रहती कहां",
-        "(2:23 - 2:27): [#00ff00] मेरी बाहों में रहती उनको बता",
-        "(2:28 - 2:32): [#ffff00] पलकें झपकती हैं आसमान",
-        "(2:33 - 2:37): [#a855f7] उसने भी तुझसा देखा कहां",
-        "(2:38 - 2:42): [#3b82f6] है रौनक वहां तू है जहां",
-        "(2:43 - 2:47): [#ff5500] मेरी बाहों में रहना यही है दुआ",
-        "(2:48 - 2:54): [#00ffff] तू अगर मेरी ये हवाएं तेरी",
-        "(2:55 - 3:01): [#ff00ff] तू अगर मेरी सारी राहें तेरी",
-        "(3:02 - 3:08): [#00ff00] तू agar मेरी मैं हूं तेरा",
-        "(3:09 - 3:16): [#ff9900] बेताब सा मोहब्बत का तू इंकलाब है",
-        "(3:17 - 3:23): [#00ffcc] मेरा जहां तेरी बाहों में ख्वाब ख्वाब है",
-        "(3:24 - 3:29): [#ff0055] गहरा हुआ गहरा हुआ",
-        "(3:30 - 3:34): [#ffff00] रंग आशिकी गहरा हुआ",
-        "(3:35 - 3:39): [#a855f7] गहरा हुआ गहरा हुआ",
-        "(3:40 - 3:45): [#3b82f6] दरिया दुआ गहरा हुआ, तेरा हुआ",
-        "(3:46 - 3:55): [#00ff00] नी सा गा सा गा मा पा गा मा रे, नी सा गा सा गा मा पा गा रे सा",
-        "(3:56 - 4:02): [#ff00ff] तेरी मोहब्बत में जलना भी है",
-        "(4:03 - 4:09): [#00ffff] और तुझसे बचके ही चलना भी है",
-        "(4:10 - 4:16): [#ffaa00] कुछ रंग अपना बदलना भी है",
-        "(4:17 - 4:25): [#ffff00] मैंने ढलना तेरे रंग में है सदा",
-        "(4:26 - 4:32): [#00ffcc] तू चांद है इक धड़कता हुआ",
-        "(4:33 - 4:39): [#ff0055] चोरी से मुझको ही तकता हुआ",
-        "(4:40 - 4:46): [#a855f7] सीने से लगके चमकता हुआ",
-        "(4:47 - 4:55): [#00ff00] मेरी जन्नत का रास्ता तू ही तू हुआ",
-        "(4:56 - 5:02): [#ff9900] तू अगर मेरी ये हवाएं तेरी",
-        "(5:03 - 5:07): [#ff00ff] तू अगर मेरी सारी राहें तेरी",
-        "(5:08 - 5:10): [#00ffff] तू अगर मेरी मैं हूं तेरा",
-        "(5:11 - 5:17): [#ffff00] बेताब सा मोहब्बत का तू इंकलाब है",
-        "(5:18 - 5:24): [#00ffcc] मेरा जहां तेरी बाहों में ख्वाब ख्वाब है",
-        "(5:25 - 5:30): [#ff0055] गहरा हुआ गहरा हुआ",
-        "(5:31 - 5:35): [#a855f7] रंग आशिकी गहरा हुआ",
-        "(5:36 - 5:40): [#3b82f6] गहरा हुआ गहरा हुआ",
-        "(5:41 - 5:46): [#ffaa00] दरिया दुआ गहरा हुआ."
-      ]
-    },
-    {
-      "id": "song_khairiyat",
-      "title": "Khairiyat",
-      "artist": "Arijit Singh",
-      "youtubeUrl": "https://youtu.be/hoNb6HuNmU0?si=mBMAEEZsFrfBsJCo",
-      "lyrics": [
-        "(0:23 - 0:27): [#00ffff] खैरियत पूछो",
-        "(0:27 - 0:30): [#00ffcc] कभी तो कैफियत पूछो",
-        "(0:30 - 0:34): [#ff00ff] तुम्हारे बिन दीवाने का",
-        "(0:34 - 0:37): [#ff9900] क्या हाल है",
-        "(0:38 - 0:41): [#ff0055] दिल मेरा देखो",
-        "(0:41 - 0:44): [#a855f7] ना मेरी हैसियत पूछो",
-        "(0:44 - 0:47): [#00ff00] तेरे बिन एक दिन",
-        "(0:47 - 0:50): [#00ffff] जैसे सौ साल है",
-        "(0:52 - 0:55): [#ff00ff] अंजाम है तय मेरा",
-        "(0:56 - 0:59): [#ff9900] होना तुम्हें है मेरा",
-        "(1:00 - 1:03): [#ff0055] जितनी भी हो दूरियां",
-        "(1:03 - 1:06): [#a855f7] फिलहाल हैं",
-        "(1:09 - 1:14): [#00ffcc] ये दूरियां फिलहाल हैं",
-        "(1:15 - 1:19): [#00ffff] ओ खैरियत पूछो",
-        "(1:19 - 1:22): [#00ffcc] कभी तो कैफियत पूछो",
-        "(1:23 - 1:26): [#ff00ff] तुम्हारे बिन दीवाने का",
-        "(1:26 - 1:30): [#ff9900] क्या हाल है",
-        "(1:32 - 1:35): [#ff0055] दिल मेरा देखो",
-        "(1:35 - 1:38): [#a855f7] ना मेरी हैसियत पूछो",
-        "(1:38 - 1:41): [#00ff00] तेरे बिन एक दिन",
-        "(1:41 - 1:44): [#00ffff] जैसे सौ साल है",
-        "(1:56 - 2:00): [#ff00ff] तुम्हारी तस्वीर के सहारे",
-        "(2:00 - 2:03): [#ff9900] मौसम कई गुजारे",
-        "(2:04 - 2:08): [#ff0055] मौसमी ना समझो",
-        "(2:08 - 2:11): [#a855f7] पर इश्क को हमारे",
-        "(2:12 - 2:16): [#00ff00] नजरों के सामने मैं",
-        "(2:16 - 2:19): [#00ffff] आता नहीं तुम्हारे",
-        "(2:19 - 2:23): [#00ffcc] मगर रहते हो हर पल",
-        "(2:23 - 2:26): [#ff00ff] मंजर में तुम हमारे",
-        "(2:27 - 2:30): [#ff9900] अगर इश्क से है मिला",
-        "(2:30 - 2:33): [#ff0055] फिर दर्द से क्या गिला",
-        "(2:33 - 2:36): [#a855f7] इस दर्द में जिंदगी",
-        "(2:36 - 2:39): [#00ff00] खुशहाल है",
-        "(2:43 - 2:47): [#00ffff] ये दूरियां फिलहाल हैं",
-        "(2:49 - 2:53): [#00ffcc] ओ खैरियत पूछो",
-        "(2:53 - 2:56): [#ff00ff] कभी तो कैफियत पूछो",
-        "(2:56 - 3:00): [#ff9900] तुम्हारे बिन दीवाने का",
-        "(3:00 - 3:03): [#ff0055] क्या हाल है",
-        "(3:06 - 3:09): [#a855f7] दिल मेरा देखो",
-        "(3:09 - 3:12): [#00ff00] ना मेरी हैसियत पूछो",
-        "(3:12 - 3:15): [#00ffff] तेरे बिन एक दिन",
-        "(3:15 - 3:18): [#00ffcc] जैसे सौ साल है",
-        "(3:20 - 3:23): [#ff00ff] अंजाम है तय मेरा",
-        "(3:23 - 3:26): [#ff9900] होना तुम्हें है मेरा",
-        "(3:26 - 3:29): [#ff0055] जितनी भी हो दूरियां",
-        "(3:29 - 3:32): [#a855f7] फिलहाल हैं",
-        "(3:37 - 3:41): [#00ff00] ये दूरियां फिलहाल हैं"
-      ]
-    },
-    {
-      "id": "song_haye_sajan",
-      "title": "Haye Sajan Mennu Lutt Le Gaya",
-      "artist": "SongVibe",
-      "youtubeUrl": "https://youtu.be/czgm5uaO3gI",
-      "lyrics": [
+    "songs": [
         {
-          "time": 7.5,
-          "text": "Aaja Ve Aaja Aaja Ve Aaja Haye Sajan"
+            "id": "humnava_mere",
+            "title": "Humnava Mere",
+            "artist": "Jubin Nautiyal",
+            "youtubeUrl": "https://www.youtube.com/watch?v=JmOxM2n4Vb0",
+            "lyrics": [
+                "[0:03.0] [#ff4444] Barson ho gaye bichhde, ab saath nahi ho tum",
+                "[0:07.0] [#ff4444] Phir aisa kyun lagta hai, jahan main hoon wahin ho tum",
+                "[0:13.0] [#ffaa00] Kya karoon main apni ungliyon ka? Kisi ki bhi tasveer banaoon, tumhari ban jaati hai",
+                "[0:19.0] [#ffaa00] Yeh sirf mera pagalpan hai, ya tum bhi mere liye pagal thi?",
+                "[0:36.0] [#00ffcc] Kal raaste mein gam mil gaya tha, lag ke gale mein ro diya",
+                "[0:49.0] [#00ffcc] Jo sirf mera tha, sirf mera, maine use kyun kho diya?",
+                "[1:00.0] [#ff44ff] Haan woh aankhein jinhe main choomta tha bewajah",
+                "[1:06.0] [#ff44ff] Pyaar mere liye kyun baaki na raha",
+                "[1:19.0] [#ffff00] Humnava mere, tu hai toh meri saansein chale",
+                "[1:24.0] [#ffff00] Bata de kaise main jiyunga tere bina",
+                "[1:29.0] [#ffff00] O humnava mere, tu hai toh meri saansein chale",
+                "[1:36.0] [#ffff00] Bata de kaise main jiyunga tere bina",
+                "[2:11.0] [#00ffcc] Har waqt dil ko jo sataye, aisi kami hai tu",
+                "[2:23.0] [#00ffcc] Main bhi na jaanu ye kitna, kyun laazmi hai tu",
+                "[2:34.0] [#ff4444] Neend ja ke na lauti, kitni raatein dhal gayi",
+                "[2:40.0] [#ff4444] Itne taare gine ki ungliyan bhi jal gayi",
+                "[3:42.0] [#ffaa00] Tu aakhiri aansoon, o yaara, hai aakhiri tu gam",
+                "[3:54.0] [#ffaa00] Dil ab kahan hai jo dobara de de kisi ko hum",
+                "[4:05.0] [#00ffcc] Apni shaam mein hissa phir kisi ko na diya",
+                "[4:11.0] [#00ffcc] Ishq tere bina bhi maine tujhse hi kiya",
+                "[6:29.0] [#ff4444] Humnava mere, tu hai toh meri saansein chale",
+                "[6:34.0] [#ff4444] Bata de kaise main jiyunga tere bina"
+            ]
         },
         {
-          "time": 15,
-          "text": "[#00e5ff] Aaja Ve Aaja Aaja Ve Aaja Seene Laaja"
+            "id": "song_tu_agar_meri",
+            "title": "Tu Agar Meri",
+            "artist": "Arijit Singh",
+            "youtubeUrl": "https://youtu.be/GVizJ_jpUnw",
+            "lyrics": [
+                "(0:21 - 0:25): [#00ffff] तू अगर मेरी ये हवाएं तेरी",
+                "(0:26 - 0:30): [#00ffcc] तू अगर मेरी सारी राहें तेरी",
+                "(0:31 - 0:35): [#ff00ff] तू अगर मेरी मैं हूं तेरा",
+                "(0:36 - 0:40): [#ff0055] तू अगर मेरी ये उजाले तेरे",
+                "(0:41 - 0:45): [#ffaa00] तू agar मेरी दिल हवाले तेरे",
+                "(0:46 - 0:50): [#00ff00] तू agar मेरी मैं हूं तेरा",
+                "(0:51 - 0:58): [#ffff00] बेताब सा मोहब्बत का तू इंकलाब है",
+                "(0:59 - 1:05): [#a855f7] मेरा जहां तेरी बाहों में ख्वाब ख्वाब है",
+                "(1:06 - 1:11): [#3b82f6] गहरा हुआ गहरा हुआ",
+                "(1:12 - 1:17): [#ff0055] रंग आशिकी गहरा हुआ",
+                "(1:18 - 1:23): [#00ffcc] गहरा हुआ गहरा हुआ",
+                "(1:24 - 1:29): [#ff9900] दरिया दुआ गहरा हुआ",
+                "(1:30 - 1:35): [#00ff00] तेरा हुआ",
+                "(1:36 - 1:42): [#ff00ff] तू अगर मेरी ये हवाएं तेरी",
+                "(1:43 - 1:49): [#00ffff] तू अगर मेरी सारी राहें तेरी",
+                "(1:50 - 1:55): [#ffff00] तू अगर मेरी मैं हूं तेरा",
+                "(2:08 - 2:12): [#00ffcc] पलकें झपकता है आसमान",
+                "(2:13 - 2:17): [#ff0055] लाखों फरिश्तों की है तू जान",
+                "(2:18 - 2:22): [#ffaa00] वो पूछते हैं रहती कहां",
+                "(2:23 - 2:27): [#00ff00] मेरी बाहों में रहती उनको बता",
+                "(2:28 - 2:32): [#ffff00] पलकें झपकती हैं आसमान",
+                "(2:33 - 2:37): [#a855f7] उसने भी तुझसा देखा कहां",
+                "(2:38 - 2:42): [#3b82f6] है रौनक वहां तू है जहां",
+                "(2:43 - 2:47): [#ff5500] मेरी बाहों में रहना यही है दुआ",
+                "(2:48 - 2:54): [#00ffff] तू अगर मेरी ये हवाएं तेरी",
+                "(2:55 - 3:01): [#ff00ff] तू अगर मेरी सारी राहें तेरी",
+                "(3:02 - 3:08): [#00ff00] तू agar मेरी मैं हूं तेरा",
+                "(3:09 - 3:16): [#ff9900] बेताब सा मोहब्बत का तू इंकलाब है",
+                "(3:17 - 3:23): [#00ffcc] मेरा जहां तेरी बाहों में ख्वाब ख्वाब है",
+                "(3:24 - 3:29): [#ff0055] गहरा हुआ गहरा हुआ",
+                "(3:30 - 3:34): [#ffff00] रंग आशिकी गहरा हुआ",
+                "(3:35 - 3:39): [#a855f7] गहरा हुआ गहरा हुआ",
+                "(3:40 - 3:45): [#3b82f6] दरिया दुआ गहरा हुआ, तेरा हुआ",
+                "(3:46 - 3:55): [#00ff00] नी सा गा सा गा मा पा गा मा रे, नी सा गा सा गा मा पा गा रे सा",
+                "(3:56 - 4:02): [#ff00ff] तेरी मोहब्बत में जलना भी है",
+                "(4:03 - 4:09): [#00ffff] और तुझसे बचके ही चलना भी है",
+                "(4:10 - 4:16): [#ffaa00] कुछ रंग अपना बदलना भी है",
+                "(4:17 - 4:25): [#ffff00] मैंने ढलना तेरे रंग में है सदा",
+                "(4:26 - 4:32): [#00ffcc] तू चांद है इक धड़कता हुआ",
+                "(4:33 - 4:39): [#ff0055] चोरी से मुझको ही तकता हुआ",
+                "(4:40 - 4:46): [#a855f7] सीने से लगके चमकता हुआ",
+                "(4:47 - 4:55): [#00ff00] मेरी जन्नत का रास्ता तू ही तू हुआ",
+                "(4:56 - 5:02): [#ff9900] तू अगर मेरी ये हवाएं तेरी",
+                "(5:03 - 5:07): [#ff00ff] तू अगर मेरी सारी राहें तेरी",
+                "(5:08 - 5:10): [#00ffff] तू अगर मेरी मैं हूं तेरा",
+                "(5:11 - 5:17): [#ffff00] बेताब सा मोहब्बत का तू इंकलाब है",
+                "(5:18 - 5:24): [#00ffcc] मेरा जहां तेरी बाहों में ख्वाब ख्वाब है",
+                "(5:25 - 5:30): [#ff0055] गहरा हुआ गहरा हुआ",
+                "(5:31 - 5:35): [#a855f7] रंग आशिकी गहरा हुआ",
+                "(5:36 - 5:40): [#3b82f6] गहरा हुआ गहरा हुआ",
+                "(5:41 - 5:46): [#ffaa00] दरिया दुआ गहरा हुआ."
+            ]
         },
         {
-          "time": 35,
-          "text": "[#ff00ff] Haye Sajan Mennu Lutt Le Gaya"
+            "id": "song_khairiyat",
+            "title": "Khairiyat",
+            "artist": "Arijit Singh",
+            "youtubeUrl": "https://youtu.be/hoNb6HuNmU0?si=mBMAEEZsFrfBsJCo",
+            "lyrics": [
+                "(0:23 - 0:27): [#00ffff] खैरियत पूछो",
+                "(0:27 - 0:30): [#00ffcc] कभी तो कैफियत पूछो",
+                "(0:30 - 0:34): [#ff00ff] तुम्हारे बिन दीवाने का",
+                "(0:34 - 0:37): [#ff9900] क्या हाल है",
+                "(0:38 - 0:41): [#ff0055] दिल मेरा देखो",
+                "(0:41 - 0:44): [#a855f7] ना मेरी हैसियत पूछो",
+                "(0:44 - 0:47): [#00ff00] तेरे बिन एक दिन",
+                "(0:47 - 0:50): [#00ffff] जैसे सौ साल है",
+                "(0:52 - 0:55): [#ff00ff] अंजाम है तय मेरा",
+                "(0:56 - 0:59): [#ff9900] होना तुम्हें है मेरा",
+                "(1:00 - 1:03): [#ff0055] जितनी भी हो दूरियां",
+                "(1:03 - 1:06): [#a855f7] फिलहाल हैं",
+                "(1:09 - 1:14): [#00ffcc] ये दूरियां फिलहाल हैं",
+                "(1:15 - 1:19): [#00ffff] ओ खैरियत पूछो",
+                "(1:19 - 1:22): [#00ffcc] कभी तो कैफियत पूछो",
+                "(1:23 - 1:26): [#ff00ff] तुम्हारे बिन दीवाने का",
+                "(1:26 - 1:30): [#ff9900] क्या हाल है",
+                "(1:32 - 1:35): [#ff0055] दिल मेरा देखो",
+                "(1:35 - 1:38): [#a855f7] ना मेरी हैसियत पूछो",
+                "(1:38 - 1:41): [#00ff00] तेरे बिन एक दिन",
+                "(1:41 - 1:44): [#00ffff] जैसे सौ साल है",
+                "(1:56 - 2:00): [#ff00ff] तुम्हारी तस्वीर के सहारे",
+                "(2:00 - 2:03): [#ff9900] मौसम कई गुजारे",
+                "(2:04 - 2:08): [#ff0055] मौसमी ना समझो",
+                "(2:08 - 2:11): [#a855f7] पर इश्क को हमारे",
+                "(2:12 - 2:16): [#00ff00] नजरों के सामने मैं",
+                "(2:16 - 2:19): [#00ffff] आता नहीं तुम्हारे",
+                "(2:19 - 2:23): [#00ffcc] मगर रहते हो हर पल",
+                "(2:23 - 2:26): [#ff00ff] मंजर में तुम हमारे",
+                "(2:27 - 2:30): [#ff9900] अगर इश्क से है मिला",
+                "(2:30 - 2:33): [#ff0055] फिर दर्द से क्या गिला",
+                "(2:33 - 2:36): [#a855f7] इस दर्द में जिंदगी",
+                "(2:36 - 2:39): [#00ff00] खुशहाल है",
+                "(2:43 - 2:47): [#00ffff] ये दूरियां फिलहाल हैं",
+                "(2:49 - 2:53): [#00ffcc] ओ खैरियत पूछो",
+                "(2:53 - 2:56): [#ff00ff] कभी तो कैफियत पूछो",
+                "(2:56 - 3:00): [#ff9900] तुम्हारे बिन दीवाने का",
+                "(3:00 - 3:03): [#ff0055] क्या हाल है",
+                "(3:06 - 3:09): [#a855f7] दिल मेरा देखो",
+                "(3:09 - 3:12): [#00ff00] ना मेरी हैसियत पूछो",
+                "(3:12 - 3:15): [#00ffff] तेरे बिन एक दिन",
+                "(3:15 - 3:18): [#00ffcc] जैसे सौ साल है",
+                "(3:20 - 3:23): [#ff00ff] अंजाम है तय मेरा",
+                "(3:23 - 3:26): [#ff9900] होना तुम्हें है मेरा",
+                "(3:26 - 3:29): [#ff0055] जितनी भी हो दूरियां",
+                "(3:29 - 3:32): [#a855f7] फिलहाल हैं",
+                "(3:37 - 3:41): [#00ff00] ये दूरियां फिलहाल हैं"
+            ]
         },
         {
-          "time": 40,
-          "text": "[#ff4081] Haye Haye Sajan Mennu Lutt Le Gaya"
+            "id": "gehra_hua_dhurandhar",
+            "title": "Gehra Hua",
+            "artist": "Arijit Singh, Armaan Khan",
+            "youtubeUrl": "https://www.youtube.com/watch?v=F3a37y1D-qU",
+            "lyrics": [
+                "(0:21 - 0:35): [#FF5733] तू अगर मेरी ये हवाएं तेरी, तू अगर मेरी सारी राहें तेरी, तू अगर मेरी मैं हूं तेरा",
+                "(0:36 - 0:50): [#33FF57] तू अगर मेरी ये उजाले तेरे, तू agar मेरी दिल हवाले तेरे, तू agar मेरी मैं हूं तेरा",
+                "(0:51 - 1:05): [#3357FF] बेताब सा मोहब्बत का तू इंकलाब है, मेरा जहां तेरी बाहों में ख्वाब ख्वाब है",
+                "(1:06 - 1:35): [#F333FF] गहरा हुआ, गहरा हुआ, रंग आशिकी, गहरा हुआ, गहरा हुआ, गहरा हुआ, दरिया दुआ, गहरा हुआ, तेरा हुआ",
+                "(2:08 - 2:27): [#FF33A8] पलकें झपकता है आसमान, लाखों फरिश्तों की है तू जान, वो पूछते हैं रहती कहां, मेरी बाहों में रहती उनको बता",
+                "(2:28 - 2:47): [#A8FF33] पलकें झपकता है आसमान, उसने भी तुझ सा देखा कहां, है रौनकें वहां तू है जहां, मेरी बाहों में रहना यही है दुआ",
+                "(2:48 - 3:08): [#FF8C33] तू अगर मेरी है फसाना तेरा, तू अगर मेरी तो जमाना तेरा, तू अगर मेरी मैं हूं तेरा, बेताब सा मोहब्बत का तू इंकलाब है, मेरा जहां तेरी बाहों में ख्वाब ख्वाब है",
+                "(3:41 - 3:55): [#33FFF6] नी सा गा सा गा मा पा गा मा रे, नी सा गा सा गा मा पा गा मा रे सा",
+                "(3:56 - 4:26): [#D433FF] तेरी मोहब्बत में जलना भी है, और तुझसे बच के ही चलना भी है, कुछ रंग अपना बदलना भी है, मैंने ढलना तेरे रंग में है सदा, तू चांद है इक धड़कता हुआ, चोरी से मुझको ही तकता हुआ, सीने से लग के चमकता हुआ, मेरी जन्नत का रस्ता तू ही तो हुआ",
+                "(4:27 - 5:28): [#FF3333] तू अगर मेरी ये हवाएं तेरी, तू अगर मेरी सारी राहें तेरी, तू अगर मेरी मैं हूं तेरा, बेताब सा मोहब्बत का तू इंकलाब है, मेरा जहां तेरी बाहों में ख्वाब ख्वाब है, गहरा हुआ, गहरा हुआ, रंग आशिकी, गहरा हुआ, गहरा हुआ, गहरा हुआ, दरिया दुआ, गहरा हुआ"
+            ]
         },
         {
-          "time": 42,
-          "text": ""
+            "id": "aawaara_angaara_tere_ishk_mein",
+            "title": "Aawaara Angaara",
+            "artist": "Faheem Abdullah",
+            "youtubeUrl": "https://www.youtube.com/watch?v=kYx-Rz3zJ24",
+            "lyrics": [
+                "(0:40 - 0:52): [#FF5733] तेरी कायनात मेरे खाली हाथ और तारतार सपने",
+                "(0:52 - 1:05): [#33FF57] तेरी कायनात मेरे खाली हाथ और तारतार सपने, दर्दों से चूर गम का गुरूर कहूं क्या मैं हाल अपने",
+                "(1:05 - 1:26): [#3357FF] आवारा रातों में डूबा अंबर का बंजारा",
+                "(1:29 - 1:42): [#F333FF] जाने टूटा क्यों मैं शीशा ना तारा",
+                "(1:42 - 1:57): [#FF3385] तेरी कायनात मेरे खाली हाथ और तारतार सपने, गए जख्म जाग मेरे सीने आग लगी सांसे सांस तपने",
+                "(2:13 - 2:26): [#FFC300] कोई उधारी है सीने पे भारी है, पत्थर है या दिल है मैं ही अकेला हूं मैं ही तो मेला हूं ये कैसी महफिल है",
+                "(2:26 - 2:37): [#DAF7A6] रूठे सवेरे हैं आधे ही मेरे हैं आधे हैं ये तेरे, निगाहों में लवा है आंखों में बस सर्द शाम गहरे",
+                "(2:37 - 3:00): [#581845] आवारा आवारा आवारा आंसू है मेरे या पिघला है पारा",
+                "(3:03 - 3:12): [#900C3F] जाने टूटा क्यों मैं शीशा ना तारा",
+                "(3:41 - 4:03): [#C70039] मेरा इम्तिहान तू जो ले रहा है अब ना रियायत कर",
+                "(4:44 - 5:01): [#FF5733] मेरा इम्तहान तू जो ले रहा है अब ना रियायत कर, मैंने इश्क सीखा मैंने प्यार सीखा तू चाहे नफरत कर"
+            ]
         },
         {
-          "time": 43,
-          "text": "[#00ffcc] Pyaase Laban Te Rog Muka Ja"
+            "id": "song_lutt_le_gaya",
+            "title": "Lutt Le Gaya",
+            "artist": "Simran Choudhary",
+            "youtubeUrl": "https://www.youtube.com/watch?v=vx9-SmQ2wuQ",
+            "lyrics": [
+                "(0:08 - 0:25): [#ff4444] आजा वे आजा, आजा वे आजा, हाय सजन, आजा वे आजा, आजा वे आजा, सीने लाजा, हाय सजन",
+                "(0:26 - 0:45): [#ffaa00] मेनू लुट ले गया, हाय हाय सजन मेनू लुट ले गया, प्यासे लबां ते रोग मुका जा, हाय सजन मेनू लुट ले गया",
+                "(0:46 - 1:10): [#00ffcc] हाय हाय सजन मेनू लुट ले गया, हाय सजन मेरी अक्खियां तरस दी, हाय ईमान मेरा तुट पै गया, मेनू लुट ले गया",
+                "(1:11 - 1:30): [#ccff00] ओ मेनू लुट ले गया, ओ मेनू लुट ले गया, ओ मेनू लुट ले गया, आजा वे आजा, ओ मेनू लुट ले गया, आजा वे आजा",
+                "(2:10 - 2:30): [#ff00ff] तपदी अक्खियां, अज ना मुकियां, नैना विच तू वस्स गया, रज्ज के पीवां तैनू सजना, रातां विच आ रस्स गया",
+                "(2:31 - 2:50): [#0088ff] हाय वसना चानवा विच मैं सानवां, मेनू ओ फिर खींच पुट ले गया, हाय सजन मेरी अक्खियां तरस दी",
+                "(2:51 - 3:20): [#ff6600] हाय ईमान मेरा तुट पै गया, मेनू लुट ले गया, ओ मेनू लुट ले गया, ओ meny lutt le gaya, o meny lutt le gaya, o meny lutt le gaya",
+                "(3:21 - 4:18): [#9900ff] आजा वे आजा, आजा वे आजा, आजा वे आजा, आजा वे आजा, हाय सजन, हाय सजन"
+            ]
         },
         {
-          "time": 53,
-          "text": "[#ff00ff] Haye Sajan Mennu Lutt Le Gaya"
+            "id": "song_bekhayali",
+            "title": "Bekhayali",
+            "artist": "Sachet Tandon",
+            "youtubeUrl": "https://www.youtube.com/watch?v=Ye8mB6V_INQ",
+            "lyrics": [
+                "(0:29 - 0:44): [#ff4444] Bekhayali mein bhi tera hi khayaal aaye, Kyun bichhadna hai zaroori ye sawaal aaye",
+                "(0:45 - 1:00): [#ffaa00] Teri nazdeekiyon ki khushi behisaab thi, Hissay mein faasle bhi tere bemisaal aaye",
+                "(1:02 - 1:16): [#ffcc00] Main jo tujhse door hoon, Kyun door main rahoon, Tera guroor hoon, Tu faasla mita, Tu khwaab sa mila, Kyun khwaab tod doon",
+                "(1:36 - 1:51): [#ff4444] Bekhayali mein bhi tera hi khayaal aaye, Kyun bichhadna hai zaroori ye sawaal aaye",
+                "(1:52 - 2:06): [#ff6699] Thoda sa main khafa ho gaya apne aap se, Thoda sa tujh pe bhi bewajah malaal aaye",
+                "(2:20 - 2:34): [#cc00ff] Haye ye tadpan hai, Ye uljhan hai, Kaise jee loon bina tere, Meri ab sabse hai anban, Bante kyun ye khuda mere",
+                "(2:53 - 3:07): [#33ccff] Ye jo log-baag hain, Jungle ki aag hain, Kyun aag mein jaloon, Ye nakaam pyaar mein, Khush hai ye haar mein, In jaisa kyun banoon",
+                "(3:37 - 3:54): [#00ffcc] Raatein dengi bata, Neendhon mein teri hi baat hai, Bhooloon kaise tujhe, Tu toh khayalon mein saath hai",
+                "(3:54 - 4:05): [#ff4444] Bekhayali mein bhi tera hi khayaal aaye, Kyun bichhadna hai zaroori ye sawaal aaye",
+                "(4:28 - 4:44): [#9933ff] Nazron ke aage har ek manzar, Ret ki tarah bikhar raha hai, Dard tumhara hai, Badan mein mere zehar ki tarah utar raha hai",
+                "(5:05 - 5:24): [#ff9966] Aamane, Aamane, Rooth-ta nahi, Faaslon se faasla, Ye toot-ta nahi",
+                "(5:25 - 5:44): [#ff3300] Na hai woh bewafa, Aur na main hoon bewafa, Woh meri aadaton ki tarah, Chhoot-ta nahi"
+            ]
         },
         {
-          "time": 57,
-          "text": "[#ff4081] Haye Haye Sajan Mennu Lutt Le Gaya"
-        },
-        {
-          "time": 60,
-          "text": ""
-        },
-        {
-          "time": 62,
-          "text": "[yellow] Haye Sajan Meri Akkhan Taras Di"
-        },
-        {
-          "time": 65,
-          "text": "[#ff9900] Haye Imaan Mera Tutt Pai Gaya Mennu Lutt Le Gaya"
-        },
-        {
-          "time": 69,
-          "text": "[#00e5ff] O Mennu Lutt Le Gaya O Mennu Lutt Le Gaya"
-        },
-        {
-          "time": 75,
-          "text": "[#ff00ff] O Mennu Lutt Le Gaya"
-        },
-        {
-          "time": 78,
-          "text": ""
-        },
-        {
-          "time": 80,
-          "text": "[cyan] Aaja Ve Aaja"
-        },
-        {
-          "time": 84,
-          "text": "[#ff4081] O Mennu Lutt Le Gaya, Aaja Ve Aaja"
-        },
-        {
-          "time": 88,
-          "text": "[#ff00ff] Haye Sajan O Mennu Lutt Le Gaya, Aaja Ve Aaja"
-        },
-        {
-          "time": 93,
-          "text": "[#ff9900] Aaja Ve Aaja, Aaja Ve Aaja, Aaja Ve Aaja"
-        },
-        {
-          "time": 128,
-          "text": ""
-        },
-        {
-          "time": 130,
-          "text": "[#00ffcc] Tapdi Akkhiyan Ajj Na Mukiya"
-        },
-        {
-          "time": 135,
-          "text": "[cyan] Naina Vich Tu Vass Gaya"
-        },
-        {
-          "time": 139,
-          "text": "[#ff00ff] Rajj Ke Peevaan Tennu Sajna"
-        },
-        {
-          "time": 143,
-          "text": "[#ff4081] Raatan Vich Aa Rass Gaya"
-        },
-        {
-          "time": 144,
-          "text": ""
-        },
-        {
-          "time": 145,
-          "text": "[yellow] Haaye Vasna Chanwaan Vich Main Saanwaan"
-        },
-        {
-          "time": 149,
-          "text": "[#ff9900] Mennu Vo Fir Khhich Putt Le Gaya"
-        },
-        {
-          "time": 153,
-          "text": "[#00ffcc] Haye Sajan Meri Akkhan Taras Di"
-        },
-        {
-          "time": 157,
-          "text": "[#ff00ff] Haye Imaan Mera Tutt Pai Gaya Mennu Lutt Le Gaya"
-        },
-        {
-          "time": 160,
-          "text": ""
-        },
-        {
-          "time": 162,
-          "text": "[#00e5ff] O Mennu Lutt Le Gaya"
-        },
-        {
-          "time": 166,
-          "text": "[#ff4081] O Mennu Lutt Le Gaya O Mennu Lutt Le Gaya"
-        },
-        {
-          "time": 170,
-          "text": "[#ff00ff] O Mennu Lutt Le Gaya"
-        },
-        {
-          "time": 174,
-          "text": ""
-        },
-        {
-          "time": 176,
-          "text": "[#00ffcc] Aaja Ve Aaja, Aaja Ve Aaja, Aaja Ve Aaja, Aaja Ve Aaja"
+            "id": "kaun_tujhe",
+            "title": "Kaun Tujhe",
+            "artist": "Palak Muchhal",
+            "youtubeUrl": "https://www.youtube.com/watch?v=atEn-n03Z0w",
+            "lyrics": [
+                "[0:18] [#FF5733] Tu aata hai seene mein jab jab saansein bharti hoon",
+                "[0:27] [#FF5733] Tere dil ki galiyon se main har roz guzarti hoon",
+                "[0:33] [#FFC300] Hawa ke jaise chalta hai tu main ret jaise udti hoon",
+                "[0:40] [#DAF7A6] Kaun tujhe yoon pyaar karega jaise main karti hoon",
+                "[1:29] [#C70039] Meri nazar ka safar tujh pe hi aake ruke",
+                "[1:38] [#C70039] Kehne ko baaki hai kya kehna tha jo keh chuke",
+                "[1:46] [#900C3F] Meri nigaahein hai teri nigaahon ki tujhe khabar kya bekhabar",
+                "[1:55] [#581845] Main tujhse hi chhup chhup kar teri aankhein padhti hoon",
+                "[2:03] [#FF5733] Kaun tujhe yoon pyaar karega jaise main karti hoon",
+                "[2:53] [#33FF57] Tu jo mujhe aa mila sapne hue sarphire",
+                "[2:58] [#33FF57] Haathon mein aate nahin udte hain lamhe mere",
+                "[3:06] [#33C1FF] Meri hansi tujhse meri khushi tujhse tujhe khabar kya beqadar",
+                "[3:16] [#FF33A1] Jis din tujhko na dekhun paagal paagal phirti hoon",
+                "[3:24] [#FF5733] Kaun tujhe yoon pyaar karega jaise main karti hoon"
+            ]
         }
-      ]
-    },
-    {
-      "id": "song_jeene_laga",
-      "title": "Jeene Laga Hoon",
-      "artist": "Ramaiya Vastavaiya",
-      "youtubeUrl": "https://youtu.be/qpIdoaaPa6U",
-      "lyrics": [
-        "[0:39.0] [#ff4444] Main mera dil aur tum ho yahan",
-        "[0:44.0] [#ff4444] Phir kyun ho palkein jhukayein wahan",
-        "[0:49.0] [#ff4444] Tum sa haseen maine dekha nahin",
-        "[0:54.0] [#ff4444] Tum isse pehle the jaane kahan",
-        "[1:00.0] [#44aaff] Jeene laga hoon pehle se zyada",
-        "[1:06.0] [#44aaff] Pehle se zyada tumpe marne laga",
-        "[1:40.0] [#ffaa00] Rehte ho aa ke jo, tum paas mere",
-        "[1:45.0] [#ffaa00] Tham jaye pal yeh wahin",
-        "[1:50.0] [#ffaa00] Bass main yeh sochun, sochun main",
-        "[1:55.0] [#ffaa00] Tham jaye pal yeh, paas mere jab ho tum",
-        "[2:03.0] [#aa44ff] Chalti hai saansein, pehle se zyada",
-        "[2:08.0] [#aa44ff] Dil theharne laga",
-        "[2:31.0] [#ff4444] Tanhaiyon mein tujhe dhoondhe mera dil",
-        "[2:36.0] [#ff4444] Har pal yeh tujhko hi soche bhala kyun",
-        "[2:41.0] [#ff4444] Tanhai mein dhoondhe tujhe dil",
-        "[2:46.0] [#ff4444] Har pal tujhko soche",
-        "[2:52.0] [#44aaff] Milne lage dil, pehle se zyada",
-        "[2:58.0] [#44aaff] Pehle se zyada, ishq hone laga"
-      ]
-    },
-    {
-      "id": "song_shararat",
-      "title": "Shararat",
-      "artist": "Madhubanti Bagchi, Jasmine Sandlas",
-      "youtubeUrl": "https://youtu.be/YyepU5ztLf4",
-      "lyrics": [
-        "[0:07.0] [#ff0066] Tune parda uthaaya, haaye kya baat ho gayi",
-        "[0:15.0] [#ff0066] Haaye, Ye mulakaat, vaardaat ho gayi",
-        "[0:28.0] [#00ffcc] Nain milaaye humne ik dooje se yoon",
-        "[0:36.0] [#00ffcc] Raat hui, Phir din, Phir se raat ho gayi",
-        "[1:02.0] [#ffcc00] Kachhi kali sadda maasoom chehra",
-        "[1:09.0] [#ffcc00] Neeyat noorani Sadda dil hai sunehra",
-        "[1:16.0] [#ff0066] Parde de peeche ki hai Kisnoo pata",
-        "[1:25.0] [#00ffcc] Ik afeemi main chaskha chakhaanwan",
-        "[1:32.0] [#00ffcc] Tennu shararat sikhaanwan, Jaddon naina ladaawan",
-        "[1:43.0] [#ffcc00] Naina ch mere ik neela samandar",
-        "[1:50.0] [#ffcc00] Iss samandar mein dubki lawaanwan",
-        "[1:57.0] [#ffcc00] Tennu shararat sikhaanwan, Jaddon naina ladaawan",
-        "[2:23.0] [#ff0066] Tum bhi ho tanha Aur hum akele",
-        "[2:27.0] [#ff0066] Jo saath huye laajawab ho gaye",
-        "[2:32.0] [#00ffcc] Tum bhi haseen aur hum aashqeen",
-        "[2:35.0] [#00ffcc] Jo raat huyi benaqaab ho gaye",
-        "[2:38.0] [#ffcc00] Mere labon pe saji surkhiyan",
-        "[2:41.0] [#ffcc00] Gulabi ye sharbat pilaanwan",
-        "[2:49.0] [#ff0066] Tennu shararat sikhaanwan, Jaddon naina ladaawan",
-        "[3:04.0] [#00ffcc] Naina ch mere ik neela samandar",
-        "[3:11.0] [#00ffcc] Iss samandar mein dubki lawaanwan",
-        "[3:18.0] [#00ffcc] Tennu shararat sikhaanwan, Jaddon naina ladaawan"
-      ]
-    },
-    {
-      "id": "song_pal_pal",
-      "title": "Pal Pal",
-      "artist": "Afusic",
-      "youtubeUrl": "https://youtu.be/8of5w7RgcTc",
-      "lyrics": [
-        "[0:17.0] [#ffaa00] पल पल जीना मुहाल मेरा तेरे बिना",
-        "[0:24.0] [#ffaa00] ये सारे नशे बेकार तेरी आंखों के सिवा",
-        "[0:32.0] [#ff3366] घर नहीं जाता मैं बाहर, रहता तेरा इंतज़ार",
-        "[0:39.0] [#ff3366] मेरे ख्वाबों में आना करके सोला सिंगार",
-        "[0:46.0] [#33ccff] मैं अब क्यों होश में आता नहीं",
-        "[0:49.0] [#33ccff] सुकून ये दिल क्यों पाता नहीं",
-        "[0:53.0] [#ffaa00] क्यों तोडूं खुद से जो थे वादे",
-        "[1:01.0] [#ffaa00] अब ये इश्क निभाना नहीं",
-        "[1:10.0] [#ff3366] सोनिया यूं तेरा शर्माना...",
-        "[1:20.0] [#ff3366] तेरी नजरें मुझसे क्या कहती हैं..."
-      ]
-    },
-    {
-      "id": "deewani_mastani",
-      "title": "Deewani Mastani",
-      "artist": "Shreya Ghoshal",
-      "youtubeUrl": "https://youtu.be/4whc8stLm8o?si=3MXW3vIOfidR1Qe-",
-      "lyrics": [
-        "(0:09 - 0:34): [#ff5733] नभतून आली अप्सरा, नभतून आली अप्सरा, अशी सुंदरा साज सजून आली आली आली, आली ग आली केसांमधी मांडला गजरा, लोकांच्या नजरा खिळल्या तिच्यावर आली आली आली",
-        "(0:35 - 1:00): [#33ff57] दुनियाची प्यारी तू अग्रणी हरणी ग, अग्रणी सुंदरा हा हा, आली ग आली आली ग आली, आली ग आली ओ महाराणी आली, आगा गा गा गा…",
-        "(1:14 - 1:37): [#3357ff] नज़र जो तेरी लागी मैं दीवानी हो गई, दीवानी हां दीवानी, दीवानी हो गई, मशहूर मेरे इश्क की कहानी हो गई, जो जग ने ना मानी तो मैंने भी ठानी",
-        "(1:38 - 2:03): [#ff33a8] कहां थी मैं देखो कहां चली आई, कहते हैं ये दीवानी मस्तानी हो गई, मशहूर मेरे इश्क की ये कहानी हो गई, जो जग ने ना मानी तो मैंने भी ठानी",
-        "(2:11 - 2:37): [#f3ff33] कहां थी मैं देखो कहां चली आई, कहते हैं ये दीवानी मस्तानी हो गई, दीवानी हां दीवानी, दीवानी हो गई",
-        "(2:50 - 3:20): [#33fff5] ज़ख्म ऐसा तूने लगाया, दीवानी, दीवानी, दीवानी, दीवानी हो गई, मरहम ऐसा तूने लगाया, रूहानी, रूहानी, रूहानी, रूहानी हो गई",
-        "(3:29 - 4:00): [#a833ff] पहचान मेरे इश्क की अब तो, पहचान मेरे इश्क की अब तो, रवानी, रवानी, रवानी, रवानी हो गई, हो.. मशहूर मेरे इश्क की कहानी हो गई",
-        "(4:01 - 4:26): [#ff8c33] कहते है ये दीवानी, मस्तानी हो गई, हां दीवानी, हां दीवानी, दीवानी हो गई, मशहूर मेरे इश्क की कहानी हो गई, जो जग ने ना मानी तो मैंने भी ठानी, कहां थी मैं देखो कहां चली आई",
-        "(4:35 - 5:18): [#33ff8c] सब नूर नूर सा बिखरा है, एक तू ही खयालों में उतरा है, बस झूम झूम झूम झूम जाता है दिल, तू मस्तानी है तू दीवानी है, पाकेज़ा हस्ती हैं तेरी, तू नूरानी है, सब नूर नूर सा बिखरा है, एक तू ही खयालों में उतरा है"
-      ]
-    },
-    {
-      "id": "song_blue_eyes",
-      "title": "Blue Eyes",
-      "artist": "Yo Yo Honey Singh",
-      "youtubeUrl": "https://youtu.be/NbyHNASFi6U?si=OSeXOO7KxQF1Ih-z",
-      "lyrics": [
-        "(0:46 - 1:07): [#ff4444] Blue eyes hypnotise teri kardi a menu, I swear! choti dress mein bomb lagdi mennu, glossy lips, uff yeah tricks, baby lagdi e killer, Oh Yeah Oh Yeah katal kare tera bomb figure.",
-        "(1:08 - 1:24): [#00ffcc] Blue eyes, hypnotise teri kardi a menu, I swear! choti dress mein bomb lagdi mennu, bomb lagdi mennu, bomb lagdi mennu.",
-        "(1:25 - 1:49): [#ffaa00] Meri aankhon mein dekha kar jab main baat karta hu, main woh londe nhi jo tere sath padta hu, white Ginni laya hu, tuje pic karlu, dekh lunga ashiq or teri teacher nu, leke chalu ride pe fir chath kholke, seedhi baat karu, na karu tolmol ke, Tonight, i gotta hold you tight, aaj hogi late phone karke ghar pe bolde.",
-        "(1:50 - 2:15): [#aa00ff] Blue eyes, hypnotise teri kardi a menu, I swear! choti dress mein bomb lagdi menu, glossy lips, uff yeah tricks, baby lagdi e killer, Oh Yeah Oh Yeah katal kare tera bomb figure.",
-        "(2:16 - 2:39): [#00cc44] Ghar pe chalna hai ya pehle jayegi club, nhi mera matlab, Ghar ke Club, Tab Lunga left, nahi to right, Club mien hoga shor, baby ghar pe pillow fight, You Decide ke kya karna hai, Tujko to jra sa bhi darna hai, Champagne ger di hai tune meri pant pe, Kehti hai change karlo hotel lekar rent pe.",
-        "(2:40 - 2:59): [#ff00ff] Blue eyes, hypnotise teri kardi a mennu, I swear! choti dress mein bomb lagdi menu, glossy lips, uff yeah tricks, baby lagdi e killer, Oh Yeah Oh Yeah katal kare tera bomb figure.",
-        "(3:00 - 3:19): [#3399ff] Suna tere college mein mere gane ban hai, Padne likhne ka tera na koi plan hai, Pass kradu, Phone Ghumadu, teri Principal bhi baby YO YO ki fan hai, Teri Principal bhi baby YO YO ki fan hai, Kehndi YO YO Honey Singh.",
-        "(3:20 - 3:41): [#ffcc00] Blue eyes, hypnotise teri kardi a mennu, I swear! choti dress mein bomb lagdi mennu, glossy lips, uff yeah tricks, baby lagdi e killer, Oh Yeah Oh Yeah katal kare tera bomb figure.",
-        "(3:42 - 4:03): [#ff55aa] Blue eyes, hypnotise teri kardi a mennu, I swear! choti dress mein bomb lagdi menu, bomb lagdi menu, bomb lagdi mennu."
-      ]
-    },
-    {
-      "id": "brown_rang_yo_yo_honey_singh",
-      "title": "Brown Rang",
-      "artist": "Yo Yo Honey Singh",
-      "youtubeUrl": "https://youtu.be/MfY9YO3u7GM?si=yUWEeX-iXp5mZQBJ",
-      "lyrics": [
-        "[0:07.0] [#ff4444] Ni tere brown rang ne munde patte ni saare mere town de",
-        "[0:13.0] [#ff4444] Tere brown rang ne munde patte ni saare mere town de",
-        "[0:17.0] [#ffaa00] Koi kam jave na, roti-paani khave na",
-        "[0:21.0] [#ffaa00] Gori gori gori goriya",
-        "[0:46.0] [#00ffcc] Excuse me, kis kis segi rach ke ras raj ke",
-        "[0:54.0] [#00ffcc] Teri paratha tera laal ho ke",
-        "[1:40.0] [#ccff00] Ek gal samjhawa, k haath mein na pawa vaise mittar",
-        "[2:06.0] [#ff4444] Munde saare mere, roti-paani khave gori gori"
-      ]
-    },
-    {
-      "id": "song_jeene_laga_hoon",
-      "title": "Jeene Laga Hoon",
-      "artist": "Atif Aslam, Shreya Ghoshal",
-      "youtubeUrl": "https://youtu.be/qpIdoaaPa6U?si=Dc6FFUTfVUb7bIQ8",
-      "lyrics": [
-        "(0:01 - 0:06): [#ff0055] जीने लगा हूं पहले से ज्यादा",
-        "(0:07 - 0:12): [#ff0055] पहले से ज्यादा तुम पे मरने लगा हूं",
-        "(0:38 - 0:42): [#00ffff] मैं मेरा दिल और तुम हो यहां",
-        "(0:43 - 0:47): [#00ffff] फिर क्यों हो पलकें झुकाए वहां",
-        "(0:48 - 0:52): [#00ffcc] तुम सा हसीन मैंने देखा नहीं",
-        "(0:53 - 0:57): [#00ffcc] तुम इससे पहले थे जाने कहां",
-        "(0:58 - 1:02): [#ff9900] जीने लगा हूं पहले से ज्यादा",
-        "(1:03 - 1:07): [#ff9900] पहले से ज्यादा तुम पे मरने लगा हूं",
-        "(1:38 - 1:43): [#a855f7] रहते हो आके जो तुम पास मेरे",
-        "(1:44 - 1:50): [#a855f7] थम जाए पल ये वहीं बस मैं ये सोचूं",
-        "(1:51 - 1:56): [#ff00ff] सोचूं मैं थम जाए पल ये पास मेरे जब हो तुम",
-        "(1:57 - 2:02): [#ff00ff] सोचूं मैं थम जाए पल ये पास मेरे जब हो तुम",
-        "(2:03 - 2:07): [#00ff00] चलती है सांसें पहले से ज्यादा",
-        "(2:08 - 2:12): [#00ff00] पहले से ज्यादा दिल ठहरने लगा है",
-        "(2:31 - 2:36): [#ff0055] तन्हाइयों में तुझे ढूंढे मेरा दिल",
-        "(2:37 - 2:42): [#ff0055] हर पल ये तुझको ही सोचे भला क्यों",
-        "(2:43 - 2:47): [#00ffff] तन्हाई में ढूंढे तुझे दिल",
-        "(2:48 - 2:52): [#00ffff] हर पल तुझको सोचे",
-        "(2:53 - 2:57): [#ff9900] मिलने लगे दिल पहले से ज्यादा",
-        "(2:58 - 3:03): [#ff9900] पहले से ज्यादा इश्क होने लगा"
-      ]
-    }
-  ]
+    ]
 }
