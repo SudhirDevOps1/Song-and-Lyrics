@@ -776,34 +776,36 @@
         const ac = `a-${S.anim}`;
         lyricsScroll.innerHTML = S.lyrics.map((l,i) => {
             const textContent = typeof l === 'string' ? l : (l.text || '');
-            let colorStyle = '';
+            let colorCSS = '';
             let finalTxt = textContent;
             
             // Extract custom inline colors like [red] or [#00ff00]
             const colorMatch = textContent.match(/^\[(?:color:)?(#[a-fA-F0-9]{3,6}|[a-zA-Z]+)\]\s*(.*)/);
             if (colorMatch) {
                 const col = colorMatch[1];
-                colorStyle = `style="color: ${col} !important; --grad-text: ${col}; --accent-glow-2: ${col}; --accent-glow: ${col};"`;
+                colorCSS = `color: ${col} !important; --grad-text: ${col}; --accent-glow-2: ${col}; --accent-glow: ${col};`;
                 finalTxt = colorMatch[2];
             } else if (finalTxt.trim().startsWith('(') && finalTxt.trim().endsWith(')')) {
                 // Auto-detect Duet/Backing vocals/Chorus in brackets and style with a distinct glowing rose-pink
                 const col = '#ff5e97';
-                colorStyle = `style="color: ${col} !important; --grad-text: ${col}; --accent-glow-2: rgba(255,94,151,0.4); --accent-glow: rgba(255,94,151,0.15);"`;
+                colorCSS = `color: ${col} !important; --grad-text: ${col}; --accent-glow-2: rgba(255,94,151,0.4); --accent-glow: rgba(255,94,151,0.15);`;
             }
 
             // Custom Font Check: Support Devanagari, Gurmukhi (Punjabi), and other Indic scripts in var(--font-hi)
             const isIndic = /[\u0900-\u0D7F]/.test(finalTxt);
             const fontFamilyStr = isIndic ? `var(--font-hi, 'Amita', sans-serif)` : `var(--font-en, 'Poppins', sans-serif)`;
 
+            const baseStyle = `font-family: ${fontFamilyStr}; ${colorCSS}`;
+
             if (S.anim === 'typewriter' || S.anim === 'wave') {
                 const words = finalTxt.split(' ').map((w, wi) => `<span class="c" style="transition-delay: ${S.anim === 'typewriter' ? wi * 0.15 : 0}s">${esc(w)}</span>`).join(' ');
-                return `<div class="ll ${ac}" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${words}</div>`;
+                return `<div class="ll ${ac}" data-i="${i}" style="${baseStyle}">${words}</div>`;
             }
             if (S.anim === 'karaoke') {
                 const words = finalTxt.split(' ').map((w, wi) => `<span class="kw" data-w="${wi}">${esc(w)}</span>`).join(' ');
-                return `<div class="ll ${ac}" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${words}</div>`;
+                return `<div class="ll ${ac}" data-i="${i}" style="${baseStyle}">${words}</div>`;
             }
-            return `<div class="ll ${ac}" data-i="${i}" style="font-family: ${fontFamilyStr}; ${colorStyle.replace('style="', '').replace('"', '')}">${esc(finalTxt)}</div>`;
+            return `<div class="ll ${ac}" data-i="${i}" style="${baseStyle}">${esc(finalTxt)}</div>`;
         }).join('');
 
         lyricsScroll.querySelectorAll('.ll').forEach(el => {
@@ -874,9 +876,7 @@
         });
     }
 
-    function scrollTo(el, box) {
-        // Obsolete function, kept for legacy compatibility if called elsewhere
-    }
+    // scrollTo() removed — was dead code (obsolete legacy function)
 
     /* ═══ PILL BUTTONS UI HANDLERS ═══ */
     function setupPills(id, stateKey, dataKey, cb) {
@@ -1003,12 +1003,12 @@
                 document.body.classList.add(`theme-${S.theme}`);
                 document.documentElement.style.setProperty('--lyrics-size', S.lyricsSize + 'rem');
                 
-                // Restore glow
+                // Restore glow (unified formula matching the input handler)
                 if (p.glow && glowRange) {
                     glowRange.value = p.glow;
                     const v = p.glow / 100;
-                    document.documentElement.style.setProperty('--accent-glow', `rgba(0, 229, 255, ${v})`);
-                    document.documentElement.style.setProperty('--accent-glow-2', `rgba(0, 229, 255, ${v * 1.5})`);
+                    document.documentElement.style.setProperty('--accent-glow', `rgba(0,212,255,${(v*0.35).toFixed(2)})`);
+                    document.documentElement.style.setProperty('--accent-glow-2', `rgba(0,212,255,${(v*0.6).toFixed(2)})`);
                     if (glowVal) glowVal.textContent = p.glow + '%';
                 }
                 
@@ -1377,8 +1377,6 @@
             el.classList.remove('show');
             setTimeout(() => el.remove(), 400);
         });
-        
-        requestAnimationFrame(() => el.classList.add('show'));
     }
 
     const ctx = canvas.getContext('2d');
@@ -2038,7 +2036,7 @@
                 }
 
                 setTimeout(() => {
-                    if (mediaRecorder.state !== 'inactive') return;
+                    if (!mediaRecorder || mediaRecorder.state !== 'inactive') return;
                     mediaRecorder.start();
                 }, 500);
 
