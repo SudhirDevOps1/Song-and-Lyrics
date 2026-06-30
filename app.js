@@ -956,6 +956,15 @@
                 el.classList.add('active');
                 // Fast 200ms scroll (tighter sync than browser's default ~400ms)
                 fastScrollCenter(box, el);
+
+                // Dynamic Ambient Device Glow matching active lyric color
+                const styleAttr = el.getAttribute('style') || '';
+                const colorMatch = styleAttr.match(/color:\s*(#[a-fA-F0-9]{6})/);
+                if (colorMatch) {
+                    document.documentElement.style.setProperty('--current-lyric-glow', colorMatch[1] + '73'); // hex transparency (45% opacity)
+                } else {
+                    document.documentElement.style.removeProperty('--current-lyric-glow');
+                }
             } else if (i<ai) {
                 el.classList.add('done');
                 kws.forEach(w=>w.classList.add('sung'));

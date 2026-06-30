@@ -687,6 +687,10 @@ body {
 
 /* ═══ PREMIUM THEMES ═══ */
 body.theme-green { --bg-0: #0a100d; --bg-1: #0a100d; background: radial-gradient(circle at 50% 0%, #15291b 0%, #0a100d 100%); --accent: #1ed760; --grad: linear-gradient(135deg, #1ed760, #1db954); --grad-text: linear-gradient(135deg, #1ed760, #a3f2a8); --accent-glow-2: rgba(30, 215, 96, 0.4); }
+body.theme-sunset-glow { --bg-0: #0a010c; --bg-1: #0a010c; background: radial-gradient(circle at 50% 0%, #300320 0%, #0a010c 100%); --accent: #ff007f; --grad: linear-gradient(135deg, #ff007f, #ffaa00); --grad-text: linear-gradient(135deg, #ff007f, #ffd27f); --accent-glow-2: rgba(255, 0, 127, 0.4); }
+body.theme-bloodmoon { --bg-0: #090101; --bg-1: #090101; background: radial-gradient(circle at 50% 0%, #2f0101 0%, #090101 100%); --accent: #ff3333; --grad: linear-gradient(135deg, #ff1111, #ff6600); --grad-text: linear-gradient(135deg, #ff6666, #ffb380); --accent-glow-2: rgba(255, 17, 17, 0.4); }
+body.theme-emerald { --bg-0: #020805; --bg-1: #020805; background: radial-gradient(circle at 50% 0%, #052618 0%, #020805 100%); --accent: #00ffcc; --grad: linear-gradient(135deg, #00ffcc, #00ff66); --grad-text: linear-gradient(135deg, #80ffe5, #80ffb3); --accent-glow-2: rgba(0, 255, 204, 0.4); }
+body.theme-cosmic { --bg-0: #05010a; --bg-1: #05010a; background: radial-gradient(circle at 50% 0%, #17052e 0%, #05010a 100%); --accent: #bf55ec; --grad: linear-gradient(135deg, #bf55ec, #f1a9a0); --grad-text: linear-gradient(135deg, #dfa6f7, #f7d6d0); --accent-glow-2: rgba(191, 85, 236, 0.4); }
 body.theme-midnight { --bg-0: #060213; --bg-1: #060213; background: radial-gradient(circle at 50% 0%, #1a0b2e 0%, #060213 100%); --accent: #7c3aed; --grad: linear-gradient(135deg, #7c3aed, #ec4899); --grad-text: linear-gradient(135deg, #a78bfa, #f472b6); --accent-glow-2: rgba(124, 58, 237, 0.4); }
 body.theme-sunset { --bg-0: #1a0505; --bg-1: #1a0505; background: radial-gradient(circle at 50% 0%, #3d1414 0%, #1a0505 100%); --accent: #ff4d4d; --grad: linear-gradient(135deg, #ff4d4d, #f9cb28); --grad-text: linear-gradient(135deg, #ff9a9e, #fecfef); --accent-glow-2: rgba(255, 77, 77, 0.4); }
 body.theme-ocean { --bg-0: #010a15; --bg-1: #010a15; background: radial-gradient(circle at 50% 0%, #022044 0%, #010a15 100%); --accent: #00e5ff; --grad: linear-gradient(135deg, #00e5ff, #0077ff); --grad-text: linear-gradient(135deg, #84fab0, #8fd3f4); --accent-glow-2: rgba(0, 229, 255, 0.4); }
@@ -838,11 +842,12 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
         0 0 0 2px #2a2a30, 
         inset 0 0 0 4px #000, 
         0 30px 100px rgba(0,0,0,1), 
-        0 0 80px var(--accent-glow-2) !important;
+        0 0 80px var(--current-lyric-glow, var(--accent-glow-2)) !important;
     overflow: hidden !important;
     position: relative !important;
     background-color: #000 !important;
     transform-origin: center;
+    transition: box-shadow 0.6s ease;
 }
 
 
@@ -894,10 +899,11 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
         0 0 0 2px #333, 
         inset 0 0 0 4px #000, 
         0 40px 120px rgba(0,0,0,1), 
-        0 0 100px var(--accent-glow-2) !important;
+        0 0 100px var(--current-lyric-glow, var(--accent-glow-2)) !important;
     overflow: hidden !important;
     position: relative !important;
     background-color: #000 !important;
+    transition: box-shadow 0.6s ease;
 }
 
 
