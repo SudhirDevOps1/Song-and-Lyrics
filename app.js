@@ -293,10 +293,11 @@
     function thumb(id) { return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
 
     /* ═══ ADDING MEDIA ═══ */
-    function addSong(title, artist, videoId, localUrl, thumbUrl, lyrics) {
+    function addSong(title, artist, videoId, localUrl, thumbUrl, lyrics, film = null, details = null) {
         const song = {
             id: 's' + Date.now() + Math.random().toString(36).slice(2,5),
             title: title || 'Untitled', artist: artist || 'Artist',
+            film: film || null, details: details || null,
             videoId: videoId || null, localUrl: localUrl || null,
             thumb: thumbUrl || (videoId ? thumb(videoId) : ''),
             lyrics: lyrics || [],
@@ -503,6 +504,8 @@
                     id: songId,
                     title: s.title || 'Untitled', 
                     artist: s.artist || 'Unknown',
+                    film: s.film || null,
+                    details: s.details || null,
                     videoId: id, 
                     localUrl: null, 
                     thumb: id ? thumb(id) : '',
@@ -948,6 +951,17 @@
         _scrollRAF = requestAnimationFrame(step);
     }
 
+    function hexToRgba(hex, alpha = 0.4) {
+        hex = hex.replace('#', '');
+        if (hex.length === 3) {
+            hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+        }
+        const r = parseInt(hex.substring(0, 2), 16) || 0;
+        const g = parseInt(hex.substring(2, 4), 16) || 0;
+        const b = parseInt(hex.substring(4, 6), 16) || 0;
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
     function highlight(box, ai) {
         box.querySelectorAll('.ll').forEach((el,i) => {
             el.classList.remove('active','done');
@@ -959,9 +973,10 @@
 
                 // Dynamic Ambient Device Glow matching active lyric color
                 const styleAttr = el.getAttribute('style') || '';
-                const colorMatch = styleAttr.match(/color:\s*(#[a-fA-F0-9]{6})/);
+                const colorMatch = styleAttr.match(/color:\s*(#[a-fA-F0-9]{3,6})/i);
                 if (colorMatch) {
-                    document.documentElement.style.setProperty('--current-lyric-glow', colorMatch[1] + '73'); // hex transparency (45% opacity)
+                    const rgbaColor = hexToRgba(colorMatch[1], 0.45);
+                    document.documentElement.style.setProperty('--current-lyric-glow', rgbaColor);
                 } else {
                     document.documentElement.style.removeProperty('--current-lyric-glow');
                 }
