@@ -833,11 +833,11 @@
 
     function renderLyrics() {
         if (!S.lyrics.length) { lyricsScroll.innerHTML = ''; return; }
-        const ac = `a-${S.anim}`;
         lyricsScroll.innerHTML = S.lyrics.map((l,i) => {
             const textContent = typeof l === 'string' ? l : (l.text || '');
             let colorCSS = '';
             let finalTxt = textContent;
+            let hasColor = false;
             
             // Extract custom inline colors like [red] or [#00ff00]
             const colorMatch = textContent.match(/^\[(?:color:)?(#[a-fA-F0-9]{3,6}|[a-zA-Z]+)\]\s*(.*)/);
@@ -845,10 +845,12 @@
                 const col = colorMatch[1];
                 colorCSS = `color: ${col} !important; --grad-text: ${col}; --accent-glow-2: ${col}; --accent-glow: ${col};`;
                 finalTxt = colorMatch[2];
+                hasColor = true;
             } else if (finalTxt.trim().startsWith('(') && finalTxt.trim().endsWith(')')) {
                 // Auto-detect Duet/Backing vocals/Chorus in brackets and style with a distinct glowing rose-pink
                 const col = '#ff5e97';
                 colorCSS = `color: ${col} !important; --grad-text: ${col}; --accent-glow-2: rgba(255,94,151,0.4); --accent-glow: rgba(255,94,151,0.15);`;
+                hasColor = true;
             }
 
             // Custom Font Check: Support Devanagari, Gurmukhi (Punjabi), and other Indic scripts in var(--font-hi)
@@ -856,16 +858,18 @@
             const fontFamilyStr = isIndic ? `var(--font-hi, 'Amita', sans-serif)` : `var(--font-en, 'Poppins', sans-serif)`;
 
             const baseStyle = `font-family: ${fontFamilyStr}; ${colorCSS}`;
+            const colorClass = hasColor ? 'has-color' : '';
+            const finalClass = `ll a-${S.anim} ${colorClass}`;
 
             if (S.anim === 'typewriter' || S.anim === 'wave') {
                 const words = finalTxt.split(' ').map((w, wi) => `<span class="c" style="transition-delay: ${S.anim === 'typewriter' ? wi * 0.15 : 0}s">${esc(w)}</span>`).join(' ');
-                return `<div class="ll ${ac}" data-i="${i}" style="${baseStyle}">${words}</div>`;
+                return `<div class="${finalClass}" data-i="${i}" style="${baseStyle}">${words}</div>`;
             }
             if (S.anim === 'karaoke') {
                 const words = finalTxt.split(' ').map((w, wi) => `<span class="kw" data-w="${wi}">${esc(w)}</span>`).join(' ');
-                return `<div class="ll ${ac}" data-i="${i}" style="${baseStyle}">${words}</div>`;
+                return `<div class="${finalClass}" data-i="${i}" style="${baseStyle}">${words}</div>`;
             }
-            return `<div class="ll ${ac}" data-i="${i}" style="${baseStyle}">${esc(finalTxt)}</div>`;
+            return `<div class="${finalClass}" data-i="${i}" style="${baseStyle}">${esc(finalTxt)}</div>`;
         }).join('');
 
         lyricsScroll.querySelectorAll('.ll').forEach(el => {
@@ -934,7 +938,7 @@
             ratio = 0.58; // Bottom position (58% down - safely above the player bar gradient/controls)
         }
         
-        const target = el.offsetTop - (box.clientHeight * ratio) + el.clientHeight / 2;
+        const target = el.getBoundingClientRect().top - box.getBoundingClientRect().top + box.scrollTop - (box.clientHeight * ratio) + el.getBoundingClientRect().height / 2;
         const start = box.scrollTop;
         const dist = target - start;
         if (Math.abs(dist) < 3) return; // Already centered

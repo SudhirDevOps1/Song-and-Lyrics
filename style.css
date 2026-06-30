@@ -598,7 +598,8 @@ body {
 /* Animation Styles */
 .ll:hover { opacity:0.7; color:var(--text-2); }
 .c { display:inline-block; opacity:0.3; transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); transform:translateY(8px); }
-.ll.active .c { opacity:1; color:transparent; background:var(--grad-text); -webkit-background-clip:text; transform:translateY(0); }
+.ll.active .c { opacity:1; transform:translateY(0); }
+.ll.active:not(.has-color) .c { color:transparent; background:var(--grad-text); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
 .ll.done .c { opacity:0.6; transform:translateY(0); transition-delay: 0s !important; }
 .ll.done { opacity:0.5; filter:blur(0); }
 
@@ -780,7 +781,8 @@ body.guided-active .guided-highlight, .guided-highlight { position: relative !im
 .ll.a-karaoke { opacity: 0.3; filter: blur(1px); }
 .ll.a-karaoke.active { opacity: 1; filter: blur(0); transform: scale(1.05); }
 .ll.a-karaoke.active .kw { opacity: 0.35; transition: all 0.15s ease; }
-.ll.a-karaoke.active .kw.sung { opacity: 1; color: transparent !important; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 8px var(--accent-glow-2)); }
+.ll.a-karaoke.active:not(.has-color) .kw.sung { opacity: 1; color: transparent !important; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 8px var(--accent-glow-2)); }
+.ll.a-karaoke.active.has-color .kw.sung { opacity: 1; color: inherit !important; filter: drop-shadow(0 0 8px var(--accent-glow-2)); }
 
 /* ═══ SONG COUNT BADGE ═══ */
 .song-count { background: var(--accent-glow); color: var(--accent); font-size: 0.6rem; padding: 2px 8px; border-radius: 10px; margin-left: 6px; font-weight: 700; letter-spacing: 0; text-transform: none; }
